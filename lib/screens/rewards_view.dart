@@ -21,7 +21,8 @@ class RewardsView extends StatelessWidget {
         child: CustomScrollView(slivers: [
           SliverToBoxAdapter(
               child: LoyaltyCard(
-                  levelUp: (context) => context.read<RewardsBloc>().add(const LevelUp()),
+                  levelUp: (context) =>
+                      context.read<RewardsBloc>().add(const LevelUp()),
                   clicked: context.watch<RewardsBloc>().state.clicked,
                   totalDrinks: context
                       .watch<RewardsBloc>()
@@ -70,7 +71,8 @@ class RewardsView extends StatelessWidget {
                     details: item,
                   )
             ]),
-          )
+          ),
+          const SliverPadding(padding: EdgeInsets.only(bottom: 100))
         ]));
   }
 }

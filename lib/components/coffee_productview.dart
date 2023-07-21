@@ -8,21 +8,30 @@ class CoffeeProductView extends StatelessWidget {
   const CoffeeProductView({
     super.key,
     required this.product,
+    this.inCarousel = false,
   });
   final CoffeeProduct product;
+  final bool inCarousel;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        BlocProvider.of<HomeViewBloc>(context).add(CustomDrinkEvent(product));
+        if (inCarousel) {
+          BlocProvider.of<HomeViewBloc>(context)
+              .add(CustomFreeDrinkEvent(product));
+        } else {
+          BlocProvider.of<HomeViewBloc>(context).add(CustomDrinkEvent(product));
+        }
+
         BlocProvider.of<NavigationBloc>(context).add(const NavigateToDetails());
       },
       child: Container(
           alignment: Alignment.center,
           constraints: const BoxConstraints.tightFor(height: 164, width: 154),
           decoration: ShapeDecoration(
-            color: const Color(0xFFF7F8FB),
+            color:
+                !inCarousel ? const Color(0xFFF7F8FB) : const Color(0xFF324A59),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15),
             ),
@@ -45,8 +54,10 @@ class CoffeeProductView extends StatelessWidget {
               const SizedBox(height: 12),
               Text(
                 product.name,
-                style: const TextStyle(
-                  color: Color(0xFF001833),
+                style: TextStyle(
+                  color: !inCarousel
+                      ? const Color(0xFF001833)
+                      : const Color(0xFFF7F8FB),
                   fontSize: 14,
                   fontFamily: 'DM Sans',
                   fontWeight: FontWeight.w500,

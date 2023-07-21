@@ -17,6 +17,7 @@ class UserModel extends Equatable {
     required this.onGoingOrders,
     required this.totalPoints,
     this.rewards = const [],
+    this.inActiveRewards = const [],
     this.tier = const BronzeMembership(),
   });
 
@@ -25,9 +26,13 @@ class UserModel extends Equatable {
   final String address;
   final String phone;
   final int totalPoints;
+
   final List<OrderCart> historyOrders;
   final List<OrderCart> onGoingOrders;
+
   final List<RewardBase> rewards;
+  final List<RewardBase> inActiveRewards;
+
   final LoyaltyMembership tier;
 
   int get totalDrinks {
@@ -65,7 +70,8 @@ class UserModel extends Equatable {
 
   UnmodifiableListView<DrinkReward> get drinkRewards {
     final drinkRewards = rewards.whereType<DrinkReward>().toList();
-    drinkRewards.sort((a, b) => a.validUntil.compareTo(b.validUntil) > 0 ? 1 : -1);
+    drinkRewards
+        .sort((a, b) => a.validUntil.compareTo(b.validUntil) > 0 ? 1 : -1);
     return UnmodifiableListView(drinkRewards);
   }
 
@@ -81,6 +87,9 @@ class UserModel extends Equatable {
     return UnmodifiableListView(vouchers);
   }
 
+  UnmodifiableListView<RewardBase> get archiveRewards =>
+      UnmodifiableListView(inActiveRewards);
+
   UserModel copyWith({
     String? username,
     String? email,
@@ -90,6 +99,7 @@ class UserModel extends Equatable {
     List<OrderCart>? onGoingOrders,
     int? points,
     List<RewardBase>? rewards,
+    List<RewardBase>? inActiveRewards,
     LoyaltyMembership? tier,
   }) =>
       UserModel(
@@ -102,6 +112,7 @@ class UserModel extends Equatable {
         totalPoints: points ?? totalPoints,
         tier: tier ?? this.tier,
         rewards: rewards ?? this.rewards,
+        inActiveRewards: inActiveRewards ?? this.inActiveRewards,
       );
 
   @override
@@ -115,5 +126,6 @@ class UserModel extends Equatable {
         totalPoints,
         tier,
         rewards,
+        inActiveRewards,
       ];
 }

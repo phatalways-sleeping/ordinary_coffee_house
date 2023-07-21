@@ -23,7 +23,7 @@ class RewardsBloc extends Bloc<RewardsEvent, RewardsState> {
         currentUser: _applicationRepository.currentUser,
         rewards: _applicationRepository.rewards,
         clicked: _applicationRepository.clicked,
-        event: VouchersEvent.viewDrink,
+        event: state.event,
       ));
     });
 
@@ -33,7 +33,7 @@ class RewardsBloc extends Bloc<RewardsEvent, RewardsState> {
         currentUser: _applicationRepository.currentUser,
         rewards: _applicationRepository.rewards,
         clicked: _applicationRepository.clicked,
-        event: VouchersEvent.viewDrink,
+        event: VouchersEvent.levelUp,
       ));
     });
 

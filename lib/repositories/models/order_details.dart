@@ -50,6 +50,7 @@ class OrderDetails extends Equatable {
   static const double _icedDrink = 1.0;
 
   double get price {
+    if (product is FreeCoffeeProduct) return 0;
     double price = 0;
     price += product.price * amount;
     price *= drinkSize == DrinkSize.small

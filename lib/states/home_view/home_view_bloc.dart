@@ -3,6 +3,7 @@ import 'package:bloc/bloc.dart';
 import 'package:coffee_order_app/repositories/models/models.dart';
 import 'package:coffee_order_app/repositories/repositories.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 
 part 'home_view_event.dart';
 part 'home_view_state.dart';
@@ -14,10 +15,19 @@ class HomeViewBloc extends Bloc<HomeViewEvent, HomeViewState> {
           coffees: _applicationRepository.products,
           totalDrinks: _applicationRepository.currentUser.totalDrinks,
           clicked: _applicationRepository.clicked,
+          drinkRewards: _applicationRepository.drinkRewardsClaimed,
         )) {
     on<CustomDrinkEvent>(
       (event, emit) {
         _applicationRepository.customizeOrderDetails(event.coffeeProduct);
+      },
+    );
+
+    on<CustomFreeDrinkEvent>(
+      (event, emit) {
+        _applicationRepository
+            .customizeOrderDetails(FreeCoffeeProduct.from(event.coffeeProduct));
+        // _applicationRepository.archiveDrinkReward(event.coffeeProduct);
       },
     );
 
@@ -29,10 +39,17 @@ class HomeViewBloc extends Bloc<HomeViewEvent, HomeViewState> {
           coffees: _applicationRepository.products,
           totalDrinks: _applicationRepository.currentUser.totalDrinks,
           clicked: _applicationRepository.clicked,
+          drinkRewards: _applicationRepository.drinkRewardsClaimed,
         ),
       );
     });
   }
 
   final ApplicationRepository _applicationRepository;
+
+  @override
+  void onChange(Change<HomeViewState> change) {
+    debugPrint(change.toString());
+    super.onChange(change);
+  }
 }

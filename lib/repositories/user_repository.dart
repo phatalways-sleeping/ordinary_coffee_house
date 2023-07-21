@@ -38,8 +38,6 @@ class UserRepository {
         items: [..._instance.orderCart!.items, _instance.orderDetails!],
       );
     }
-    clearOrderDetails();
-    unClick();
   }
 
   void removeFromCart(OrderDetails orderDetails) {
@@ -75,6 +73,7 @@ class UserRepository {
 
   void changeAmount(int amount) {
     assert(_instance.orderDetails != null);
+    if (_instance.orderDetails?.product is FreeCoffeeProduct) return;
     _instance.orderDetails = _instance.orderDetails!.copyWith(
         amount: _instance.orderDetails!.amount + amount == 0
             ? _instance.orderDetails!.amount

@@ -58,9 +58,9 @@ class MyOrderView extends StatelessWidget {
                         .state
                         .historyOrders
                         .map((e) => OrderDetail(orderCart: e))
-                        .toList())
+                        .toList()),
+            const SliverPadding(padding: EdgeInsets.only(bottom: 100))
           ],
         ));
   }
 }
-

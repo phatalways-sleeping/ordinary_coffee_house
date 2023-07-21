@@ -39,3 +39,22 @@ class CoffeeProduct extends Equatable {
         image,
       ];
 }
+
+class FreeCoffeeProduct extends CoffeeProduct {
+  const FreeCoffeeProduct({
+    required super.name,
+    super.description,
+    required super.price,
+    required super.rewardPoints,
+    required super.image,
+  });
+
+  FreeCoffeeProduct.from(CoffeeProduct coffeeProduct)
+      : this(
+          name: coffeeProduct.name,
+          description: coffeeProduct.description,
+          price: coffeeProduct.price,
+          rewardPoints: coffeeProduct.rewardPoints,
+          image: coffeeProduct.image,
+        );
+}

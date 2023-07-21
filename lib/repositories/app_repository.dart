@@ -29,10 +29,20 @@ class ApplicationRepository {
 
   void addToCart() {
     userRepository.addToCart();
+    assert(userRepository.orderDetails != null);
+    if (userRepository.orderDetails!.product is FreeCoffeeProduct) {
+      systemRepository.archiveDrinkReward(userRepository.orderDetails!.product);
+    }
+
+    userRepository.clearOrderDetails();
+    assert(userRepository.orderDetails == null);
+
+    userRepository.unClick();
   }
 
   void removeFromCart(OrderDetails orderDetails) {
     userRepository.removeFromCart(orderDetails);
+    systemRepository.popArchiveDrinkReward(orderDetails.product);
   }
 
   void recustomizeOrderDetails(OrderDetails orderDetails) {
@@ -45,6 +55,14 @@ class ApplicationRepository {
 
   void customizeOrderDetails(CoffeeProduct coffeeProduct) {
     userRepository.customizeOrderDetails(coffeeProduct);
+  }
+
+  void archiveDrinkReward(CoffeeProduct coffeeProduct) {
+    systemRepository.archiveDrinkReward(coffeeProduct);
+  }
+
+  void popArchiveDrinkReward(CoffeeProduct coffeeProduct) {
+    systemRepository.popArchiveDrinkReward(coffeeProduct);
   }
 
   void changeAmount(int amount) {
@@ -106,6 +124,9 @@ class ApplicationRepository {
   OrderDetails? get orderDetails => userRepository.orderDetails;
 
   List<DrinkReward> get drinkRewards => systemRepository.drinkRewards;
+
+  List<DrinkReward> get drinkRewardsClaimed =>
+      systemRepository.userDrinkRewards;
 
   List<FreeshipVoucher> get freeshipVouchers =>
       systemRepository.freeshipVouchers;

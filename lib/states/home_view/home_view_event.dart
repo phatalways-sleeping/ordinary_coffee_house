@@ -17,6 +17,15 @@ class CustomDrinkEvent extends HomeViewEvent {
   List<Object> get props => [coffeeProduct];
 }
 
+class CustomFreeDrinkEvent extends HomeViewEvent {
+  const CustomFreeDrinkEvent(this.coffeeProduct);
+
+  final CoffeeProduct coffeeProduct;
+
+  @override
+  List<Object> get props => [coffeeProduct];
+}
+
 class LevelUpEvent extends HomeViewEvent {
   const LevelUpEvent();
 }

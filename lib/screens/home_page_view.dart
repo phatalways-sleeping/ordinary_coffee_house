@@ -1,6 +1,9 @@
+import 'package:coffee_order_app/components/carousel_rewardsview.dart';
 import 'package:coffee_order_app/components/coffee_listview.dart';
+import 'package:coffee_order_app/components/coffee_productview.dart';
 import 'package:coffee_order_app/components/components.dart';
 import 'package:coffee_order_app/repositories/assets/assets.dart';
+import 'package:coffee_order_app/repositories/models/models.dart';
 import 'package:coffee_order_app/screens/base_screen.dart';
 import 'package:coffee_order_app/states/home_view/home_view_bloc.dart';
 import 'package:coffee_order_app/states/navigation/navigation_bloc.dart';
@@ -14,7 +17,6 @@ class HomePageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseScreen(
-        key: const PageStorageKey('HomePageViewScreen'),
         appBar: OrdinaryHBar(
           forHomeView: true,
           username: context.watch<HomeViewBloc>().state.username,
@@ -50,14 +52,45 @@ class HomePageView extends StatelessWidget {
               ],
             ),
           ),
+          if (context.watch<HomeViewBloc>().state.drinkRewards.isNotEmpty)
+            const SliverPadding(
+              padding: EdgeInsets.only(left: 25, bottom: 10),
+              sliver: SliverToBoxAdapter(
+                child: Text(
+                  'Spend your rewards!',
+                  style: TextStyle(
+                    color: Color(0xFF001833),
+                    fontSize: 25,
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+            ),
+          if (context.watch<HomeViewBloc>().state.drinkRewards.isNotEmpty)
+            SliverToBoxAdapter(
+                child: BlocSelector<HomeViewBloc, HomeViewState,
+                    List<DrinkReward>>(
+              selector: (state) => state.drinkRewards,
+              builder: (context, state) {
+                return CarouselRewardsView(
+                  rewards: state
+                      .map((reward) => CoffeeProductView(
+                            product: reward.product,
+                            inCarousel: true,
+                          ))
+                      .toList(),
+                );
+              },
+            )),
           const SliverPadding(
               padding: EdgeInsets.only(
-            top: 38,
+            top: 20,
           )),
           SliverToBoxAdapter(
             child: CoffeeListView(
                 coffees: context.watch<HomeViewBloc>().state.coffees),
-          )
+          ),
         ]));
   }
 }
