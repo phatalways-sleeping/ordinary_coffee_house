@@ -120,6 +120,7 @@ enum DrinkSize {
 }
 
 enum IceLevel {
+  none,
   less,
   normal,
   more,

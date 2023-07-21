@@ -2,7 +2,7 @@ import 'package:coffee_order_app/states/home_view/home_view_bloc.dart';
 import 'package:coffee_order_app/states/order_processing/order_processing_bloc.dart';
 import 'package:coffee_order_app/states/order_view/order_view_bloc.dart';
 import 'package:coffee_order_app/states/profile_view/profile_view_bloc.dart';
-import 'package:coffee_order_app/states/rewards/rewards_cubit.dart';
+import 'package:coffee_order_app/states/rewards/rewards_bloc.dart';
 import 'package:flow_builder/flow_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -78,14 +78,14 @@ class CoffeePage extends StatelessWidget {
         MaterialPage(
             child: BlocProvider(
           create: (context) =>
-              RewardsCubit(applicationRepository),
+              RewardsBloc(applicationRepository),
           child: const RewardsView(key: PageStorageKey('RewardsView')),
         )),
       if (state is RedeeemRewards)
         MaterialPage(
             child: BlocProvider(
           create: (context) =>
-              RewardsCubit(applicationRepository),
+              RewardsBloc(applicationRepository),
           child:
               const RedeemRewardsView(key: PageStorageKey('RedeemRewardsView')),
         )),

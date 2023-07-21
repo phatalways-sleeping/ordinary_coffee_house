@@ -25,11 +25,27 @@ class OrderDetail extends StatelessWidget {
 
   final OrderCart orderCart;
 
+  // final List<Color> _actions = [
+  //   const Color(0xFFD4AF37),
+  //   const Color(0xFF8C635E),
+  //   const Color(0xFF324A59),
+  // ];
+
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            boxShadow: const [
+              BoxShadow(
+                color: Color(0x0D000000),
+                blurRadius: 5,
+                offset: Offset(0, 4),
+              ),
+            ],
+          ),
           padding: const EdgeInsets.symmetric(vertical: 10),
           margin: const EdgeInsets.symmetric(horizontal: 31, vertical: 10),
           child: Column(
@@ -97,7 +113,7 @@ class OrderDetail extends StatelessWidget {
           ),
         ),
         Positioned(
-          right: 31,
+          right: 40,
           top: 20,
           child: Text(
             '\$${orderCart.totalPrice().toStringAsFixed(2)}',

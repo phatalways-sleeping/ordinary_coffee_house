@@ -2,22 +2,101 @@ import 'package:const_date_time/const_date_time.dart';
 import 'package:equatable/equatable.dart';
 import 'coffee_product.dart';
 
-class Reward extends Equatable {
-  const Reward({
-    required this.product,
+abstract class RewardBase extends Equatable {
+  const RewardBase({
     required this.points,
     required this.validUntil,
   });
-  final CoffeeProduct product;
+
   final int points;
   final ConstDateTime validUntil;
 
-  Reward copyWith({
+  @override
+  List<Object?> get props => [
+        points,
+        validUntil,
+      ];
+}
+
+abstract class Voucher extends RewardBase {
+  final String code;
+
+  const Voucher({
+    required this.code,
+    required super.points,
+    required super.validUntil,
+  });
+
+  @override
+  List<Object?> get props => [
+        ...super.props,
+        code,
+      ];
+}
+
+class FreeshipVoucher extends Voucher {
+  const FreeshipVoucher({
+    required super.code,
+    required super.points,
+    required super.validUntil,
+  });
+
+  FreeshipVoucher copyWith({
+    String? code,
+    int? points,
+    ConstDateTime? validUntil,
+  }) =>
+      FreeshipVoucher(
+        code: code ?? this.code,
+        points: points ?? this.points,
+        validUntil: validUntil ?? this.validUntil,
+      );
+}
+
+class DiscountVoucher extends Voucher {
+  const DiscountVoucher({
+    required super.code,
+    required super.points,
+    required super.validUntil,
+    required this.discount,
+  });
+  final double discount;
+
+  DiscountVoucher copyWith({
+    String? code,
+    int? points,
+    ConstDateTime? validUntil,
+    double? discount,
+  }) =>
+      DiscountVoucher(
+        code: code ?? this.code,
+        points: points ?? this.points,
+        validUntil: validUntil ?? this.validUntil,
+        discount: discount ?? this.discount,
+      );
+
+  @override
+  List<Object?> get props => [
+        ...super.props,
+        discount,
+      ];
+}
+
+
+class DrinkReward extends RewardBase {
+  const DrinkReward({
+    required this.product,
+    required super.points,
+    required super.validUntil,
+  });
+  final CoffeeProduct product;
+
+  DrinkReward copyWith({
     CoffeeProduct? product,
     int? points,
     ConstDateTime? validUntil,
   }) =>
-      Reward(
+      DrinkReward(
         product: product ?? this.product,
         points: points ?? this.points,
         validUntil: validUntil ?? this.validUntil,
@@ -25,8 +104,7 @@ class Reward extends Equatable {
 
   @override
   List<Object?> get props => [
+        ...super.props,
         product,
-        points,
-        validUntil,
       ];
 }

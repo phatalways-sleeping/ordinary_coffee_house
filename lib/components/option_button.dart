@@ -16,9 +16,10 @@ class OptionButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () => onPressed(context),
+      splashColor: const Color(0xFF001833).withOpacity(0.1),
       child: Container(
         constraints: const BoxConstraints(maxWidth: 120),
-        margin: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
+        margin: const EdgeInsets.symmetric(vertical: 10),
         padding: const EdgeInsets.all(8),
         alignment: Alignment.center,
         decoration: BoxDecoration(

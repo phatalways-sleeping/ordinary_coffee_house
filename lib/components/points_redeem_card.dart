@@ -54,7 +54,7 @@ class PointsRedeemCard extends StatelessWidget {
                       'My Points:',
                       style: TextStyle(
                         color: Color(0xFFD7D7D7),
-                        fontSize: 20,
+                        fontSize: 15,
                         fontFamily: 'Poppins',
                         fontWeight: FontWeight.w500,
                       ),
@@ -64,9 +64,9 @@ class PointsRedeemCard extends StatelessWidget {
                       '$totalPoints',
                       style: const TextStyle(
                         color: Color(0xFFD7D7D7),
-                        fontSize: 36,
+                        fontSize: 25,
                         fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w700,
                       ),
                     )
                   ],

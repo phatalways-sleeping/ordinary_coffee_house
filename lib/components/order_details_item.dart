@@ -1,5 +1,6 @@
 import 'package:coffee_order_app/repositories/models/order_details.dart';
 import 'package:coffee_order_app/states/cart_view/cart_view_bloc.dart';
+import 'package:coffee_order_app/states/navigation/navigation_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -31,8 +32,11 @@ class OrderDetailsItem extends StatelessWidget {
             ),
           ]),
       child: InkWell(
-        onDoubleTap: () => BlocProvider.of<CartViewBloc>(context)
-            .add(InspectOrder(orderDetails)),
+        onTap: () {
+          BlocProvider.of<CartViewBloc>(context)
+              .add(InspectOrder(orderDetails));
+          BlocProvider.of<NavigationBloc>(context).add(const NavigateToDetails());
+        },
         splashColor: Colors.transparent,
         child: Container(
             constraints: const BoxConstraints.tightFor(height: 100),
@@ -66,7 +70,7 @@ class OrderDetailsItem extends StatelessWidget {
                       orderDetails.product.name,
                       style: const TextStyle(
                         color: Color(0xFF001833),
-                        fontSize: 15,
+                        fontSize: 13,
                         fontFamily: 'Poppins',
                         fontWeight: FontWeight.w700,
                       ),
@@ -86,7 +90,7 @@ class OrderDetailsItem extends StatelessWidget {
                       'x ${orderDetails.amount}',
                       style: TextStyle(
                         color: Colors.black.withOpacity(0.5699999928474426),
-                        fontSize: 14,
+                        fontSize: 13,
                         fontFamily: 'Poppins',
                         fontWeight: FontWeight.w600,
                       ),
@@ -98,9 +102,9 @@ class OrderDetailsItem extends StatelessWidget {
                   '\$${orderDetails.price.toStringAsFixed(2)}',
                   style: const TextStyle(
                     color: Color(0xFF001833),
-                    fontSize: 17,
+                    fontSize: 15,
                     fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w700,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ],

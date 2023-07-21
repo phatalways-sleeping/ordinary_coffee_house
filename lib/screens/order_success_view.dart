@@ -43,6 +43,14 @@ class OrderSuccessView extends StatelessWidget {
                 fontWeight: FontWeight.w400,
               ),
             ),
+            const SizedBox(height: 32),
+            const AnimatedCrossFade(
+                firstChild: Icon(Icons.check_circle,
+                    color: Color.fromARGB(255, 101, 180, 102), size: 10),
+                secondChild: Icon(Icons.check_circle,
+                    color: Color.fromARGB(255, 61, 143, 63), size: 30),
+                crossFadeState: CrossFadeState.showSecond,
+                duration: Duration(milliseconds: 3000)),
             const SizedBox(height: 81),
             ElevatedButton(
               onPressed: () => BlocProvider.of<NavigationBloc>(context)

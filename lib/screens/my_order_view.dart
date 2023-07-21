@@ -1,5 +1,6 @@
 import 'package:coffee_order_app/components/header_bar.dart';
 import 'package:coffee_order_app/components/option_button.dart';
+import 'package:coffee_order_app/components/options_bar.dart';
 import 'package:coffee_order_app/components/order_detail.dart';
 import 'package:coffee_order_app/screens/base_screen.dart';
 import 'package:coffee_order_app/states/order_view/order_view_bloc.dart';
@@ -19,17 +20,12 @@ class MyOrderView extends StatelessWidget {
           title: 'My Order',
           allowBackNavigation: false,
         ),
-        child: Column(
-          children: [
-            Container(
-              key: const PageStorageKey('MyOrderView_ContainerOverall'),
-              width: double.infinity,
-              decoration: const BoxDecoration(
-                  border: Border(
-                      bottom: BorderSide(color: Color(0xFFF4F5F7), width: 3))),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+        child: CustomScrollView(
+          slivers: [
+            SliverPersistentHeader(
+              pinned: true,
+              delegate: PersistentHeader(
+                widget: OptionsBar(options: [
                   OptionButton(
                       key: const PageStorageKey('MyOrderView_OptionONGOING'),
                       title: 'On going',
@@ -37,7 +33,6 @@ class MyOrderView extends StatelessWidget {
                       onPressed: (context) => context
                           .read<OrderViewBloc>()
                           .add(const ChangeView(true))),
-                  const SizedBox(width: 40),
                   OptionButton(
                       key: const PageStorageKey('MyOrderView_OptionHISTORY'),
                       title: 'History',
@@ -46,27 +41,26 @@ class MyOrderView extends StatelessWidget {
                       onPressed: (context) => context
                           .read<OrderViewBloc>()
                           .add(const ChangeView(false))),
-                ],
+                ]),
               ),
             ),
-            ListView.custom(
+            SliverList.list(
                 key: const PageStorageKey('MyOrderView_LIST'),
-                shrinkWrap: true,
-                childrenDelegate: SliverChildListDelegate(
-                    context.watch<OrderViewBloc>().state.viewOnGoing
-                        ? context
-                            .watch<OrderViewBloc>()
-                            .state
-                            .onGoingOrders
-                            .map((e) => OrderDetail(orderCart: e))
-                            .toList()
-                        : context
-                            .watch<OrderViewBloc>()
-                            .state
-                            .historyOrders
-                            .map((e) => OrderDetail(orderCart: e))
-                            .toList()))
+                children: context.watch<OrderViewBloc>().state.viewOnGoing
+                    ? context
+                        .watch<OrderViewBloc>()
+                        .state
+                        .onGoingOrders
+                        .map((e) => OrderDetail(orderCart: e))
+                        .toList()
+                    : context
+                        .watch<OrderViewBloc>()
+                        .state
+                        .historyOrders
+                        .map((e) => OrderDetail(orderCart: e))
+                        .toList())
           ],
         ));
   }
 }
+

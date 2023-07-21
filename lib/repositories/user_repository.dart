@@ -52,6 +52,11 @@ class UserRepository {
   }
 
   void recustomizeOrderDetails(OrderDetails orderDetails) {
+    assert(_instance.orderCart != null);
+    _instance.orderCart = _instance.orderCart!.copyWith(
+        items: _instance.orderCart!.items
+            .where((element) => element != orderDetails)
+            .toList());
     _instance.orderDetails = orderDetails;
   }
 

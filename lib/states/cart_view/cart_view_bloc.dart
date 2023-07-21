@@ -10,21 +10,21 @@ part 'cart_view_state.dart';
 
 class CartViewBloc extends Bloc<CartViewEvent, CartViewState> {
   CartViewBloc(this._applicationRepository)
-      : super(CartViewNormalState(
-            orderCart: _applicationRepository.orderCart)) {
+      : super(
+            CartViewNormalState(orderCart: _applicationRepository.orderCart)) {
     on<CheckOut>((event, emit) {
       _applicationRepository.checkOut();
     });
-    
+
     on<RemoveFromCart>((event, emit) {
       _applicationRepository.removeFromCart(event.orderDetails);
       emit(
-        CartViewNormalState(
-            orderCart: _applicationRepository.orderCart),
+        CartViewNormalState(orderCart: _applicationRepository.orderCart),
       );
     });
 
     on<InspectOrder>((event, emit) {
+      _applicationRepository.recustomizeOrderDetails(event.orderDetails);
       emit(
         CartViewInspectingState(
           orderCart: _applicationRepository.orderCart,

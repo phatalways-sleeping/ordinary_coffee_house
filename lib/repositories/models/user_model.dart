@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 
 import 'loyalty_membership.dart';
 
+import 'models.dart';
 import 'order_cart.dart';
 
 class UserModel extends Equatable {
@@ -15,6 +16,7 @@ class UserModel extends Equatable {
     required this.historyOrders,
     required this.onGoingOrders,
     required this.totalPoints,
+    this.rewards = const [],
     this.tier = const BronzeMembership(),
   });
 
@@ -25,22 +27,8 @@ class UserModel extends Equatable {
   final int totalPoints;
   final List<OrderCart> historyOrders;
   final List<OrderCart> onGoingOrders;
+  final List<RewardBase> rewards;
   final LoyaltyMembership tier;
-
-  int _aggregatePoints() {
-    var totalPoints = 0;
-    for (final orderCart in historyOrders) {
-      for (final order in orderCart.items) {
-        totalPoints += order.product.rewardPoints * order.amount;
-      }
-    }
-    for (final orderCart in onGoingOrders) {
-      for (final order in orderCart.items) {
-        totalPoints += order.product.rewardPoints * order.amount;
-      }
-    }
-    return totalPoints;
-  }
 
   int get totalDrinks {
     int totalDrinks = 0;
@@ -65,7 +53,7 @@ class UserModel extends Equatable {
 
   UnmodifiableListView<OrderCart> get onGoingCarts {
     final onGoingCarts = [...onGoingOrders];
-    onGoingCarts.sort((a, b) => a.date.compareTo(b.date)> 0 ? -1 : 1);
+    onGoingCarts.sort((a, b) => a.date.compareTo(b.date) > 0 ? -1 : 1);
     return UnmodifiableListView(onGoingCarts);
   }
 
@@ -73,6 +61,24 @@ class UserModel extends Equatable {
     final allCarts = [...historyOrders, ...onGoingOrders];
     allCarts.sort((a, b) => a.date.compareTo(b.date) > 0 ? -1 : 1);
     return UnmodifiableListView(allCarts);
+  }
+
+  UnmodifiableListView<DrinkReward> get drinkRewards {
+    final drinkRewards = rewards.whereType<DrinkReward>().toList();
+    drinkRewards.sort((a, b) => a.validUntil.compareTo(b.validUntil) > 0 ? 1 : -1);
+    return UnmodifiableListView(drinkRewards);
+  }
+
+  UnmodifiableListView<Voucher> get freeshipVouchers {
+    final vouchers = rewards.whereType<FreeshipVoucher>().toList();
+    vouchers.sort((a, b) => a.validUntil.compareTo(b.validUntil) > 0 ? 1 : -1);
+    return UnmodifiableListView(vouchers);
+  }
+
+  UnmodifiableListView<Voucher> get discountVouchers {
+    final vouchers = rewards.whereType<DiscountVoucher>().toList();
+    vouchers.sort((a, b) => a.validUntil.compareTo(b.validUntil) > 0 ? 1 : -1);
+    return UnmodifiableListView(vouchers);
   }
 
   UserModel copyWith({
@@ -83,6 +89,7 @@ class UserModel extends Equatable {
     List<OrderCart>? historyOrders,
     List<OrderCart>? onGoingOrders,
     int? points,
+    List<RewardBase>? rewards,
     LoyaltyMembership? tier,
   }) =>
       UserModel(
@@ -94,6 +101,7 @@ class UserModel extends Equatable {
         onGoingOrders: onGoingOrders ?? this.onGoingOrders,
         totalPoints: points ?? totalPoints,
         tier: tier ?? this.tier,
+        rewards: rewards ?? this.rewards,
       );
 
   @override
@@ -106,5 +114,6 @@ class UserModel extends Equatable {
         onGoingOrders,
         totalPoints,
         tier,
+        rewards,
       ];
 }

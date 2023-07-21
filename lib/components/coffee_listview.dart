@@ -28,9 +28,9 @@ class CoffeeListView extends StatelessWidget {
                 'Choose your coffee',
                 style: TextStyle(
                   color: Color(0xFFD7D7D7),
-                  fontSize: 20,
+                  fontSize: 18,
                   fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w700,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ),

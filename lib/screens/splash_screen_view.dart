@@ -14,7 +14,6 @@ class SplashScreenView extends StatefulWidget {
 }
 
 class _SplashScreenViewState extends State<SplashScreenView> {
-
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -29,12 +28,6 @@ class _SplashScreenViewState extends State<SplashScreenView> {
       hideNavigationBar: true,
       child: SafeArea(
           child: GestureDetector(
-        onPanUpdate: (details) {
-          if (details.delta.dy < 0) {
-            BlocProvider.of<NavigationBloc>(context)
-                .add(const NavigateToHomePage());
-          }
-        },
         child: Stack(
           alignment: Alignment.center,
           children: [
@@ -60,8 +53,8 @@ class _SplashScreenViewState extends State<SplashScreenView> {
                   children: [
                     SvgPicture.string(
                       SvgAssets.spash_screen_coffee,
-                      width: 121,
-                      height: 132.03,
+                      width: 145,
+                      height: 150,
                       // ignore: deprecated_member_use
                       color: Colors.white,
                     ),
@@ -71,9 +64,9 @@ class _SplashScreenViewState extends State<SplashScreenView> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Color(0xFFFFFAF6),
-                        fontSize: 30,
+                        fontSize: 28,
                         fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w800,
+                        fontWeight: FontWeight.w700,
                       ),
                     )
                   ],

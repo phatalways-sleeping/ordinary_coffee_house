@@ -60,6 +60,14 @@ class ApplicationRepository {
   }
 
   void changeSelect(DrinkType type) {
+    if (type == DrinkType.hot) {
+      userRepository.changeIce(IceLevel.none);
+      userRepository.changeSize(DrinkSize.small);
+    } else if (userRepository.orderDetails!.drinkType == DrinkType.hot &&
+        type == DrinkType.cold) {
+      userRepository.changeIce(IceLevel.normal);
+      userRepository.changeSize(DrinkSize.medium);
+    }
     userRepository.changeSelect(type);
   }
 
@@ -83,7 +91,7 @@ class ApplicationRepository {
     systemRepository.changeAddress(address);
   }
 
-  void claimReward(Reward reward) {
+  void claimReward(RewardBase reward) {
     systemRepository.claimReward(reward);
   }
 
@@ -97,7 +105,15 @@ class ApplicationRepository {
 
   OrderDetails? get orderDetails => userRepository.orderDetails;
 
-  List<Reward> get rewards => systemRepository.rewards;
+  List<DrinkReward> get drinkRewards => systemRepository.drinkRewards;
+
+  List<FreeshipVoucher> get freeshipVouchers =>
+      systemRepository.freeshipVouchers;
+
+  List<DiscountVoucher> get discountVoucher =>
+      systemRepository.discountVouchers;
+
+  List<RewardBase> get rewards => systemRepository.allRewards;
 
   bool get clicked => userRepository.levelUpClicked;
 

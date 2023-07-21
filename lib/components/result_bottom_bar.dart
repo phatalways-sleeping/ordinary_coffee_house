@@ -86,7 +86,7 @@ class ResultsBottomBar extends StatelessWidget {
     }
 
     return Container(
-        constraints: BoxConstraints.loose(const Size(360, 100)),
+        constraints: BoxConstraints.loose(const Size(360, 70)),
         margin: const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -105,7 +105,7 @@ class ResultsBottomBar extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 5),
                 Text(
                   '\$${price.toStringAsFixed(2)}',
                   textAlign: TextAlign.right,
@@ -125,6 +125,7 @@ class ResultsBottomBar extends StatelessWidget {
                   minimumSize: MaterialStateProperty.all(
                     const Size(200, 50),
                   ),
+                  
                   backgroundColor: MaterialStateProperty.all(
                     const Color(0xFF324A59),
                   ),
@@ -151,7 +152,7 @@ class ResultsBottomBar extends StatelessWidget {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 14,
+                        fontSize: 15,
                         fontFamily: 'Poppins',
                         fontWeight: FontWeight.w600,
                       ),

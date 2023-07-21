@@ -241,32 +241,56 @@ class DetailsView extends StatelessWidget {
                           onPressed: (context) =>
                               BlocProvider.of<OrderProcessingBloc>(context)
                                   .add(const ChangeSize(DrinkSize.small))),
-                      const SizedBox(width: 20),
-                      SelectionButton(
-                          active: context
-                                  .watch<OrderProcessingBloc>()
-                                  .state
-                                  .orderDetails
-                                  .drinkSize ==
-                              DrinkSize.medium,
-                          activeIcon: SvgAssets.size_medium_active,
-                          deactiveIcon: SvgAssets.size_medium_deactive,
-                          onPressed: (context) =>
-                              BlocProvider.of<OrderProcessingBloc>(context)
-                                  .add(const ChangeSize(DrinkSize.medium))),
-                      const SizedBox(width: 20),
-                      SelectionButton(
-                          active: context
-                                  .watch<OrderProcessingBloc>()
-                                  .state
-                                  .orderDetails
-                                  .drinkSize ==
-                              DrinkSize.large,
-                          activeIcon: SvgAssets.size_large_active,
-                          deactiveIcon: SvgAssets.size_large_deactive,
-                          onPressed: (context) =>
-                              BlocProvider.of<OrderProcessingBloc>(context)
-                                  .add(const ChangeSize(DrinkSize.large))),
+                      if (context
+                              .watch<OrderProcessingBloc>()
+                              .state
+                              .orderDetails
+                              .drinkType ==
+                          DrinkType.cold)
+                        const SizedBox(width: 20),
+                      if (context
+                              .watch<OrderProcessingBloc>()
+                              .state
+                              .orderDetails
+                              .drinkType ==
+                          DrinkType.cold)
+                        SelectionButton(
+                            active: context
+                                    .watch<OrderProcessingBloc>()
+                                    .state
+                                    .orderDetails
+                                    .drinkSize ==
+                                DrinkSize.medium,
+                            activeIcon: SvgAssets.size_medium_active,
+                            deactiveIcon: SvgAssets.size_medium_deactive,
+                            onPressed: (context) =>
+                                BlocProvider.of<OrderProcessingBloc>(context)
+                                    .add(const ChangeSize(DrinkSize.medium))),
+                      if (context
+                              .watch<OrderProcessingBloc>()
+                              .state
+                              .orderDetails
+                              .drinkType ==
+                          DrinkType.cold)
+                        const SizedBox(width: 20),
+                      if (context
+                              .watch<OrderProcessingBloc>()
+                              .state
+                              .orderDetails
+                              .drinkType ==
+                          DrinkType.cold)
+                        SelectionButton(
+                            active: context
+                                    .watch<OrderProcessingBloc>()
+                                    .state
+                                    .orderDetails
+                                    .drinkSize ==
+                                DrinkSize.large,
+                            activeIcon: SvgAssets.size_large_active,
+                            deactiveIcon: SvgAssets.size_large_deactive,
+                            onPressed: (context) =>
+                                BlocProvider.of<OrderProcessingBloc>(context)
+                                    .add(const ChangeSize(DrinkSize.large))),
                     ]),
               ),
               const SliverPadding(padding: EdgeInsets.only(top: 10)),
@@ -275,61 +299,73 @@ class DetailsView extends StatelessWidget {
                 color: Color(0xFFF4F5F7),
                 thickness: 1,
               )),
-              const SliverPadding(padding: EdgeInsets.only(top: 10)),
-              SliverToBoxAdapter(
-                child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Expanded(
-                        child: Text('Ice',
-                            style: TextStyle(
-                              color: Color(0xFF001833),
-                              fontSize: 16,
-                              fontFamily: 'DM Sans',
-                              fontWeight: FontWeight.w600,
-                            )),
-                      ),
-                      SelectionButton(
-                          active: context
-                                  .watch<OrderProcessingBloc>()
-                                  .state
-                                  .orderDetails
-                                  .iceLevel ==
-                              IceLevel.less,
-                          activeIcon: SvgAssets.ice_less_active,
-                          deactiveIcon: SvgAssets.ice_less_deactive,
-                          onPressed: (context) =>
-                              BlocProvider.of<OrderProcessingBloc>(context)
-                                  .add(const ChangeIce(IceLevel.less))),
-                      const SizedBox(width: 20),
-                      SelectionButton(
-                          active: context
-                                  .watch<OrderProcessingBloc>()
-                                  .state
-                                  .orderDetails
-                                  .iceLevel ==
-                              IceLevel.normal,
-                          activeIcon: SvgAssets.ice_normal_active,
-                          deactiveIcon: SvgAssets.ice_normal_deactive,
-                          onPressed: (context) =>
-                              BlocProvider.of<OrderProcessingBloc>(context)
-                                  .add(const ChangeIce(IceLevel.normal))),
-                      const SizedBox(width: 20),
-                      SelectionButton(
-                          active: context
-                                  .watch<OrderProcessingBloc>()
-                                  .state
-                                  .orderDetails
-                                  .iceLevel ==
-                              IceLevel.more,
-                          activeIcon: SvgAssets.ice_more_active,
-                          deactiveIcon: SvgAssets.ice_more_deactive,
-                          onPressed: (context) =>
-                              BlocProvider.of<OrderProcessingBloc>(context)
-                                  .add(const ChangeIce(IceLevel.more))),
-                    ]),
-              ),
+              if (context
+                      .watch<OrderProcessingBloc>()
+                      .state
+                      .orderDetails
+                      .drinkType ==
+                  DrinkType.cold)
+                const SliverPadding(padding: EdgeInsets.only(top: 10)),
+              if (context
+                      .watch<OrderProcessingBloc>()
+                      .state
+                      .orderDetails
+                      .drinkType ==
+                  DrinkType.cold)
+                SliverToBoxAdapter(
+                  child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Expanded(
+                          child: Text('Ice',
+                              style: TextStyle(
+                                color: Color(0xFF001833),
+                                fontSize: 16,
+                                fontFamily: 'DM Sans',
+                                fontWeight: FontWeight.w600,
+                              )),
+                        ),
+                        SelectionButton(
+                            active: context
+                                    .watch<OrderProcessingBloc>()
+                                    .state
+                                    .orderDetails
+                                    .iceLevel ==
+                                IceLevel.less,
+                            activeIcon: SvgAssets.ice_less_active,
+                            deactiveIcon: SvgAssets.ice_less_deactive,
+                            onPressed: (context) =>
+                                BlocProvider.of<OrderProcessingBloc>(context)
+                                    .add(const ChangeIce(IceLevel.less))),
+                        const SizedBox(width: 20),
+                        SelectionButton(
+                            active: context
+                                    .watch<OrderProcessingBloc>()
+                                    .state
+                                    .orderDetails
+                                    .iceLevel ==
+                                IceLevel.normal,
+                            activeIcon: SvgAssets.ice_normal_active,
+                            deactiveIcon: SvgAssets.ice_normal_deactive,
+                            onPressed: (context) =>
+                                BlocProvider.of<OrderProcessingBloc>(context)
+                                    .add(const ChangeIce(IceLevel.normal))),
+                        const SizedBox(width: 20),
+                        SelectionButton(
+                            active: context
+                                    .watch<OrderProcessingBloc>()
+                                    .state
+                                    .orderDetails
+                                    .iceLevel ==
+                                IceLevel.more,
+                            activeIcon: SvgAssets.ice_more_active,
+                            deactiveIcon: SvgAssets.ice_more_deactive,
+                            onPressed: (context) =>
+                                BlocProvider.of<OrderProcessingBloc>(context)
+                                    .add(const ChangeIce(IceLevel.more))),
+                      ]),
+                ),
             ],
           ),
         ));

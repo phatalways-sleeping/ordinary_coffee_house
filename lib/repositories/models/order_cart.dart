@@ -23,7 +23,7 @@ class OrderCart extends Equatable {
   double totalPrice() => items.fold(
         0,
         (previousValue, element) =>
-            previousValue + element.amount * element.product.price,
+            previousValue + element.price,
       );
 
   int get totalPoints => items.fold(
