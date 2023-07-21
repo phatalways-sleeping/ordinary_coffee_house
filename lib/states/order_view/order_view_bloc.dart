@@ -20,4 +20,6 @@ class OrderViewBloc extends Bloc<OrderViewEvent, OrderViewState> {
   }
 
   final ApplicationRepository _applicationRepository;
+
+  double get totalPrice => _applicationRepository.price;
 }

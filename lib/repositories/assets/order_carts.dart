@@ -2,57 +2,57 @@ import 'package:coffee_order_app/repositories/models/order_cart.dart';
 
 import 'order_details.dart';
 
-const cart1 = OrderCart(
+final cart1 = OrderCartPayed.from(const OrderCart(
   items: [order1, order2],
   status: OrderStatus.pending,
-);
+));
 
-const cart2 = OrderCart(
+final cart2 = OrderCartPayed.from(const OrderCart(
   items: [order3, order4],
   status: OrderStatus.pending,
-);
+));
 
-const cart3 = OrderCart(
+final cart3 = OrderCartPayed.from(const OrderCart(
   items: [order5, order6],
   status: OrderStatus.processing,
-);
+));
 
-const cart4 = OrderCart(
+final cart4 = OrderCartPayed.from(const OrderCart(
   items: [order7, order8],
   status: OrderStatus.delivered,
-);
+));
 
-const cart5 = OrderCart(
+final cart5 = OrderCartPayed.from(const OrderCart(
   items: [order9, order10],
   status: OrderStatus.delivered,
-);
+));
 
-const cart6 = OrderCart(
+final cart6 = OrderCartPayed.from(const OrderCart(
   items: [order11, order12],
   status: OrderStatus.shipped,
-);
+));
 
-const cart7 = OrderCart(
+final cart7 = OrderCartPayed.from(const OrderCart(
   items: [order13, order14],
   status: OrderStatus.delivered,
-);
+));
 
-const cart8 = OrderCart(
+final cart8 = OrderCartPayed.from(const OrderCart(
   items: [order15, order16],
   status: OrderStatus.delivered,
-);
+));
 
-const cart9 = OrderCart(
+final cart9 = OrderCartPayed.from(const OrderCart(
   items: [order17, order18],
   status: OrderStatus.delivered,
-);
+));
 
-const cart10 = OrderCart(
+final cart10 = OrderCartPayed.from(const OrderCart(
   items: [order19, order20],
   status: OrderStatus.delivered,
-);
+));
 
-const historyCarts = [
+final historyCarts = [
   cart5,
   cart6,
   cart7,
@@ -61,7 +61,7 @@ const historyCarts = [
   cart10,
 ];
 
-const onGoingCarts = [
+final onGoingCarts = [
   cart1,
   cart2,
   cart3,

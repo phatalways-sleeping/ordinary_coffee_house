@@ -23,13 +23,8 @@ const months = <String>[
 class OrderDetail extends StatelessWidget {
   const OrderDetail({super.key, required this.orderCart});
 
-  final OrderCart orderCart;
+  final OrderCartPayed orderCart;
 
-  // final List<Color> _actions = [
-  //   const Color(0xFFD4AF37),
-  //   const Color(0xFF8C635E),
-  //   const Color(0xFF324A59),
-  // ];
 
   @override
   Widget build(BuildContext context) {
@@ -116,7 +111,7 @@ class OrderDetail extends StatelessWidget {
           right: 40,
           top: 20,
           child: Text(
-            '\$${orderCart.totalPrice().toStringAsFixed(2)}',
+            '\$${orderCart.price.toStringAsFixed(2)}',
             style: const TextStyle(
               color: Color(0xFF324A59),
               fontSize: 15,

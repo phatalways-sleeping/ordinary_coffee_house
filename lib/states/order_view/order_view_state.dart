@@ -8,14 +8,14 @@ abstract class OrderViewState extends Equatable {
     this.viewOnGoing = true,
   });
 
-  final List<OrderCart> historyOrders;
-  final List<OrderCart> onGoingOrders;
+  final List<OrderCartPayed> historyOrders;
+  final List<OrderCartPayed> onGoingOrders;
   final UserModel currentUser;
   final bool viewOnGoing;
 
   OrderViewState copyWith({
-    List<OrderCart>? historyOrders,
-    List<OrderCart>? onGoingOrders,
+    List<OrderCartPayed>? historyOrders,
+    List<OrderCartPayed>? onGoingOrders,
     UserModel? currentUser,
     bool? viewOnGoing,
   });
@@ -34,8 +34,8 @@ class OrderViewFullState extends OrderViewState {
 
   @override
   OrderViewFullState copyWith({
-    List<OrderCart>? historyOrders,
-    List<OrderCart>? onGoingOrders,
+    List<OrderCartPayed>? historyOrders,
+    List<OrderCartPayed>? onGoingOrders,
     UserModel? currentUser,
     bool? viewOnGoing,
   }) {

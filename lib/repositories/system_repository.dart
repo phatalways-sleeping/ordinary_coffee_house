@@ -54,15 +54,19 @@ class SystemRepository {
     currentUser = currentUser.copyWith(address: newAddress);
   }
 
-  void addCartToOnGoing(OrderCart orderCart) {
-    for(final order in orderCart.items) {
-      if(order.product is FreeCoffeeProduct) {
+  void addCartToOnGoing(OrderCartPayed orderCart) {
+    for (final order in orderCart.items) {
+      if (order.product is FreeCoffeeProduct) {
         _removeDrinkReward(order.product);
       }
     }
+
     currentUser = currentUser.copyWith(
       points: currentUser.totalPoints + orderCart.totalPoints,
-      onGoingOrders: [...currentUser.onGoingOrders, orderCart],
+      onGoingOrders: [
+        ...currentUser.onGoingOrders,
+        orderCart
+      ],
     );
   }
 
@@ -117,5 +121,30 @@ class SystemRepository {
               element.product.name != coffeeProduct.name)
           .toList(),
     );
+  }
+
+  DiscountVoucher? get bestDiscountOption {
+    final discountVouchers = currentUser.rewards.whereType<DiscountVoucher>();
+    if (discountVouchers.isEmpty) {
+      return null;
+    }
+    return discountVouchers.reduce((value, element) => value.discount >
+            element.discount
+        ? value
+        : value.discount == element.discount &&
+                value.validUntil.difference(element.validUntil).inSeconds < 0
+            ? value
+            : element);
+  }
+
+  FreeshipVoucher? get bestFreeshipOption {
+    final freeshipVouchers = currentUser.rewards.whereType<FreeshipVoucher>();
+    if (freeshipVouchers.isEmpty) {
+      return null;
+    }
+    return freeshipVouchers.reduce((value, element) =>
+        value.validUntil.difference(element.validUntil).inSeconds < 0
+            ? value
+            : element);
   }
 }

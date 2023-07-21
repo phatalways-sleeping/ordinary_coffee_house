@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RedeemDetail extends StatelessWidget {
-  const RedeemDetail({super.key, required this.reward});
+  const RedeemDetail({super.key, required this.reward, this.masked = false});
 
   final RewardBase reward;
+  final bool masked;
 
   @override
   Widget build(BuildContext context) {
@@ -58,48 +59,49 @@ class RedeemDetail extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 10),
-            ElevatedButton(
-                onPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      backgroundColor: const Color(0x38324A59),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      duration: const Duration(seconds: 2),
-                      content: const Text(
-                        'Claimed redeem!',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 14,
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w500,
+            if (!masked)
+              ElevatedButton(
+                  onPressed: () {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        backgroundColor: const Color(0x38324A59),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        duration: const Duration(seconds: 2),
+                        content: const Text(
+                          'Claimed redeem!',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
-                    ),
-                  );
+                    );
 
-                  BlocProvider.of<RewardsBloc>(context)
-                      .add(ClaimReward(drinkReward));
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF324A59),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
+                    BlocProvider.of<RewardsBloc>(context)
+                        .add(ClaimReward(drinkReward));
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF324A59),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    alignment: Alignment.center,
+                    fixedSize: const Size(80, 30),
                   ),
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  alignment: Alignment.center,
-                  fixedSize: const Size(80, 30),
-                ),
-                child: Text(
-                  '${drinkReward.points} pts',
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 13,
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w500,
-                  ),
-                )),
+                  child: Text(
+                    '${drinkReward.points} pts',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 13,
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.w500,
+                    ),
+                  )),
           ],
         ),
       );
@@ -150,48 +152,49 @@ class RedeemDetail extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 10),
-            ElevatedButton(
-                onPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      backgroundColor: const Color(0x38324A59),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      duration: const Duration(seconds: 2),
-                      content: const Text(
-                        'Claimed redeem!',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 14,
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w500,
+            if (!masked)
+              ElevatedButton(
+                  onPressed: () {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        backgroundColor: const Color(0x38324A59),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        duration: const Duration(seconds: 2),
+                        content: const Text(
+                          'Claimed redeem!',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
-                    ),
-                  );
+                    );
 
-                  BlocProvider.of<RewardsBloc>(context)
-                      .add(ClaimReward(freeshipVoucher));
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF324A59),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
+                    BlocProvider.of<RewardsBloc>(context)
+                        .add(ClaimReward(freeshipVoucher));
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF324A59),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    alignment: Alignment.center,
+                    fixedSize: const Size(80, 30),
                   ),
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  alignment: Alignment.center,
-                  fixedSize: const Size(80, 30),
-                ),
-                child: Text(
-                  '${freeshipVoucher.points} pts',
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 13,
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w500,
-                  ),
-                )),
+                  child: Text(
+                    '${freeshipVoucher.points} pts',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 13,
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.w500,
+                    ),
+                  )),
           ],
         ),
       );
@@ -241,48 +244,49 @@ class RedeemDetail extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 10),
-          ElevatedButton(
-              onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    backgroundColor: const Color(0x38324A59),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    duration: const Duration(seconds: 2),
-                    content: const Text(
-                      'Claimed redeem!',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14,
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w500,
+          if (!masked)
+            ElevatedButton(
+                onPressed: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      backgroundColor: const Color(0x38324A59),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      duration: const Duration(seconds: 2),
+                      content: const Text(
+                        'Claimed redeem!',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ),
-                  ),
-                );
+                  );
 
-                BlocProvider.of<RewardsBloc>(context)
-                    .add(ClaimReward(discountVoucher));
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF324A59),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(50),
+                  BlocProvider.of<RewardsBloc>(context)
+                      .add(ClaimReward(discountVoucher));
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF324A59),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  alignment: Alignment.center,
+                  fixedSize: const Size(80, 30),
                 ),
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                alignment: Alignment.center,
-                fixedSize: const Size(80, 30),
-              ),
-              child: Text(
-                '${discountVoucher.points} pts',
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 13,
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w500,
-                ),
-              )),
+                child: Text(
+                  '${discountVoucher.points} pts',
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 13,
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.w500,
+                  ),
+                )),
         ],
       ),
     );

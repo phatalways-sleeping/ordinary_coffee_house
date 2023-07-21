@@ -16,10 +16,14 @@ class ApplicationRepository {
     userRepository: UserRepository.instance,
   );
 
+  static const double _freeShipPrice = 2.00;
+
   void checkOut() {
     final orderCart = userRepository.orderCart;
     assert(orderCart != null);
-    systemRepository.addCartToOnGoing(orderCart!);
+
+    systemRepository.addCartToOnGoing(
+        OrderCartPayed.from(orderCart!).copyWith(price: price));
     userRepository.checkOut();
   }
 
@@ -42,7 +46,9 @@ class ApplicationRepository {
 
   void removeFromCart(OrderDetails orderDetails) {
     userRepository.removeFromCart(orderDetails);
-    systemRepository.popArchiveDrinkReward(orderDetails.product);
+    if (orderDetails.product is FreeCoffeeProduct) {
+      systemRepository.popArchiveDrinkReward(orderDetails.product);
+    }
   }
 
   void recustomizeOrderDetails(OrderDetails orderDetails) {
@@ -117,7 +123,12 @@ class ApplicationRepository {
 
   List<CoffeeProduct> get products => systemRepository.products;
 
-  double get price => userRepository.price;
+  double get price => userRepository.price - discountPrice;
+
+  double get discountPrice =>
+      userRepository.price *
+          (bestDiscountOption != null ? bestDiscountOption!.discount : 0.0) +
+      (bestFreeshipOption != null ? _freeShipPrice : 0.0);
 
   OrderCart? get orderCart => userRepository.orderCart;
 
@@ -135,6 +146,12 @@ class ApplicationRepository {
       systemRepository.discountVouchers;
 
   List<RewardBase> get rewards => systemRepository.allRewards;
+
+  DiscountVoucher? get bestDiscountOption =>
+      systemRepository.bestDiscountOption;
+
+  FreeshipVoucher? get bestFreeshipOption =>
+      systemRepository.bestFreeshipOption;
 
   bool get clicked => userRepository.levelUpClicked;
 

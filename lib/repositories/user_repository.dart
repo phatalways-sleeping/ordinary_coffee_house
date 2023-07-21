@@ -64,11 +64,10 @@ class UserRepository {
 
   double get price {
     assert(_instance.orderCart != null);
-    double price = 0;
-    for (final orderDetail in _instance.orderCart!.items) {
-      price += orderDetail.price * orderDetail.amount;
-    }
-    return price;
+    return _instance.orderCart!.items.fold(
+      0,
+      (previousValue, element) => previousValue + element.price,
+    );
   }
 
   void changeAmount(int amount) {

@@ -2,7 +2,7 @@ import 'package:coffee_order_app/repositories/assets/order_carts.dart';
 import 'package:coffee_order_app/repositories/models/loyalty_membership.dart';
 import 'package:coffee_order_app/repositories/models/models.dart';
 
-const user = UserModel(
+final user = UserModel(
   username: 'John Doe',
   email: 'johndoe@gmail.com',
   address: '1234 Main St, New York, NY 10030',

@@ -20,12 +20,6 @@ class OrderCart extends Equatable {
 
   ConstDateTime get date => items.first.orderedAt;
 
-  double totalPrice() => items.fold(
-        0,
-        (previousValue, element) =>
-            previousValue + element.price,
-      );
-
   int get totalPoints => items.fold(
         0,
         (previousValue, element) =>
@@ -45,5 +39,40 @@ class OrderCart extends Equatable {
   List<Object?> get props => [
         items,
         status,
+      ];
+}
+
+class OrderCartPayed extends OrderCart {
+  const OrderCartPayed._({
+    required this.price,
+    required super.items,
+    required super.status,
+  });
+
+  OrderCartPayed.from(OrderCart orderCart)
+      : this._(
+          price: orderCart.items.fold(
+            0,
+            (previousValue, element) => previousValue + element.price,
+          ),
+          items: orderCart.items,
+          status: orderCart.status,
+        );
+
+  final double price;
+
+  OrderCartPayed copyWith(
+      {List<OrderDetails>? items, OrderStatus? status, double? price}) {
+    return OrderCartPayed._(
+      price: price ?? this.price,
+      items: items ?? this.items,
+      status: status ?? this.status,
+    );
+  }
+
+  @override
+  List<Object?> get props => [
+        price,
+        ...super.props,
       ];
 }

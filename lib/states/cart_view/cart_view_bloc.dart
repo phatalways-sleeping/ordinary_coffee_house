@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:coffee_order_app/repositories/models/models.dart';
 import 'package:coffee_order_app/repositories/models/order_cart.dart';
 import 'package:coffee_order_app/repositories/repositories.dart';
 import 'package:equatable/equatable.dart';
@@ -10,8 +11,12 @@ part 'cart_view_state.dart';
 
 class CartViewBloc extends Bloc<CartViewEvent, CartViewState> {
   CartViewBloc(this._applicationRepository)
-      : super(
-            CartViewNormalState(orderCart: _applicationRepository.orderCart)) {
+      : super(CartViewNormalState(
+          orderCart: _applicationRepository.orderCart,
+          bestDiscountOption: _applicationRepository.bestDiscountOption,
+          bestFreeshipOption: _applicationRepository.bestFreeshipOption,
+          discountPrice: _applicationRepository.discountPrice,
+        )) {
     on<CheckOut>((event, emit) {
       _applicationRepository.checkOut();
     });
@@ -19,7 +24,12 @@ class CartViewBloc extends Bloc<CartViewEvent, CartViewState> {
     on<RemoveFromCart>((event, emit) {
       _applicationRepository.removeFromCart(event.orderDetails);
       emit(
-        CartViewNormalState(orderCart: _applicationRepository.orderCart),
+        CartViewNormalState(
+          orderCart: _applicationRepository.orderCart,
+          bestDiscountOption: _applicationRepository.bestDiscountOption,
+          bestFreeshipOption: _applicationRepository.bestFreeshipOption,
+          discountPrice: _applicationRepository.discountPrice,
+        ),
       );
     });
 
@@ -29,10 +39,15 @@ class CartViewBloc extends Bloc<CartViewEvent, CartViewState> {
         CartViewInspectingState(
           orderCart: _applicationRepository.orderCart,
           orderDetails: event.orderDetails,
+          bestDiscountOption: _applicationRepository.bestDiscountOption,
+          bestFreeshipOption: _applicationRepository.bestFreeshipOption,
+          discountPrice: _applicationRepository.discountPrice,
         ),
       );
     });
   }
 
   final ApplicationRepository _applicationRepository;
+
+  double get totalPrice => _applicationRepository.price;
 }

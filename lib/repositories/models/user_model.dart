@@ -27,8 +27,8 @@ class UserModel extends Equatable {
   final String phone;
   final int totalPoints;
 
-  final List<OrderCart> historyOrders;
-  final List<OrderCart> onGoingOrders;
+  final List<OrderCartPayed> historyOrders;
+  final List<OrderCartPayed> onGoingOrders;
 
   final List<RewardBase> rewards;
   final List<RewardBase> inActiveRewards;
@@ -50,19 +50,19 @@ class UserModel extends Equatable {
     return totalDrinks;
   }
 
-  UnmodifiableListView<OrderCart> get historyCarts {
+  UnmodifiableListView<OrderCartPayed> get historyCarts {
     final historyCarts = [...historyOrders];
     historyCarts.sort((a, b) => a.date.compareTo(b.date) > 0 ? -1 : 1);
     return UnmodifiableListView(historyCarts);
   }
 
-  UnmodifiableListView<OrderCart> get onGoingCarts {
+  UnmodifiableListView<OrderCartPayed> get onGoingCarts {
     final onGoingCarts = [...onGoingOrders];
     onGoingCarts.sort((a, b) => a.date.compareTo(b.date) > 0 ? -1 : 1);
     return UnmodifiableListView(onGoingCarts);
   }
 
-  UnmodifiableListView<OrderCart> get allCarts {
+  UnmodifiableListView<OrderCartPayed> get allCarts {
     final allCarts = [...historyOrders, ...onGoingOrders];
     allCarts.sort((a, b) => a.date.compareTo(b.date) > 0 ? -1 : 1);
     return UnmodifiableListView(allCarts);
@@ -95,8 +95,8 @@ class UserModel extends Equatable {
     String? email,
     String? address,
     String? phone,
-    List<OrderCart>? historyOrders,
-    List<OrderCart>? onGoingOrders,
+    List<OrderCartPayed>? historyOrders,
+    List<OrderCartPayed>? onGoingOrders,
     int? points,
     List<RewardBase>? rewards,
     List<RewardBase>? inActiveRewards,
