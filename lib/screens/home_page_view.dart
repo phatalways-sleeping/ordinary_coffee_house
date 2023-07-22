@@ -2,6 +2,7 @@ import 'package:coffee_order_app/components/carousel_rewardsview.dart';
 import 'package:coffee_order_app/components/coffee_listview.dart';
 import 'package:coffee_order_app/components/coffee_productview.dart';
 import 'package:coffee_order_app/components/components.dart';
+import 'package:coffee_order_app/components/persistent_header.dart';
 import 'package:coffee_order_app/repositories/assets/assets.dart';
 import 'package:coffee_order_app/repositories/models/models.dart';
 import 'package:coffee_order_app/screens/base_screen.dart';
@@ -17,29 +18,39 @@ class HomePageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseScreen(
-        appBar: OrdinaryHBar(
-          forHomeView: true,
-          username: context.watch<HomeViewBloc>().state.username,
-          actions: [
-            InkWell(
-              onTap: () => BlocProvider.of<NavigationBloc>(context)
-                  .add(const NavigateToMyCart()),
-              child: SvgPicture.string(
-                SvgAssets.cart_view_button,
-                fit: BoxFit.cover,
-              ),
-            ),
-            InkWell(
-              onTap: () => BlocProvider.of<NavigationBloc>(context)
-                  .add(const NavigateToProfile()),
-              child: SvgPicture.string(
-                SvgAssets.profile_view_active_button,
-                fit: BoxFit.cover,
-              ),
-            ),
-          ],
-        ),
+        hideAppBar: true,
         child: CustomScrollView(slivers: [
+          SliverPersistentHeader(
+            floating: true,
+              delegate: PersistentHeader(
+                  maxExtentHeight: 140,
+                  minExtentHeight: 120,
+                  widget: OrdinaryHBar(
+                    forHomeView: true,
+                    username: context.watch<HomeViewBloc>().state.username,
+                    actions: [
+                      InkWell(
+                        onTap: () => BlocProvider.of<NavigationBloc>(context)
+                            .add(const NavigateToMyCart()),
+                        child: SvgPicture.string(
+                          SvgAssets.cart_view_button,
+                          fit: BoxFit.cover,
+                          colorFilter: const ColorFilter.mode(
+                              Color(0xFFF7F8FB), BlendMode.srcIn)
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () => BlocProvider.of<NavigationBloc>(context)
+                            .add(const NavigateToProfile()),
+                        child: SvgPicture.string(
+                          SvgAssets.profile_view_active_button,
+                          fit: BoxFit.cover,
+                          colorFilter: const ColorFilter.mode(
+                              Color(0xFFF7F8FB), BlendMode.srcIn)
+                        ),
+                      ),
+                    ],
+                  ))),
           SliverToBoxAdapter(
             child: Column(
               children: [

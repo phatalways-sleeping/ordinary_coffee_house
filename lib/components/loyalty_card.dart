@@ -37,7 +37,7 @@ class LoyaltyCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       constraints:
-          const BoxConstraints(maxWidth: double.infinity, maxHeight: 125),
+          const BoxConstraints(maxWidth: double.infinity, maxHeight: 160),
       margin: const EdgeInsets.symmetric(horizontal: 25, vertical: 16),
       padding: const EdgeInsets.symmetric(horizontal: 23, vertical: 14),
       decoration: ShapeDecoration(
@@ -92,15 +92,15 @@ class LoyaltyCard extends StatelessWidget {
                     if (i < generateLatestDrinks())
                       SvgPicture.string(
                         SvgAssets.coffee_drink_active,
-                        width: 30,
-                        height: 30,
+                        width: 32,
+                        height: 32,
                         fit: BoxFit.cover,
                       )
                     else
                       SvgPicture.string(
                         SvgAssets.coffee_drink_deactive,
-                        width: 30,
-                        height: 30,
+                        width: 32,
+                        height: 32,
                         fit: BoxFit.cover,
                       ),
                   if (generateLatestDrinks() == 8 && !clicked)
@@ -124,7 +124,7 @@ class LoyaltyCard extends StatelessWidget {
               'You are on a streak drink! Let\'s keep it up!',
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 16,
+                fontSize: 13,
                 fontFamily: 'Poppins',
                 fontWeight: FontWeight.w500,
               ),

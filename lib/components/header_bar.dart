@@ -25,8 +25,16 @@ class OrdinaryHBar extends StatelessWidget implements PreferredSizeWidget {
     if (forHomeView) {
       return SafeArea(
         child: Container(
-          constraints: const BoxConstraints.expand(height: 64),
-          margin: const EdgeInsets.symmetric(horizontal: 26),
+          decoration: ShapeDecoration(
+            color: const Color(0xFF324A59).withOpacity(0.9),
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(12),
+                  bottomRight: Radius.circular(12)),
+            ),
+          ),
+          constraints: const BoxConstraints.expand(height: 85),
+          padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 10),
           child: Row(children: [
             Expanded(
               child: Column(
@@ -36,18 +44,18 @@ class OrdinaryHBar extends StatelessWidget implements PreferredSizeWidget {
                   const Text(
                     'Good morning',
                     style: TextStyle(
-                      color: Color(0xFFD7D7D7),
+                      color: Color(0xFFF7F8FB),
                       fontSize: 18,
                       fontFamily: 'Poppins',
                       fontWeight: FontWeight.w400,
                     ),
                   ),
-                  // const SizedBox(height: 4),
+                  const Spacer(),
                   Text(
                     username!,
                     textAlign: TextAlign.center,
                     style: const TextStyle(
-                      color: Color(0xFF001833),
+                      color: Color(0xFFF7F8FB),
                       fontSize: 20,
                       fontFamily: 'Poppins',
                       fontWeight: FontWeight.w700,
@@ -101,5 +109,5 @@ class OrdinaryHBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => const Size(double.infinity, 64);
+  Size get preferredSize => const Size(double.infinity, 100);
 }

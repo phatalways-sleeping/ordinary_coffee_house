@@ -2,6 +2,7 @@ import 'package:coffee_order_app/components/header_bar.dart';
 import 'package:coffee_order_app/components/option_button.dart';
 import 'package:coffee_order_app/components/options_bar.dart';
 import 'package:coffee_order_app/components/order_detail.dart';
+import 'package:coffee_order_app/components/persistent_header.dart';
 import 'package:coffee_order_app/screens/base_screen.dart';
 import 'package:coffee_order_app/states/order_view/order_view_bloc.dart';
 import 'package:flutter/material.dart';

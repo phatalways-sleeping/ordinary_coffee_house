@@ -47,9 +47,4 @@ class HomeViewBloc extends Bloc<HomeViewEvent, HomeViewState> {
 
   final ApplicationRepository _applicationRepository;
 
-  @override
-  void onChange(Change<HomeViewState> change) {
-    debugPrint(change.toString());
-    super.onChange(change);
-  }
 }

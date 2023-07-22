@@ -48,6 +48,7 @@ class CoffeeProductView extends StatelessWidget {
                   child: Image.asset(
                     product.image,
                     fit: BoxFit.cover,
+                    colorBlendMode: BlendMode.saturation,
                   ),
                 ),
               ),
@@ -58,9 +59,9 @@ class CoffeeProductView extends StatelessWidget {
                   color: !inCarousel
                       ? const Color(0xFF001833)
                       : const Color(0xFFF7F8FB),
-                  fontSize: 14,
+                  fontSize: 16,
                   fontFamily: 'DM Sans',
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ],

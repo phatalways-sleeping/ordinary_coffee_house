@@ -72,34 +72,38 @@ class PointsRedeemCard extends StatelessWidget {
                   ],
                 ),
               ),
-              ElevatedButton(
-                  onPressed: () => BlocProvider.of<NavigationBloc>(context)
-                      .add(const NavigateToRedeeemRewards()),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: generateColorBasedOnDrinks().withGreen(60),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    maximumSize: const Size(double.infinity, 60),
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    alignment: Alignment.center,
-                  ),
-                  child: const Text(
-                    'Redeem drinks',
-                    style: TextStyle(
-                      color: Color(0xFFD7D7D7),
-                      fontSize: 13,
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.w600,
-                    ),
-                  )),
             ],
           ),
         ),
         Positioned(
-          bottom: 6,
-          right: 15,
+          bottom: 15,
+          right: 25,
           child: SvgPicture.string(SvgAssets.redeem_card_mask),
+        ),
+        Positioned(
+          right: 60,
+          bottom: 55,
+          child: ElevatedButton(
+              onPressed: () => BlocProvider.of<NavigationBloc>(context)
+                  .add(const NavigateToRedeeemRewards()),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: generateColorBasedOnDrinks().withGreen(60),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                maximumSize: const Size(double.infinity, 60),
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                alignment: Alignment.center,
+              ),
+              child: const Text(
+                'Redeem drinks',
+                style: TextStyle(
+                  color: Color(0xFFD7D7D7),
+                  fontSize: 13,
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.w600,
+                ),
+              )),
         )
       ],
     );

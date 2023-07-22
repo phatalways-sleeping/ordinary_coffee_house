@@ -63,7 +63,7 @@ class UserRepository {
   }
 
   double get price {
-    assert(_instance.orderCart != null);
+    if(_instance.orderCart == null) return 0;
     return _instance.orderCart!.items.fold(
       0,
       (previousValue, element) => previousValue + element.price,

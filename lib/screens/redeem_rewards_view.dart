@@ -1,6 +1,7 @@
 import 'package:coffee_order_app/components/components.dart';
 import 'package:coffee_order_app/components/option_button.dart';
 import 'package:coffee_order_app/components/options_bar.dart';
+import 'package:coffee_order_app/components/persistent_header.dart';
 import 'package:coffee_order_app/components/redeem_detail.dart';
 import 'package:coffee_order_app/repositories/models/models.dart';
 import 'package:coffee_order_app/screens/base_screen.dart';
