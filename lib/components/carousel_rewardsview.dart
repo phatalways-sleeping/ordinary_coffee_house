@@ -23,14 +23,12 @@ class _CarouselRewardsViewState extends State<CarouselRewardsView> {
       child: CarouselSlider(
         items: widget.rewards,
         options: CarouselOptions(
+          enableInfiniteScroll: false,
           aspectRatio: 2,
-          viewportFraction: 0.4,
+          viewportFraction: 0.45,
           initialPage: 0,
-          enableInfiniteScroll: true,
           enlargeFactor: 0.25,
-          autoPlayInterval: const Duration(seconds: 3),
-          autoPlayAnimationDuration: const Duration(milliseconds: 800),
-          autoPlayCurve: Curves.fastOutSlowIn,
+          padEnds: false,
           enlargeCenterPage: true,
           scrollDirection: Axis.horizontal,
         ),

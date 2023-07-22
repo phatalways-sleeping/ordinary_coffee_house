@@ -10,6 +10,7 @@ class UserRepository {
   OrderDetails? orderDetails;
   OrderCart? orderCart;
   bool levelUpClicked = false;
+  bool recustomizeOrderDetailsClicked = false;
   static final UserRepository _instance = UserRepository._();
 
   static UserRepository get instance => _instance;
@@ -63,7 +64,7 @@ class UserRepository {
   }
 
   double get price {
-    if(_instance.orderCart == null) return 0;
+    if (_instance.orderCart == null) return 0;
     return _instance.orderCart!.items.fold(
       0,
       (previousValue, element) => previousValue + element.price,
@@ -98,4 +99,15 @@ class UserRepository {
     assert(_instance.orderDetails != null);
     _instance.orderDetails = _instance.orderDetails!.copyWith(iceLevel: ice);
   }
+
+  void checkRecustomizeOrderDetails() {
+    recustomizeOrderDetailsClicked = true;
+  }
+
+  void unCheckRecustomizeOrderDetails() {
+    recustomizeOrderDetailsClicked = false;
+  }
+
+  bool get checkRecustomizeOrderDetailsClicked =>
+      _instance.recustomizeOrderDetailsClicked;
 }

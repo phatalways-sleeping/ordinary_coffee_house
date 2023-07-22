@@ -1,5 +1,4 @@
 import 'package:coffee_order_app/components/navigation_bottom_bar.dart';
-import 'package:coffee_order_app/repositories/assets/colors.dart';
 import 'package:flutter/material.dart';
 
 class BaseScreen extends StatelessWidget {
@@ -27,7 +26,7 @@ class BaseScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: hideAppBar ? null : appBar,
-      backgroundColor: Color(0xFFECF8F9),
+      backgroundColor: const Color(0xFFECF8F9),
       body: Stack(
         alignment: Alignment.center,
         children: [

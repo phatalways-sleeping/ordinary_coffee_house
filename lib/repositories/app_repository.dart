@@ -1,3 +1,4 @@
+import 'package:coffee_order_app/repositories/assets/assets.dart';
 import 'package:coffee_order_app/repositories/models/models.dart';
 import 'package:coffee_order_app/repositories/models/order_cart.dart';
 import 'package:coffee_order_app/repositories/system_repository.dart';
@@ -16,7 +17,20 @@ class ApplicationRepository {
     userRepository: UserRepository.instance,
   );
 
-  static const double _freeShipPrice = 2.00;
+  static const double freeShipPrice = 2.00;
+
+  void checkRecustomizeOrderDetails() {
+    userRepository.checkRecustomizeOrderDetails();
+  }
+
+  void unCheckRecustomizeOrderDetails() {
+    userRepository.unCheckRecustomizeOrderDetails();
+    userRepository.addToCart();
+    userRepository.clearOrderDetails();
+  }
+
+  bool get recustomizeOrderDetailsClicked =>
+      userRepository.checkRecustomizeOrderDetailsClicked;
 
   void checkOut() {
     final orderCart = userRepository.orderCart;
@@ -53,6 +67,7 @@ class ApplicationRepository {
 
   void recustomizeOrderDetails(OrderDetails orderDetails) {
     userRepository.recustomizeOrderDetails(orderDetails);
+    userRepository.checkRecustomizeOrderDetails();
   }
 
   void clearOrderDetails() {
@@ -123,12 +138,12 @@ class ApplicationRepository {
 
   List<CoffeeProduct> get products => systemRepository.products;
 
-  double get price => userRepository.price - discountPrice;
+  double get price => userRepository.price + freeShipPrice - discountPrice;
 
   double get discountPrice =>
       userRepository.price *
           (bestDiscountOption != null ? bestDiscountOption!.discount : 0.0) +
-      (bestFreeshipOption != null ? _freeShipPrice : 0.0);
+      (bestFreeshipOption != null ? freeShipPrice : 0.0);
 
   OrderCart? get orderCart => userRepository.orderCart;
 
@@ -147,8 +162,11 @@ class ApplicationRepository {
 
   List<RewardBase> get rewards => systemRepository.allRewards;
 
-  DiscountVoucher? get bestDiscountOption =>
-      systemRepository.bestDiscountOption;
+  DiscountVoucher? get bestDiscountOption => userRepository.orderCart == null ? null :
+      userRepository.orderCart!.items.length == 1 &&
+              userRepository.orderCart!.items.first.product is FreeCoffeeProduct
+          ? null
+          : systemRepository.bestDiscountOption;
 
   FreeshipVoucher? get bestFreeshipOption =>
       systemRepository.bestFreeshipOption;

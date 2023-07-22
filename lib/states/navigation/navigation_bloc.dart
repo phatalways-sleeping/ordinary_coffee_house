@@ -15,6 +15,11 @@ class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
       }
     }));
     on<NavigateBackFromDetailsView>((event, emit) {
+      if(_applicationRepository.recustomizeOrderDetailsClicked) {
+        _applicationRepository.unCheckRecustomizeOrderDetails();
+        emit(const MyCart());
+        return;
+      }
       _applicationRepository.clearOrderDetails();
       emit(const HomePage());
     });

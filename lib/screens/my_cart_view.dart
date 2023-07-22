@@ -150,36 +150,67 @@ class MyCartView extends StatelessWidget {
                     ),
                     ...sliverLines,
                     SliverToBoxAdapter(
-                      child: BlocSelector<CartViewBloc, CartViewState, double>(
-                        selector: (state) => state.discountPrice,
+                      child: BlocBuilder<CartViewBloc, CartViewState>(
+                        buildWhen: (previous, current) =>
+                            previous.discountPrice != current.discountPrice ||
+                            previous.freeShipPrice != current.freeShipPrice,
                         builder: (context, state) {
-                          return Row(
-                            crossAxisAlignment: CrossAxisAlignment.end,
+                          return Column(
                             children: [
-                              const Text(
-                                'Discount:',
-                                style: TextStyle(
-                                  color: Color(0xFF324A59),
-                                  fontSize: 15,
-                                  fontFamily: 'Poppins',
-                                  fontWeight: FontWeight.w600,
-                                ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  const Text(
+                                    'Shipping Fee:',
+                                    style: TextStyle(
+                                      color: Color(0xFF324A59),
+                                      fontSize: 15,
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  const Spacer(),
+                                  Text(
+                                    '+ \$${state.freeShipPrice.toStringAsFixed(2)}',
+                                    style: const TextStyle(
+                                      color: Colors.green,
+                                      fontSize: 20,
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  )
+                                ],
                               ),
-                              const Spacer(),
-                              Text(
-                                '\$${state.toStringAsFixed(2)}',
-                                style: const TextStyle(
-                                  color: Colors.green,
-                                  fontSize: 20,
-                                  fontFamily: 'Poppins',
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              )
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  const Text(
+                                    'Discount:',
+                                    style: TextStyle(
+                                      color: Color(0xFF324A59),
+                                      fontSize: 15,
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  const Spacer(),
+                                  Text(
+                                    '-\$${state.discountPrice.toStringAsFixed(2)}',
+                                    style: const TextStyle(
+                                      color: Colors.red,
+                                      fontSize: 20,
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  )
+                                ],
+                              ),
                             ],
                           );
                         },
                       ),
                     ),
+                    const SliverPadding(padding: EdgeInsets.only(top: 100)),
                   ]
                 : [
                     const SliverPadding(padding: EdgeInsets.only(top: 10)),

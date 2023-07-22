@@ -63,10 +63,7 @@ class SystemRepository {
 
     currentUser = currentUser.copyWith(
       points: currentUser.totalPoints + orderCart.totalPoints,
-      onGoingOrders: [
-        ...currentUser.onGoingOrders,
-        orderCart
-      ],
+      onGoingOrders: [...currentUser.onGoingOrders, orderCart],
     );
   }
 
