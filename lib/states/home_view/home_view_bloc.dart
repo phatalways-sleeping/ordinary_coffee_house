@@ -3,7 +3,6 @@ import 'package:bloc/bloc.dart';
 import 'package:coffee_order_app/repositories/models/models.dart';
 import 'package:coffee_order_app/repositories/repositories.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 
 part 'home_view_event.dart';
 part 'home_view_state.dart';
