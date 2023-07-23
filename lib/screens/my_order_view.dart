@@ -6,11 +6,29 @@ import 'package:coffee_order_app/components/persistent_header.dart';
 import 'package:coffee_order_app/screens/base_screen.dart';
 import 'package:coffee_order_app/states/order_view/order_view_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class MyOrderView extends StatelessWidget {
+class MyOrderView extends StatefulWidget {
   const MyOrderView({super.key});
 
+  @override
+  State<MyOrderView> createState() => _MyOrderViewState();
+}
+
+class _MyOrderViewState extends State<MyOrderView> {
+  late final ScrollController _scrollController = ScrollController()..addListener(() {
+    if(ScrollDirection.reverse == _scrollController.position.userScrollDirection) {
+      setState(() {
+        isScrolledDown = true;
+      });
+    } else if(ScrollDirection.forward == _scrollController.position.userScrollDirection) {
+      setState(() {
+        isScrolledDown = false;
+      });
+    }
+  });
+  bool isScrolledDown = false;
   @override
   Widget build(BuildContext context) {
     return BaseScreen(
@@ -21,7 +39,9 @@ class MyOrderView extends StatelessWidget {
           title: 'My Order',
           allowBackNavigation: false,
         ),
+        hideNavigationBar: isScrolledDown,
         child: CustomScrollView(
+          controller: _scrollController,
           slivers: [
             SliverPersistentHeader(
               pinned: true,

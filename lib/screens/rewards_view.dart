@@ -4,11 +4,29 @@ import 'package:coffee_order_app/components/reward_detail.dart';
 import 'package:coffee_order_app/screens/base_screen.dart';
 import 'package:coffee_order_app/states/rewards/rewards_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class RewardsView extends StatelessWidget {
+class RewardsView extends StatefulWidget {
   const RewardsView({super.key});
 
+  @override
+  State<RewardsView> createState() => _RewardsViewState();
+}
+
+class _RewardsViewState extends State<RewardsView> {
+  late final ScrollController _scrollController = ScrollController()..addListener(() {
+    if(ScrollDirection.reverse == _scrollController.position.userScrollDirection) {
+      setState(() {
+        isScrolledDown = true;
+      });
+    } else if(ScrollDirection.forward == _scrollController.position.userScrollDirection) {
+      setState(() {
+        isScrolledDown = false;
+      });
+    }
+  });
+  bool isScrolledDown = false;
   @override
   Widget build(BuildContext context) {
     return BaseScreen(
@@ -18,7 +36,10 @@ class RewardsView extends StatelessWidget {
           title: 'Rewards',
           allowBackNavigation: false,
         ),
-        child: CustomScrollView(slivers: [
+        hideNavigationBar: isScrolledDown,
+        child: CustomScrollView(
+          controller: _scrollController,
+          slivers: [
           SliverToBoxAdapter(
               child: LoyaltyCard(
                   levelUp: (context) =>

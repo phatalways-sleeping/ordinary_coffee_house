@@ -9,6 +9,6 @@ final user = UserModel(
   phone: '123-456-7890',
   historyOrders: historyCarts,
   onGoingOrders: onGoingCarts,
-  totalPoints: 1250,
-  tier: SilverMembership(),
+  totalPoints: 7250,
+  tier: const SilverMembership(),
 );

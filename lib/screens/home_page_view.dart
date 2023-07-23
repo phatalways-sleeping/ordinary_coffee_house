@@ -9,17 +9,38 @@ import 'package:coffee_order_app/screens/base_screen.dart';
 import 'package:coffee_order_app/states/home_view/home_view_bloc.dart';
 import 'package:coffee_order_app/states/navigation/navigation_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class HomePageView extends StatelessWidget {
+class HomePageView extends StatefulWidget {
   const HomePageView({super.key});
 
+  @override
+  State<HomePageView> createState() => _HomePageViewState();
+}
+
+class _HomePageViewState extends State<HomePageView> {
+  late final ScrollController _scrollController = ScrollController()..addListener(() {
+    if(ScrollDirection.reverse == _scrollController.position.userScrollDirection) {
+      setState(() {
+        isScrolledDown = true;
+      });
+    } else if(ScrollDirection.forward == _scrollController.position.userScrollDirection) {
+      setState(() {
+        isScrolledDown = false;
+      });
+    }
+  });
+  bool isScrolledDown = false;
   @override
   Widget build(BuildContext context) {
     return BaseScreen(
         hideAppBar: true,
-        child: CustomScrollView(slivers: [
+        hideNavigationBar: isScrolledDown,
+        child: CustomScrollView(
+          controller: _scrollController,
+          slivers: [
           SliverPersistentHeader(
             floating: true,
               delegate: PersistentHeader(
