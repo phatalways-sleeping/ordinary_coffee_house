@@ -37,6 +37,8 @@ class ApplicationRepository {
 
     systemRepository.addCartToOnGoing(
         OrderCartPayed.from(orderCart!).copyWith(price: price));
+    systemRepository.removeBestDiscountOption();
+    systemRepository.removeBestFreeshipOption();
     userRepository.checkOut();
   }
 

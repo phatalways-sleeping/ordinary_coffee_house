@@ -38,6 +38,26 @@ class SystemRepository {
   UnmodifiableListView<DiscountVoucher> get discountVouchers =>
       UnmodifiableListView(rewards.whereType<DiscountVoucher>());
 
+  void removeBestDiscountOption() {
+    if (bestDiscountOption == null) return;
+    currentUser = currentUser.copyWith(
+        rewards: currentUser.rewards
+            .where((element) =>
+                element.runtimeType != DiscountVoucher ||
+                (element as DiscountVoucher) != bestDiscountOption)
+            .toList());
+  }
+
+  void removeBestFreeshipOption() {
+    if (bestFreeshipOption == null) return;
+    currentUser = currentUser.copyWith(
+        rewards: currentUser.rewards
+            .where((element) =>
+                element.runtimeType != FreeshipVoucher ||
+                (element as FreeshipVoucher) != bestFreeshipOption)
+            .toList());
+  }
+
   void changeUsername(String newUsername) {
     currentUser = currentUser.copyWith(username: newUsername);
   }

@@ -76,6 +76,9 @@ class OrderDetails extends Equatable {
             ? 'normal ice'
             : 'full ice';
     final shotString = shot == DrinkShot.single ? 'single' : 'double';
+    if (drinkType == DrinkType.hot) {
+      return [shotString, drinkTypeString, drinkSizeString].join(' | ');
+    }
     return [shotString, drinkTypeString, drinkSizeString, iceLevelString]
         .join(' | ');
   }
