@@ -1,18 +1,17 @@
-import 'package:coffee_order_app/states/home_view/home_view_bloc.dart';
-import 'package:coffee_order_app/states/order_processing/order_processing_bloc.dart';
-import 'package:coffee_order_app/states/order_view/order_view_bloc.dart';
-import 'package:coffee_order_app/states/profile_view/profile_view_bloc.dart';
-import 'package:coffee_order_app/states/rewards/rewards_bloc.dart';
+import 'package:coffee_order_app/states/state_management.dart';
 import 'package:flow_builder/flow_builder.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'repositories/repositories.dart';
 import 'screens/screens.dart';
-import 'states/cart_view/cart_view_bloc.dart';
-import 'states/navigation/navigation_bloc.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(RepositoryProvider(
     create: (context) => ApplicationRepository.instance,
     child: const CoffeeShopping(),
@@ -26,11 +25,10 @@ class CoffeeShopping extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-        title: 'Ordinary Coffee App',
+        debugShowCheckedModeBanner: false,
+        title: 'Ordinary Coffee House',
         home: BlocProvider(
-          create: (context) =>
-              NavigationBloc(ApplicationRepository.instance),
+          create: (context) => NavigationBloc(ApplicationRepository.instance),
           child: const CoffeePage(),
         ));
   }
@@ -54,15 +52,13 @@ class CoffeePage extends StatelessWidget {
       if (state is Details)
         MaterialPage(
             child: BlocProvider(
-          create: (context) =>
-              OrderProcessingBloc(applicationRepository),
+          create: (context) => OrderProcessingBloc(applicationRepository),
           child: const DetailsView(key: PageStorageKey('DetailsView')),
         )),
       if (state is MyCart)
         MaterialPage(
             child: BlocProvider(
-          create: (context) =>
-              CartViewBloc(applicationRepository),
+          create: (context) => CartViewBloc(applicationRepository),
           child: const MyCartView(key: PageStorageKey('CartView')),
         )),
       if (state is OrderSuccess)
@@ -71,30 +67,26 @@ class CoffeePage extends StatelessWidget {
       if (state is Profile)
         MaterialPage(
             child: BlocProvider(
-          create: (context) =>
-              ProfileViewBloc(applicationRepository),
+          create: (context) => ProfileViewBloc(applicationRepository),
           child: const ProfileView(key: PageStorageKey('ProfileView')),
         )),
       if (state is Rewards)
         MaterialPage(
             child: BlocProvider(
-          create: (context) =>
-              RewardsBloc(applicationRepository),
+          create: (context) => RewardsBloc(applicationRepository),
           child: const RewardsView(key: PageStorageKey('RewardsView')),
         )),
       if (state is RedeeemRewards)
         MaterialPage(
             child: BlocProvider(
-          create: (context) =>
-              RewardsBloc(applicationRepository),
+          create: (context) => RewardsBloc(applicationRepository),
           child:
               const RedeemRewardsView(key: PageStorageKey('RedeemRewardsView')),
         )),
       if (state is MyOrder)
         MaterialPage(
             child: BlocProvider(
-          create: (context) =>
-              OrderViewBloc(applicationRepository),
+          create: (context) => OrderViewBloc(applicationRepository),
           child: const MyOrderView(key: PageStorageKey('MyOrderView')),
         )),
     ];

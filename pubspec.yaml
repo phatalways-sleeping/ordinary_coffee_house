@@ -43,6 +43,7 @@ dependencies:
   uuid: ^3.0.7
   flutter_slidable: ^3.0.0
   carousel_slider: ^4.2.1
+  firebase_core: ^2.15.0
 
 dev_dependencies:
   flutter_test:
