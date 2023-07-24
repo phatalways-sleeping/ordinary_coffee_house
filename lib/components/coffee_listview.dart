@@ -1,5 +1,5 @@
 import 'package:coffee_order_app/components/coffee_productview.dart';
-import 'package:coffee_order_app/repositories/models/models.dart';
+import 'package:coffee_order_app/models/models.dart';
 import 'package:flutter/material.dart';
 
 class CoffeeListView extends StatelessWidget {

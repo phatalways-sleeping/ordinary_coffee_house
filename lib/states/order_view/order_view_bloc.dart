@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:coffee_order_app/repositories/models/models.dart';
-import 'package:coffee_order_app/repositories/models/order_cart.dart';
+import 'package:coffee_order_app/models/models.dart';
+import 'package:coffee_order_app/models/order_cart.dart';
 import 'package:coffee_order_app/repositories/repositories.dart';
 import 'package:equatable/equatable.dart';
 

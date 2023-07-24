@@ -1,8 +1,9 @@
 import 'dart:collection';
 
-import 'package:coffee_order_app/repositories/assets/assets.dart';
-import 'package:coffee_order_app/repositories/models/models.dart';
-import 'package:coffee_order_app/repositories/models/order_cart.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:coffee_order_app/models/assets/assets.dart';
+import 'package:coffee_order_app/models/models.dart';
+import 'package:coffee_order_app/models/order_cart.dart';
 
 class SystemRepository {
   SystemRepository._({
@@ -22,6 +23,7 @@ class SystemRepository {
   UserModel currentUser;
   final List<CoffeeProduct> products;
   List<RewardBase> rewards;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   UnmodifiableListView<RewardBase> get allRewards =>
       UnmodifiableListView(rewards);

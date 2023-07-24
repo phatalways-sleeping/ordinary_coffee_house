@@ -1,6 +1,6 @@
-import 'package:coffee_order_app/repositories/assets/order_carts.dart';
-import 'package:coffee_order_app/repositories/models/loyalty_membership.dart';
-import 'package:coffee_order_app/repositories/models/models.dart';
+import 'package:coffee_order_app/models/assets/order_carts.dart';
+import 'package:coffee_order_app/models/loyalty_membership.dart';
+import 'package:coffee_order_app/models/models.dart';
 
 final user = UserModel(
   username: 'John Doe',

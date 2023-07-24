@@ -2,7 +2,7 @@ import 'package:coffee_order_app/components/components.dart';
 import 'package:coffee_order_app/components/increase_decrease_button.dart';
 import 'package:coffee_order_app/components/result_bottom_bar.dart';
 import 'package:coffee_order_app/components/selection_button.dart';
-import 'package:coffee_order_app/repositories/models/order_details.dart';
+import 'package:coffee_order_app/models/order_details.dart';
 import 'package:coffee_order_app/screens/base_screen.dart';
 import 'package:coffee_order_app/states/navigation/navigation_bloc.dart';
 import 'package:coffee_order_app/states/order_processing/order_processing_bloc.dart';
@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../repositories/assets/assets.dart';
+import '../models/assets/assets.dart';
 
 class DetailsView extends StatelessWidget {
   const DetailsView({super.key});

@@ -1,6 +1,10 @@
+import 'package:coffee_order_app/models/assets/json_error_handling.dart';
 import 'package:const_date_time/const_date_time.dart';
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'coffee_product.dart';
+
+part 'reward.g.dart';
 
 abstract class RewardBase extends Equatable {
   const RewardBase({
@@ -9,7 +13,41 @@ abstract class RewardBase extends Equatable {
   });
 
   final int points;
+
+  static Map<String, dynamic> toJson(RewardBase rewardBase) {
+    if (rewardBase is DrinkReward) {
+      return rewardBase.toJson();
+    } else if (rewardBase is FreeshipVoucher) {
+      return rewardBase.toJson();
+    } else if (rewardBase is DrinkReward) {
+      return rewardBase.toJson();
+    }
+
+    throw JsonToJsonError('Cannot identify runtype of RewardBase',
+        rewardBase.runtimeType.toString());
+  }
+
+  static RewardBase fromJson(Map<String, dynamic> json) {
+    if (json.containsKey('product')) {
+      return DrinkReward.fromJson(json);
+    } else if (json.containsKey('discount')) {
+      return DiscountVoucher.fromJson(json);
+    } else if (json.containsKey('code')) {
+      return FreeshipVoucher.fromJson(json);
+    }
+
+    throw JsonFromJsonError('Cannot identify Json Type', json.toString());
+  }
+
+  @JsonKey(
+      required: true,
+      fromJson: ConstDateTime.fromMicrosecondsSinceEpoch,
+      toJson: convertConstDateTimeToJson)
   final ConstDateTime validUntil;
+
+  static int convertConstDateTimeToJson(ConstDateTime validUntil) {
+    return validUntil.microsecondsSinceEpoch;
+  }
 
   @override
   List<Object?> get props => [
@@ -34,12 +72,18 @@ abstract class Voucher extends RewardBase {
       ];
 }
 
+@JsonSerializable(explicitToJson: true)
 class FreeshipVoucher extends Voucher {
   const FreeshipVoucher({
     required super.code,
     required super.points,
     required super.validUntil,
   });
+
+  factory FreeshipVoucher.fromJson(Map<String, dynamic> json) =>
+      _$FreeshipVoucherFromJson(json);
+
+  Map<String, dynamic> toJson() => _$FreeshipVoucherToJson(this);
 
   FreeshipVoucher copyWith({
     String? code,
@@ -53,6 +97,7 @@ class FreeshipVoucher extends Voucher {
       );
 }
 
+@JsonSerializable(explicitToJson: true)
 class DiscountVoucher extends Voucher {
   const DiscountVoucher({
     required super.code,
@@ -60,7 +105,14 @@ class DiscountVoucher extends Voucher {
     required super.validUntil,
     required this.discount,
   });
+
+  @JsonKey(required: true)
   final double discount;
+
+  factory DiscountVoucher.fromJson(Map<String, dynamic> json) =>
+      _$DiscountVoucherFromJson(json);
+
+  Map<String, dynamic> toJson() => _$DiscountVoucherToJson(this);
 
   DiscountVoucher copyWith({
     String? code,
@@ -82,14 +134,21 @@ class DiscountVoucher extends Voucher {
       ];
 }
 
-
+@JsonSerializable(explicitToJson: true)
 class DrinkReward extends RewardBase {
   const DrinkReward({
     required this.product,
     required super.points,
     required super.validUntil,
   });
+
+  @JsonKey(required: true)
   final CoffeeProduct product;
+
+  factory DrinkReward.fromJson(Map<String, dynamic> json) =>
+      _$DrinkRewardFromJson(json);
+
+  Map<String, dynamic> toJson() => _$DrinkRewardToJson(this);
 
   DrinkReward copyWith({
     CoffeeProduct? product,

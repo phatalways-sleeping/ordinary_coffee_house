@@ -1,4 +1,4 @@
-import 'package:coffee_order_app/repositories/models/order_details.dart';
+import 'package:coffee_order_app/models/order_details.dart';
 import 'package:const_date_time/const_date_time.dart';
 
 import 'coffee_products.dart';

@@ -1,5 +1,5 @@
-import 'package:coffee_order_app/repositories/assets/assets.dart';
-import 'package:coffee_order_app/repositories/models/order_cart.dart';
+import 'package:coffee_order_app/models/assets/assets.dart';
+import 'package:coffee_order_app/models/order_cart.dart';
 import 'package:coffee_order_app/states/order_view/order_view_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

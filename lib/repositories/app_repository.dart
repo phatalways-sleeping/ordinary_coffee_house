@@ -1,9 +1,9 @@
-import 'package:coffee_order_app/repositories/models/models.dart';
-import 'package:coffee_order_app/repositories/models/order_cart.dart';
+import 'package:coffee_order_app/models/models.dart';
+import 'package:coffee_order_app/models/order_cart.dart';
 import 'package:coffee_order_app/repositories/system_repository.dart';
 import 'package:coffee_order_app/repositories/user_repository.dart';
 
-import 'models/order_details.dart';
+import '../models/order_details.dart';
 
 class ApplicationRepository {
   ApplicationRepository._({

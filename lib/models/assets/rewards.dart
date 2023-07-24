@@ -1,4 +1,4 @@
-import 'package:coffee_order_app/repositories/models/reward.dart';
+import 'package:coffee_order_app/models/reward.dart';
 import 'package:const_date_time/const_date_time.dart';
 import 'package:uuid/uuid.dart';
 

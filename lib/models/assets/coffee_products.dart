@@ -1,4 +1,4 @@
-import 'package:coffee_order_app/repositories/models/models.dart';
+import 'package:coffee_order_app/models/models.dart';
 
 const espresso = CoffeeProduct(
   name: "Espresso",

@@ -3,7 +3,7 @@ import 'package:coffee_order_app/components/option_button.dart';
 import 'package:coffee_order_app/components/options_bar.dart';
 import 'package:coffee_order_app/components/persistent_header.dart';
 import 'package:coffee_order_app/components/redeem_detail.dart';
-import 'package:coffee_order_app/repositories/models/models.dart';
+import 'package:coffee_order_app/models/models.dart';
 import 'package:coffee_order_app/screens/base_screen.dart';
 import 'package:coffee_order_app/states/navigation/navigation_bloc.dart';
 import 'package:coffee_order_app/states/rewards/rewards_bloc.dart';

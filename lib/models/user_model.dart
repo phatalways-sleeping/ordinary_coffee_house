@@ -1,12 +1,14 @@
 import 'dart:collection';
-
 import 'package:equatable/equatable.dart';
-
+import 'package:json_annotation/json_annotation.dart';
 import 'loyalty_membership.dart';
-
 import 'models.dart';
 import 'order_cart.dart';
 
+part 'user_model.g.dart';
+
+
+@JsonSerializable(explicitToJson: true)
 class UserModel extends Equatable {
   const UserModel({
     required this.username,
@@ -21,19 +23,42 @@ class UserModel extends Equatable {
     this.tier = const BronzeMembership(),
   });
 
+  @JsonKey(required: true)
   final String username;
+  @JsonKey(required: true)
   final String email;
+  @JsonKey(required: true)
   final String address;
+  @JsonKey(required: true)
   final String phone;
+  @JsonKey(required: true)
   final int totalPoints;
 
+  @JsonKey(required: true)
   final List<OrderCartPayed> historyOrders;
+  @JsonKey(required: true)
   final List<OrderCartPayed> onGoingOrders;
 
+  @JsonKey(required: true, toJson: UserModel.rewardListsToJson, fromJson: UserModel.rewardListsFromJson)
   final List<RewardBase> rewards;
+  @JsonKey(required: true, toJson: UserModel.rewardListsToJson, fromJson: UserModel.rewardListsFromJson)
   final List<RewardBase> inActiveRewards;
 
+  @JsonKey(required: true, toJson: LoyaltyMembership.toJson, fromJson: LoyaltyMembership.fromJson)
   final LoyaltyMembership tier;
+
+  static UserModel fromJson(Map<String, dynamic> json) =>
+      _$UserModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$UserModelToJson(this);
+
+  static List<RewardBase> rewardListsFromJson(List<dynamic> json) {
+    return json.map((e) => RewardBase.fromJson(e)).toList();
+  }
+
+  static List<dynamic> rewardListsToJson(List<RewardBase> rewardLists) {
+    return rewardLists.map((e) => RewardBase.toJson(e)).toList();
+  }
 
   int get totalDrinks {
     int totalDrinks = 0;

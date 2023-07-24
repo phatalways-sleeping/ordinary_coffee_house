@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:coffee_order_app/repositories/models/order_details.dart';
+import 'package:coffee_order_app/models/order_details.dart';
 import 'package:coffee_order_app/repositories/repositories.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

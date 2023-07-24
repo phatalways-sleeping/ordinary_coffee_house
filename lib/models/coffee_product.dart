@@ -1,10 +1,22 @@
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'coffee_product.g.dart';
+
+@JsonSerializable()
 class CoffeeProduct extends Equatable {
+  @JsonKey(required: true)
   final String name;
+  
   final String? description;
+
+  @JsonKey(required: true)
   final double price;
+
+  @JsonKey(required: true)
   final int rewardPoints;
+
+  @JsonKey(required: true)
   final String image;
 
   const CoffeeProduct({
@@ -14,6 +26,11 @@ class CoffeeProduct extends Equatable {
     required this.rewardPoints,
     required this.image,
   });
+
+  factory CoffeeProduct.fromJson(Map<String, dynamic> json) =>
+      _$CoffeeProductFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CoffeeProductToJson(this);
 
   CoffeeProduct copyWith({
     String? name,
@@ -40,6 +57,8 @@ class CoffeeProduct extends Equatable {
       ];
 }
 
+
+@JsonSerializable()
 class FreeCoffeeProduct extends CoffeeProduct {
   const FreeCoffeeProduct({
     required super.name,
@@ -48,6 +67,11 @@ class FreeCoffeeProduct extends CoffeeProduct {
     required super.rewardPoints,
     required super.image,
   });
+
+  factory FreeCoffeeProduct.fromJson(Map<String, dynamic> json) =>
+      _$FreeCoffeeProductFromJson(json);
+
+  Map<String, dynamic> toJson() => _$FreeCoffeeProductToJson(this);
 
   FreeCoffeeProduct.from(CoffeeProduct coffeeProduct)
       : this(

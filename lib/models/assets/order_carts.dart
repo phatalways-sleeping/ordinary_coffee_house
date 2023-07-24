@@ -1,4 +1,4 @@
-import 'package:coffee_order_app/repositories/models/order_cart.dart';
+import 'package:coffee_order_app/models/order_cart.dart';
 
 import 'order_details.dart';
 

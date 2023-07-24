@@ -1,7 +1,10 @@
 import 'package:const_date_time/const_date_time.dart';
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 import 'order_details.dart';
+
+part 'order_cart.g.dart';
 
 enum OrderStatus {
   pending,
@@ -10,12 +13,22 @@ enum OrderStatus {
   delivered,
 }
 
+@JsonSerializable(explicitToJson: true)
 class OrderCart extends Equatable {
   const OrderCart({
     required this.items,
     this.status = OrderStatus.pending,
   });
+
+  factory OrderCart.fromJson(Map<String, dynamic> json) =>
+      _$OrderCartFromJson(json);
+
+  Map<String, dynamic> toJson() => _$OrderCartToJson(this);
+
+  @JsonKey(required: true)
   final List<OrderDetails> items;
+
+  @JsonKey(required: true)
   final OrderStatus status;
 
   ConstDateTime get date => items.first.orderedAt;
@@ -42,15 +55,23 @@ class OrderCart extends Equatable {
       ];
 }
 
+@JsonSerializable(explicitToJson: true)
 class OrderCartPayed extends OrderCart {
-  const OrderCartPayed._({
+  const OrderCartPayed({
     required this.price,
     required super.items,
     required super.status,
   });
 
+  factory OrderCartPayed.fromJson(Map<String, dynamic> json) =>
+      _$OrderCartPayedFromJson(json);
+
+  Map<String, dynamic> toJson() => _$OrderCartPayedToJson(this);
+
+
+
   OrderCartPayed.from(OrderCart orderCart)
-      : this._(
+      : this(
           price: orderCart.items.fold(
             0,
             (previousValue, element) => previousValue + element.price,
@@ -59,11 +80,12 @@ class OrderCartPayed extends OrderCart {
           status: orderCart.status,
         );
 
+  @JsonKey(required: true)
   final double price;
 
   OrderCartPayed copyWith(
       {List<OrderDetails>? items, OrderStatus? status, double? price}) {
-    return OrderCartPayed._(
+    return OrderCartPayed(
       price: price ?? this.price,
       items: items ?? this.items,
       status: status ?? this.status,

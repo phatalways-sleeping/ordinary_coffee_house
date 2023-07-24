@@ -1,4 +1,4 @@
-import 'package:coffee_order_app/repositories/models/order_details.dart';
+import 'package:coffee_order_app/models/order_details.dart';
 import 'package:coffee_order_app/states/cart_view/cart_view_bloc.dart';
 import 'package:coffee_order_app/states/navigation/navigation_bloc.dart';
 import 'package:flutter/material.dart';

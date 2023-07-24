@@ -1,6 +1,6 @@
-import 'package:coffee_order_app/repositories/models/models.dart';
-import 'package:coffee_order_app/repositories/models/order_cart.dart';
-import 'package:coffee_order_app/repositories/models/order_details.dart';
+import 'package:coffee_order_app/models/models.dart';
+import 'package:coffee_order_app/models/order_cart.dart';
+import 'package:coffee_order_app/models/order_details.dart';
 
 class UserRepository {
   UserRepository._({

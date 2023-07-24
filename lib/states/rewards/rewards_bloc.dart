@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:coffee_order_app/repositories/app_repository.dart';
-import 'package:coffee_order_app/repositories/models/reward.dart';
-import 'package:coffee_order_app/repositories/models/user_model.dart';
+import 'package:coffee_order_app/models/reward.dart';
+import 'package:coffee_order_app/models/user_model.dart';
 import 'package:equatable/equatable.dart';
 
 part 'rewards_event.dart';

@@ -1,4 +1,4 @@
-import 'package:coffee_order_app/repositories/assets/assets.dart';
+import 'package:coffee_order_app/models/assets/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 

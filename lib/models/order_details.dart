@@ -1,9 +1,13 @@
 import 'package:const_date_time/const_date_time.dart';
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:uuid/uuid.dart';
 
 import 'coffee_product.dart';
 
+part 'order_details.g.dart';
+
+@JsonSerializable(explicitToJson: true)
 class OrderDetails extends Equatable {
   const OrderDetails({
     required this.id,
@@ -15,6 +19,11 @@ class OrderDetails extends Equatable {
     this.drinkSize = DrinkSize.medium,
     this.iceLevel = IceLevel.normal,
   });
+
+  factory OrderDetails.fromJson(Map<String, dynamic> json) =>
+      _$OrderDetailsFromJson(json);
+
+  Map<String, dynamic> toJson() => _$OrderDetailsToJson(this);
 
   OrderDetails.deflt({
     required CoffeeProduct product,
@@ -30,14 +39,29 @@ class OrderDetails extends Equatable {
               DateTime.now().minute,
             ));
 
+  @JsonKey(required: true)
   final String id;
+  @JsonKey(required: true)
   final int amount;
+  @JsonKey(required: true)
   final CoffeeProduct product;
+  @JsonKey(required: true)
   final DrinkShot shot;
+  @JsonKey(required: true)
   final DrinkType drinkType;
+  @JsonKey(required: true)
   final DrinkSize drinkSize;
+  @JsonKey(required: true)
   final IceLevel iceLevel;
+  @JsonKey(
+      required: true,
+      fromJson: ConstDateTime.fromMicrosecondsSinceEpoch,
+      toJson: convertConstDateTimeToJson)
   final ConstDateTime orderedAt;
+
+  static int convertConstDateTimeToJson(ConstDateTime validUntil) {
+    return validUntil.microsecondsSinceEpoch;
+  }
 
   static const double _singleShotPrice = 0;
   static const double _doubleShotPrice = 2.0;
