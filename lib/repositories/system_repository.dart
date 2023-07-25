@@ -1,24 +1,15 @@
 import 'dart:collection';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:coffee_order_app/models/assets/assets.dart';
 import 'package:coffee_order_app/models/models.dart';
 import 'package:coffee_order_app/models/order_cart.dart';
 
 class SystemRepository {
-  SystemRepository._({
+  SystemRepository({
     required this.currentUser,
     required this.products,
     required this.rewards,
   });
-
-  static final SystemRepository _instance = SystemRepository._(
-    currentUser: user,
-    products: coffeeProducts,
-    rewards: [...currentRewards, ...currentVouchers],
-  );
-
-  static SystemRepository get mockRepository => _instance;
 
   UserModel currentUser;
   final List<CoffeeProduct> products;

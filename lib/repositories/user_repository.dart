@@ -1,113 +1,122 @@
 import 'package:coffee_order_app/models/models.dart';
 import 'package:coffee_order_app/models/order_cart.dart';
 import 'package:coffee_order_app/models/order_details.dart';
+import 'package:coffee_order_app/models/runtime_payload.dart';
 
 class UserRepository {
-  UserRepository._({
-    this.orderDetails,
+  UserRepository({
+    required this.runtimePayload,
   });
 
-  OrderDetails? orderDetails;
-  OrderCart? orderCart;
-  bool levelUpClicked = false;
-  bool recustomizeOrderDetailsClicked = false;
-  static final UserRepository _instance = UserRepository._();
-
-  static UserRepository get instance => _instance;
+  RuntimePayload runtimePayload;
 
   void customizeOrderDetails(CoffeeProduct coffeeProduct) {
-    _instance.orderDetails = OrderDetails.deflt(product: coffeeProduct);
+    runtimePayload = runtimePayload.copyWith(
+        orderDetails: OrderDetails.deflt(product: coffeeProduct));
   }
 
   void checkOut() {
-    orderCart = null;
+    runtimePayload = runtimePayload.copyWith(orderCart: null);
   }
 
   void levelUp() {
-    levelUpClicked = true;
+    runtimePayload = runtimePayload.copyWith(levelUpClicked: true);
   }
 
   void unClick() {
-    levelUpClicked = false;
+    runtimePayload = runtimePayload.copyWith(levelUpClicked: false);
   }
 
   void addToCart() {
-    if (_instance.orderCart == null) {
-      _instance.orderCart = OrderCart(items: [_instance.orderDetails!]);
+    if (runtimePayload.orderCart == null) {
+      runtimePayload = runtimePayload.copyWith(
+          orderCart: OrderCart(items: [runtimePayload.orderDetails!]));
     } else {
-      _instance.orderCart = _instance.orderCart!.copyWith(
-        items: [..._instance.orderCart!.items, _instance.orderDetails!],
-      );
+      runtimePayload = runtimePayload.copyWith(
+          orderCart: runtimePayload.orderCart!.copyWith(items: [
+        ...runtimePayload.orderCart!.items,
+        runtimePayload.orderDetails!
+      ]));
     }
   }
 
   void removeFromCart(OrderDetails orderDetails) {
-    assert(_instance.orderCart != null);
-    _instance.orderCart = _instance.orderCart!.copyWith(
-      items: _instance.orderCart!.items
-          .where((element) => element != orderDetails)
-          .toList(),
-    );
+    assert(runtimePayload.orderCart != null);
+    runtimePayload = runtimePayload.copyWith(
+        orderCart: runtimePayload.orderCart!.copyWith(
+            items: runtimePayload.orderCart!.items
+                .where((element) => element != orderDetails)
+                .toList()));
   }
 
   void recustomizeOrderDetails(OrderDetails orderDetails) {
-    assert(_instance.orderCart != null);
-    _instance.orderCart = _instance.orderCart!.copyWith(
-        items: _instance.orderCart!.items
-            .where((element) => element != orderDetails)
-            .toList());
-    _instance.orderDetails = orderDetails;
+    assert(runtimePayload.orderCart != null);
+    runtimePayload = runtimePayload.copyWith(
+        orderCart: runtimePayload.orderCart!.copyWith(
+            items: runtimePayload.orderCart!.items
+                .where((element) => element != orderDetails)
+                .toList()),
+        orderDetails: orderDetails);
   }
 
   void clearOrderDetails() {
-    _instance.orderDetails = null;
+    runtimePayload = runtimePayload.copyWith(orderDetails: null);
   }
 
   double get price {
-    if (_instance.orderCart == null) return 0;
-    return _instance.orderCart!.items.fold(
+    if (runtimePayload.orderCart == null) return 0;
+    return runtimePayload.orderCart!.items.fold(
       0,
       (previousValue, element) => previousValue + element.price,
     );
   }
 
   void changeAmount(int amount) {
-    assert(_instance.orderDetails != null);
-    if (_instance.orderDetails?.product is FreeCoffeeProduct) return;
-    _instance.orderDetails = _instance.orderDetails!.copyWith(
-        amount: _instance.orderDetails!.amount + amount == 0
-            ? _instance.orderDetails!.amount
-            : _instance.orderDetails!.amount + amount);
+    assert(runtimePayload.orderDetails != null);
+    if (runtimePayload.orderDetails?.product is FreeCoffeeProduct) return;
+    runtimePayload = runtimePayload.copyWith(
+        orderDetails: runtimePayload.orderDetails!.copyWith(
+            amount: runtimePayload.orderDetails!.amount + amount == 0
+                ? runtimePayload.orderDetails!.amount
+                : runtimePayload.orderDetails!.amount + amount));
   }
 
   void changeShot(DrinkShot shot) {
-    assert(_instance.orderDetails != null);
-    _instance.orderDetails = _instance.orderDetails!.copyWith(shot: shot);
+    assert(runtimePayload.orderDetails != null);
+    runtimePayload = runtimePayload.copyWith(
+        orderDetails: runtimePayload.orderDetails!.copyWith(shot: shot));
   }
 
   void changeSize(DrinkSize size) {
-    assert(_instance.orderDetails != null);
-    _instance.orderDetails = _instance.orderDetails!.copyWith(drinkSize: size);
+    assert(runtimePayload.orderDetails != null);
+    runtimePayload = runtimePayload.copyWith(
+        orderDetails: runtimePayload.orderDetails!.copyWith(drinkSize: size));
   }
 
   void changeSelect(DrinkType type) {
-    assert(_instance.orderDetails != null);
-    _instance.orderDetails = _instance.orderDetails!.copyWith(drinkType: type);
+    assert(runtimePayload.orderDetails != null);
+    runtimePayload = runtimePayload.copyWith(
+        orderDetails: runtimePayload.orderDetails!.copyWith(drinkType: type));
   }
 
   void changeIce(IceLevel ice) {
-    assert(_instance.orderDetails != null);
-    _instance.orderDetails = _instance.orderDetails!.copyWith(iceLevel: ice);
+    assert(runtimePayload.orderDetails != null);
+    runtimePayload = runtimePayload.copyWith(
+        orderDetails: runtimePayload.orderDetails!.copyWith(iceLevel: ice));
   }
 
   void checkRecustomizeOrderDetails() {
-    recustomizeOrderDetailsClicked = true;
+    runtimePayload = runtimePayload.copyWith(
+      recustomizeOrderDetailsClicked: true,
+    );
   }
 
   void unCheckRecustomizeOrderDetails() {
-    recustomizeOrderDetailsClicked = false;
+    runtimePayload = runtimePayload.copyWith(
+      recustomizeOrderDetailsClicked: false,
+    );
   }
 
   bool get checkRecustomizeOrderDetailsClicked =>
-      _instance.recustomizeOrderDetailsClicked;
+      runtimePayload.recustomizeOrderDetailsClicked;
 }

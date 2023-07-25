@@ -10,16 +10,23 @@ abstract class RewardBase extends Equatable {
   const RewardBase({
     required this.points,
     required this.validUntil,
+    required this.id,
   });
 
   final int points;
+  @JsonKey(
+      required: true,
+      fromJson: ConstDateTime.fromMicrosecondsSinceEpoch,
+      toJson: convertConstDateTimeToJson)
+  final ConstDateTime validUntil;
+  final String id;
 
   static Map<String, dynamic> toJson(RewardBase rewardBase) {
     if (rewardBase is DrinkReward) {
       return rewardBase.toJson();
     } else if (rewardBase is FreeshipVoucher) {
       return rewardBase.toJson();
-    } else if (rewardBase is DrinkReward) {
+    } else if (rewardBase is DiscountVoucher) {
       return rewardBase.toJson();
     }
 
@@ -39,12 +46,6 @@ abstract class RewardBase extends Equatable {
     throw JsonFromJsonError('Cannot identify Json Type', json.toString());
   }
 
-  @JsonKey(
-      required: true,
-      fromJson: ConstDateTime.fromMicrosecondsSinceEpoch,
-      toJson: convertConstDateTimeToJson)
-  final ConstDateTime validUntil;
-
   static int convertConstDateTimeToJson(ConstDateTime validUntil) {
     return validUntil.microsecondsSinceEpoch;
   }
@@ -53,6 +54,7 @@ abstract class RewardBase extends Equatable {
   List<Object?> get props => [
         points,
         validUntil,
+        id,
       ];
 }
 
@@ -63,6 +65,7 @@ abstract class Voucher extends RewardBase {
     required this.code,
     required super.points,
     required super.validUntil,
+    required super.id,
   });
 
   @override
@@ -78,6 +81,7 @@ class FreeshipVoucher extends Voucher {
     required super.code,
     required super.points,
     required super.validUntil,
+    required super.id,
   });
 
   factory FreeshipVoucher.fromJson(Map<String, dynamic> json) =>
@@ -89,11 +93,13 @@ class FreeshipVoucher extends Voucher {
     String? code,
     int? points,
     ConstDateTime? validUntil,
+    String? id,
   }) =>
       FreeshipVoucher(
         code: code ?? this.code,
         points: points ?? this.points,
         validUntil: validUntil ?? this.validUntil,
+        id: id ?? this.id,
       );
 }
 
@@ -104,6 +110,7 @@ class DiscountVoucher extends Voucher {
     required super.points,
     required super.validUntil,
     required this.discount,
+    required super.id,
   });
 
   @JsonKey(required: true)
@@ -119,12 +126,14 @@ class DiscountVoucher extends Voucher {
     int? points,
     ConstDateTime? validUntil,
     double? discount,
+    String? id,
   }) =>
       DiscountVoucher(
         code: code ?? this.code,
         points: points ?? this.points,
         validUntil: validUntil ?? this.validUntil,
         discount: discount ?? this.discount,
+        id: id ?? this.id,
       );
 
   @override
@@ -140,6 +149,7 @@ class DrinkReward extends RewardBase {
     required this.product,
     required super.points,
     required super.validUntil,
+    required super.id,
   });
 
   @JsonKey(required: true)
@@ -154,11 +164,13 @@ class DrinkReward extends RewardBase {
     CoffeeProduct? product,
     int? points,
     ConstDateTime? validUntil,
+    String? id,
   }) =>
       DrinkReward(
         product: product ?? this.product,
         points: points ?? this.points,
         validUntil: validUntil ?? this.validUntil,
+        id: id ?? this.id,
       );
 
   @override

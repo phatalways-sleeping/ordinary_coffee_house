@@ -8,12 +8,10 @@ part 'loyalty_membership.g.dart';
 abstract class LoyaltyMembership extends Equatable {
   final int currentDrinks;
   final int maximumDrinks;
-  final LoyaltyMembership? nextTier;
 
   const LoyaltyMembership({
     this.currentDrinks = 0,
     this.maximumDrinks = 8,
-    this.nextTier,
   });
 
   static Map<String, dynamic> toJson(LoyaltyMembership loyaltyMembership) {
@@ -53,17 +51,12 @@ abstract class LoyaltyMembership extends Equatable {
   List<Object?> get props => [
         maximumDrinks,
         currentDrinks,
-        nextTier,
       ];
 }
 
 @JsonSerializable(explicitToJson: true)
 class BronzeMembership extends LoyaltyMembership {
-  const BronzeMembership({super.currentDrinks = 0})
-      : super(
-          maximumDrinks: 8,
-          nextTier: const SilverMembership(),
-        );
+  const BronzeMembership({super.currentDrinks = 0, super.maximumDrinks = 8});
 
   factory BronzeMembership.fromJson(Map<String, dynamic> json) =>
       _$BronzeMembershipFromJson(json);
@@ -82,11 +75,7 @@ class BronzeMembership extends LoyaltyMembership {
 
 @JsonSerializable(explicitToJson: true)
 class SilverMembership extends LoyaltyMembership {
-  const SilverMembership({super.currentDrinks = 0})
-      : super(
-          maximumDrinks: 15,
-          nextTier: const GoldMembership(),
-        );
+  const SilverMembership({super.currentDrinks = 0, super.maximumDrinks = 15});
 
   factory SilverMembership.fromJson(Map<String, dynamic> json) =>
       _$SilverMembershipFromJson(json);
@@ -104,11 +93,7 @@ class SilverMembership extends LoyaltyMembership {
 
 @JsonSerializable(explicitToJson: true)
 class GoldMembership extends LoyaltyMembership {
-  const GoldMembership({super.currentDrinks = 0})
-      : super(
-          maximumDrinks: 30,
-          nextTier: const PremiumMembership(),
-        );
+  const GoldMembership({super.currentDrinks = 0, super.maximumDrinks = 30});
 
   factory GoldMembership.fromJson(Map<String, dynamic> json) =>
       _$GoldMembershipFromJson(json);
@@ -127,7 +112,7 @@ class GoldMembership extends LoyaltyMembership {
 
 @JsonSerializable(explicitToJson: true)
 class PremiumMembership extends LoyaltyMembership {
-  const PremiumMembership({super.currentDrinks = 0}) : super(maximumDrinks: 45);
+  const PremiumMembership({super.currentDrinks = 0, super.maximumDrinks = 50});
 
   factory PremiumMembership.fromJson(Map<String, dynamic> json) =>
       _$PremiumMembershipFromJson(json);

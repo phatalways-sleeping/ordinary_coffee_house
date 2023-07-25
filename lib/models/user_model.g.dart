@@ -18,8 +18,7 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) {
       'historyOrders',
       'onGoingOrders',
       'rewards',
-      'inActiveRewards',
-      'tier'
+      'inActiveRewards'
     ],
   );
   return UserModel(

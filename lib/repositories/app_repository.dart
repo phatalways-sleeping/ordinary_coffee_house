@@ -1,20 +1,23 @@
 import 'package:coffee_order_app/models/models.dart';
 import 'package:coffee_order_app/models/order_cart.dart';
+import 'package:coffee_order_app/models/runtime_payload.dart';
 import 'package:coffee_order_app/repositories/system_repository.dart';
 import 'package:coffee_order_app/repositories/user_repository.dart';
 
 import '../models/order_details.dart';
 
 class ApplicationRepository {
-  ApplicationRepository._({
-    required this.systemRepository,
-    required this.userRepository,
-  });
-
-  static final ApplicationRepository instance = ApplicationRepository._(
-    systemRepository: SystemRepository.mockRepository,
-    userRepository: UserRepository.instance,
-  );
+  ApplicationRepository({
+    required UserModel user,
+    required List<RewardBase> rewards,
+    required List<CoffeeProduct> products,
+    required RuntimePayload runtimePayload,
+  })  : systemRepository = SystemRepository(
+          currentUser: user,
+          rewards: rewards,
+          products: products,
+        ),
+        userRepository = UserRepository(runtimePayload: runtimePayload);
 
   static const double freeShipPrice = 2.00;
 
@@ -32,7 +35,7 @@ class ApplicationRepository {
       userRepository.checkRecustomizeOrderDetailsClicked;
 
   void checkOut() {
-    final orderCart = userRepository.orderCart;
+    final orderCart = userRepository.runtimePayload.orderCart;
     assert(orderCart != null);
 
     systemRepository.addCartToOnGoing(
@@ -48,13 +51,13 @@ class ApplicationRepository {
 
   void addToCart() {
     userRepository.addToCart();
-    assert(userRepository.orderDetails != null);
-    if (userRepository.orderDetails!.product is FreeCoffeeProduct) {
-      systemRepository.archiveDrinkReward(userRepository.orderDetails!.product);
+    assert(userRepository.runtimePayload.orderDetails != null);
+    if (userRepository.runtimePayload.orderDetails!.product is FreeCoffeeProduct) {
+      systemRepository.archiveDrinkReward(userRepository.runtimePayload.orderDetails!.product);
     }
 
     userRepository.clearOrderDetails();
-    assert(userRepository.orderDetails == null);
+    assert(userRepository.runtimePayload.orderDetails == null);
 
     userRepository.unClick();
   }
@@ -103,7 +106,7 @@ class ApplicationRepository {
     if (type == DrinkType.hot) {
       userRepository.changeIce(IceLevel.none);
       userRepository.changeSize(DrinkSize.small);
-    } else if (userRepository.orderDetails!.drinkType == DrinkType.hot &&
+    } else if (userRepository.runtimePayload.orderDetails!.drinkType == DrinkType.hot &&
         type == DrinkType.cold) {
       userRepository.changeIce(IceLevel.normal);
       userRepository.changeSize(DrinkSize.medium);
@@ -146,9 +149,9 @@ class ApplicationRepository {
           (bestDiscountOption != null ? bestDiscountOption!.discount : 0.0) +
       (bestFreeshipOption != null ? freeShipPrice : 0.0);
 
-  OrderCart? get orderCart => userRepository.orderCart;
+  OrderCart? get orderCart => userRepository.runtimePayload.orderCart;
 
-  OrderDetails? get orderDetails => userRepository.orderDetails;
+  OrderDetails? get orderDetails => userRepository.runtimePayload.orderDetails;
 
   List<DrinkReward> get drinkRewards => systemRepository.drinkRewards;
 
@@ -163,16 +166,17 @@ class ApplicationRepository {
 
   List<RewardBase> get rewards => systemRepository.allRewards;
 
-  DiscountVoucher? get bestDiscountOption => userRepository.orderCart == null ? null :
-      userRepository.orderCart!.items.length == 1 &&
-              userRepository.orderCart!.items.first.product is FreeCoffeeProduct
+  DiscountVoucher? get bestDiscountOption => userRepository.runtimePayload.orderCart == null
+      ? null
+      : userRepository.runtimePayload.orderCart!.items.length == 1 &&
+              userRepository.runtimePayload.orderCart!.items.first.product is FreeCoffeeProduct
           ? null
           : systemRepository.bestDiscountOption;
 
   FreeshipVoucher? get bestFreeshipOption =>
       systemRepository.bestFreeshipOption;
 
-  bool get clicked => userRepository.levelUpClicked;
+  bool get clicked => userRepository.runtimePayload.levelUpClicked;
 
   final SystemRepository systemRepository;
   final UserRepository userRepository;

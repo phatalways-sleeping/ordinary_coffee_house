@@ -44,7 +44,7 @@ class UserModel extends Equatable {
   @JsonKey(required: true, toJson: UserModel.rewardListsToJson, fromJson: UserModel.rewardListsFromJson)
   final List<RewardBase> inActiveRewards;
 
-  @JsonKey(required: true, toJson: LoyaltyMembership.toJson, fromJson: LoyaltyMembership.fromJson)
+  @JsonKey(toJson: LoyaltyMembership.toJson, fromJson: LoyaltyMembership.fromJson)
   final LoyaltyMembership tier;
 
   static UserModel fromJson(Map<String, dynamic> json) =>

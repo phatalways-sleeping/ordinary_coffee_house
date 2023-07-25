@@ -4,109 +4,127 @@ import 'package:uuid/uuid.dart';
 
 import 'coffee_products.dart';
 
-const reward1 = DrinkReward(
+final reward1 = DrinkReward(
+  id: const Uuid().v4(),
   product: espresso,
   points: 1750,
   validUntil: ConstDateTime(2023, 12, 31),
 );
 
-const reward2 = DrinkReward(
+final reward2 = DrinkReward(
+  id: const Uuid().v4(),
   product: cappuccino,
   points: 1760,
   validUntil: ConstDateTime(2023, 12, 31),
 );
 
-const reward3 = DrinkReward(
+final reward3 = DrinkReward(
+  id: const Uuid().v4(),
   product: latte,
   points: 1770,
   validUntil: ConstDateTime(2023, 12, 31),
 );
 
-const reward4 = DrinkReward(
+final reward4 = DrinkReward(
+  id: const Uuid().v4(),
   product: mocha,
   points: 1780,
   validUntil: ConstDateTime(2023, 12, 31),
 );
 
-const reward5 = DrinkReward(
+final reward5 = DrinkReward(
+  id: const Uuid().v4(),
   product: americano,
   points: 1790,
   validUntil: ConstDateTime(2023, 12, 31),
 );
 
-const reward6 = DrinkReward(
+final reward6 = DrinkReward(
+  id: const Uuid().v4(),
   product: macchiato,
   points: 100,
   validUntil: ConstDateTime(2023, 12, 31),
 );
 
-const reward7 = DrinkReward(
+final reward7 = DrinkReward(
+  id: const Uuid().v4(),
   product: affogato,
   points: 1110,
   validUntil: ConstDateTime(2023, 12, 31),
 );
 
-const reward8 = DrinkReward(
+final reward8 = DrinkReward(
+  id: const Uuid().v4(),
   product: icedCoffee,
   points: 1120,
   validUntil: ConstDateTime(2023, 12, 31),
 );
 
-const reward9 = DrinkReward(
+final reward9 = DrinkReward(
+  id: const Uuid().v4(),
   product: coldBrew,
   points: 1130,
   validUntil: ConstDateTime(2023, 12, 31),
 );
 
-const reward10 = DrinkReward(
+final reward10 = DrinkReward(
+  id: const Uuid().v4(),
   product: turkishCoffee,
   points: 1140,
   validUntil: ConstDateTime(2023, 12, 31),
 );
 
 final freeship1 = FreeshipVoucher(
+  id: const Uuid().v4(),
   code: const Uuid().v4(),
   points: 100,
   validUntil: const ConstDateTime(2023, 12, 31),
 );
 
 final freeship2 = FreeshipVoucher(
+  id: const Uuid().v4(),
   code: const Uuid().v4(),
   points: 100,
   validUntil: const ConstDateTime(2023, 12, 31),
 );
 
 final freeship3 = FreeshipVoucher(
+  id: const Uuid().v4(),
   code: const Uuid().v4(),
   points: 100,
   validUntil: const ConstDateTime(2023, 12, 31),
 );
 
 final freeship4 = FreeshipVoucher(
+  id: const Uuid().v4(),
   code: const Uuid().v4(),
   points: 150,
   validUntil: const ConstDateTime(2023, 12, 31),
 );
 
 final freeship5 = FreeshipVoucher(
+  id: const Uuid().v4(),
   code: const Uuid().v4(),
   points: 150,
   validUntil: const ConstDateTime(2023, 12, 31),
 );
 
 final freeship6 = FreeshipVoucher(
+  id: const Uuid().v4(),
   code: const Uuid().v4(),
   points: 150,
   validUntil: const ConstDateTime(2023, 12, 31),
 );
 
 final freeship7 = FreeshipVoucher(
+  id: const Uuid().v4(),
   code: const Uuid().v4(),
   points: 200,
   validUntil: const ConstDateTime(2023, 12, 31),
 );
 
 final discountVoucher1 = DiscountVoucher(
+  id: const Uuid().v4(),
   code: const Uuid().v4(),
   points: 300,
   validUntil: const ConstDateTime(2023, 12, 31),
@@ -114,6 +132,7 @@ final discountVoucher1 = DiscountVoucher(
 );
 
 final discountVoucher2 = DiscountVoucher(
+  id: const Uuid().v4(),
   code: const Uuid().v4(),
   points: 1000,
   validUntil: const ConstDateTime(2023, 12, 31),
@@ -121,6 +140,7 @@ final discountVoucher2 = DiscountVoucher(
 );
 
 final discountVoucher3 = DiscountVoucher(
+  id: const Uuid().v4(),
   code: const Uuid().v4(),
   points: 400,
   validUntil: const ConstDateTime(2023, 12, 31),
@@ -128,6 +148,7 @@ final discountVoucher3 = DiscountVoucher(
 );
 
 final discountVoucher4 = DiscountVoucher(
+  id: const Uuid().v4(),
   code: const Uuid().v4(),
   points: 500,
   validUntil: const ConstDateTime(2023, 12, 31),
@@ -135,6 +156,7 @@ final discountVoucher4 = DiscountVoucher(
 );
 
 final discountVoucher5 = DiscountVoucher(
+  id: const Uuid().v4(),
   code: const Uuid().v4(),
   points: 600,
   validUntil: const ConstDateTime(2023, 12, 31),
@@ -142,13 +164,14 @@ final discountVoucher5 = DiscountVoucher(
 );
 
 final discountVoucher6 = DiscountVoucher(
+  id: const Uuid().v4(),
   code: const Uuid().v4(),
   points: 700,
   validUntil: const ConstDateTime(2023, 12, 31),
   discount: 0.7,
 );
 
-const currentRewards = [
+final currentRewards = [
   reward1,
   reward2,
   reward3,

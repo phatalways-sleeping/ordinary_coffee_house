@@ -7,7 +7,7 @@ part 'coffee_product.g.dart';
 class CoffeeProduct extends Equatable {
   @JsonKey(required: true)
   final String name;
-  
+
   final String? description;
 
   @JsonKey(required: true)
@@ -18,6 +18,7 @@ class CoffeeProduct extends Equatable {
 
   @JsonKey(required: true)
   final String image;
+
 
   const CoffeeProduct({
     required this.name,
@@ -38,6 +39,7 @@ class CoffeeProduct extends Equatable {
     double? price,
     int? rewardPoints,
     String? image,
+    String? id,
   }) =>
       CoffeeProduct(
         name: name ?? this.name,
@@ -56,7 +58,6 @@ class CoffeeProduct extends Equatable {
         image,
       ];
 }
-
 
 @JsonSerializable()
 class FreeCoffeeProduct extends CoffeeProduct {
