@@ -17,21 +17,21 @@ class HomeViewBloc extends Bloc<HomeViewEvent, HomeViewState> {
           drinkRewards: _applicationRepository.drinkRewardsClaimed,
         )) {
     on<CustomDrinkEvent>(
-      (event, emit) {
-        _applicationRepository.customizeOrderDetails(event.coffeeProduct);
+      (event, emit) async {
+        await _applicationRepository.customizeOrderDetails(event.coffeeProduct);
       },
     );
 
     on<CustomFreeDrinkEvent>(
-      (event, emit) {
-        _applicationRepository
+      (event, emit) async {
+        await _applicationRepository
             .customizeOrderDetails(FreeCoffeeProduct.from(event.coffeeProduct));
         // _applicationRepository.archiveDrinkReward(event.coffeeProduct);
       },
     );
 
-    on<LevelUpEvent>((event, emit) {
-      _applicationRepository.levelUp();
+    on<LevelUpEvent>((event, emit) async {
+      await _applicationRepository.levelUp();
       emit(
         HomeViewFullState(
           username: _applicationRepository.currentUser.username,

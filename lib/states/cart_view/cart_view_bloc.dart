@@ -17,12 +17,13 @@ class CartViewBloc extends Bloc<CartViewEvent, CartViewState> {
           bestFreeshipOption: _applicationRepository.bestFreeshipOption,
           discountPrice: _applicationRepository.discountPrice,
         )) {
-    on<CheckOut>((event, emit) {
-      _applicationRepository.checkOut();
+    on<CheckOut>((event, emit) async {
+      await _applicationRepository.checkOut();
+      
     });
 
-    on<RemoveFromCart>((event, emit) {
-      _applicationRepository.removeFromCart(event.orderDetails);
+    on<RemoveFromCart>((event, emit) async {
+      await _applicationRepository.removeFromCart(event.orderDetails);
       emit(
         CartViewNormalState(
           orderCart: _applicationRepository.orderCart,
@@ -33,8 +34,8 @@ class CartViewBloc extends Bloc<CartViewEvent, CartViewState> {
       );
     });
 
-    on<InspectOrder>((event, emit) {
-      _applicationRepository.recustomizeOrderDetails(event.orderDetails);
+    on<InspectOrder>((event, emit) async {
+      await _applicationRepository.recustomizeOrderDetails(event.orderDetails);
       emit(
         CartViewInspectingState(
           orderCart: _applicationRepository.orderCart,

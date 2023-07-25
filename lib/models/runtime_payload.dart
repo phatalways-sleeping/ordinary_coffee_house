@@ -1,11 +1,12 @@
 import 'package:coffee_order_app/models/order_cart.dart';
 import 'package:coffee_order_app/models/order_details.dart';
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'runtime_payload.g.dart';
 
 @JsonSerializable(explicitToJson: true)
-class RuntimePayload {
+class RuntimePayload extends Equatable {
   RuntimePayload({
     required this.orderDetails,
     required this.orderCart,
@@ -34,10 +35,18 @@ class RuntimePayload {
     bool? recustomizeOrderDetailsClicked,
   }) =>
       RuntimePayload(
-        orderDetails: orderDetails ?? this.orderDetails,
-        orderCart: orderCart ?? this.orderCart,
+        orderDetails: orderDetails,
+        orderCart: orderCart,
         levelUpClicked: levelUpClicked ?? this.levelUpClicked,
         recustomizeOrderDetailsClicked: recustomizeOrderDetailsClicked ??
             this.recustomizeOrderDetailsClicked,
       );
+
+  @override
+  List<Object?> get props => [
+        orderDetails,
+        orderCart,
+        levelUpClicked,
+        recustomizeOrderDetailsClicked,
+      ];
 }

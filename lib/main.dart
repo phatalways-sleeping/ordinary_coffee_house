@@ -20,7 +20,7 @@ class CoffeeShopping extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Coffee Shopping',
-      home: StreamWidget(email: 'trankimphat@gmail.com',),
+      home: FutureWidget(email: 'trankimphat@gmail.com',),
     );
   }
 }

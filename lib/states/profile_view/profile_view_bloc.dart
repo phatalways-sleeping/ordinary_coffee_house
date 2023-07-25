@@ -11,29 +11,29 @@ class ProfileViewBloc extends Bloc<ProfileViewEvent, ProfileViewState> {
           currentUser: _applicationRepository.currentUser,
         )) {
     on<ChangeUsername>(
-      (event, emit) {
-        _applicationRepository.changeUsername(event.username);
+      (event, emit) async {
+        await _applicationRepository.changeUsername(event.username);
         emit(ProfileViewFullState(
             currentUser: _applicationRepository.currentUser));
       },
     );
     on<ChangePhoneNumber>(
-      (event, emit) {
-        _applicationRepository.changePhoneNumber(event.phoneNumber);
+      (event, emit) async {
+        await _applicationRepository.changePhoneNumber(event.phoneNumber);
         emit(ProfileViewFullState(
             currentUser: _applicationRepository.currentUser));
       },
     );
     on<ChangeEmail>(
-      (event, emit) {
-        _applicationRepository.changeEmail(event.email);
+      (event, emit) async {
+        await _applicationRepository.changeEmail(event.email);
         emit(ProfileViewFullState(
             currentUser: _applicationRepository.currentUser));
       },
     );
     on<ChangeAddress>(
-      (event, emit) {
-        _applicationRepository.changeAddress(event.address);
+      (event, emit) async {
+        await _applicationRepository.changeAddress(event.address);
         emit(ProfileViewFullState(
             currentUser: _applicationRepository.currentUser));
       },

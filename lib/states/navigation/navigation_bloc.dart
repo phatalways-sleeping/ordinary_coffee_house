@@ -14,13 +14,13 @@ class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
         emit(const Details());
       }
     }));
-    on<NavigateBackFromDetailsView>((event, emit) {
+    on<NavigateBackFromDetailsView>((event, emit) async  {
       if(_applicationRepository.recustomizeOrderDetailsClicked) {
-        _applicationRepository.unCheckRecustomizeOrderDetails();
+        await _applicationRepository.unCheckRecustomizeOrderDetails();
         emit(const MyCart());
         return;
       }
-      _applicationRepository.clearOrderDetails();
+      await _applicationRepository.clearOrderDetails();
       emit(const HomePage());
     });
     on<NavigateToSplashScreen>((event, emit) => emit(const SplashScreen()));

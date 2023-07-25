@@ -1,8 +1,8 @@
 import 'package:coffee_order_app/models/models.dart';
 import 'package:coffee_order_app/models/order_cart.dart';
 import 'package:coffee_order_app/models/runtime_payload.dart';
-import 'package:coffee_order_app/repositories/system_repository.dart';
-import 'package:coffee_order_app/repositories/user_repository.dart';
+import 'package:coffee_order_app/repositories/system_api.dart';
+import 'package:coffee_order_app/repositories/user_api.dart';
 
 import '../models/order_details.dart';
 
@@ -12,172 +12,173 @@ class ApplicationRepository {
     required List<RewardBase> rewards,
     required List<CoffeeProduct> products,
     required RuntimePayload runtimePayload,
-  })  : systemRepository = SystemRepository(
+  })  : systemAPI = SystemAPI(
           currentUser: user,
           rewards: rewards,
           products: products,
         ),
-        userRepository = UserRepository(runtimePayload: runtimePayload);
+        userAPI = UserAPI(runtimePayload: runtimePayload, email: user.email);
 
   static const double freeShipPrice = 2.00;
 
-  void checkRecustomizeOrderDetails() {
-    userRepository.checkRecustomizeOrderDetails();
+  Future<void> checkRecustomizeOrderDetails() async {
+    await userAPI.checkRecustomizeOrderDetails();
   }
 
-  void unCheckRecustomizeOrderDetails() {
-    userRepository.unCheckRecustomizeOrderDetails();
-    userRepository.addToCart();
-    userRepository.clearOrderDetails();
+  Future<void> unCheckRecustomizeOrderDetails() async {
+    await userAPI.unCheckRecustomizeOrderDetails();
+    await userAPI.addToCart();
+    await userAPI.clearOrderDetails();
   }
 
   bool get recustomizeOrderDetailsClicked =>
-      userRepository.checkRecustomizeOrderDetailsClicked;
+      userAPI.checkRecustomizeOrderDetailsClicked;
 
-  void checkOut() {
-    final orderCart = userRepository.runtimePayload.orderCart;
+  Future<void> checkOut() async {
+    final orderCart = userAPI.runtimePayload.orderCart;
     assert(orderCart != null);
 
-    systemRepository.addCartToOnGoing(
+    await systemAPI.addCartToOnGoing(
         OrderCartPayed.from(orderCart!).copyWith(price: price));
-    systemRepository.removeBestDiscountOption();
-    systemRepository.removeBestFreeshipOption();
-    userRepository.checkOut();
+    await systemAPI.removeBestDiscountOption();
+    await systemAPI.removeBestFreeshipOption();
+    await userAPI.checkOut();
   }
 
-  void levelUp() {
-    userRepository.levelUp();
+  Future<void> levelUp() async {
+    await userAPI.levelUp();
   }
 
-  void addToCart() {
-    userRepository.addToCart();
-    assert(userRepository.runtimePayload.orderDetails != null);
-    if (userRepository.runtimePayload.orderDetails!.product is FreeCoffeeProduct) {
-      systemRepository.archiveDrinkReward(userRepository.runtimePayload.orderDetails!.product);
+  Future<void> addToCart() async {
+    await userAPI.addToCart();
+    assert(userAPI.runtimePayload.orderDetails != null);
+    if (userAPI.runtimePayload.orderDetails!.product is FreeCoffeeProduct) {
+      await systemAPI
+          .archiveDrinkReward(userAPI.runtimePayload.orderDetails!.product);
     }
 
-    userRepository.clearOrderDetails();
-    assert(userRepository.runtimePayload.orderDetails == null);
+    await userAPI.clearOrderDetails();
+    assert(userAPI.runtimePayload.orderDetails == null);
 
-    userRepository.unClick();
+    await userAPI.unClick();
   }
 
-  void removeFromCart(OrderDetails orderDetails) {
-    userRepository.removeFromCart(orderDetails);
+  Future<void> removeFromCart(OrderDetails orderDetails) async {
+    await userAPI.removeFromCart(orderDetails);
     if (orderDetails.product is FreeCoffeeProduct) {
-      systemRepository.popArchiveDrinkReward(orderDetails.product);
+      systemAPI.popArchiveDrinkReward(orderDetails.product);
     }
   }
 
-  void recustomizeOrderDetails(OrderDetails orderDetails) {
-    userRepository.recustomizeOrderDetails(orderDetails);
-    userRepository.checkRecustomizeOrderDetails();
+  Future<void> recustomizeOrderDetails(OrderDetails orderDetails) async {
+    await userAPI.recustomizeOrderDetails(orderDetails);
+    await userAPI.checkRecustomizeOrderDetails();
   }
 
-  void clearOrderDetails() {
-    userRepository.clearOrderDetails();
+  Future<void> clearOrderDetails() async {
+    await userAPI.clearOrderDetails();
   }
 
-  void customizeOrderDetails(CoffeeProduct coffeeProduct) {
-    userRepository.customizeOrderDetails(coffeeProduct);
+  Future<void> customizeOrderDetails(CoffeeProduct coffeeProduct) async {
+    await userAPI.customizeOrderDetails(coffeeProduct);
   }
 
-  void archiveDrinkReward(CoffeeProduct coffeeProduct) {
-    systemRepository.archiveDrinkReward(coffeeProduct);
+  Future<void> archiveDrinkReward(CoffeeProduct coffeeProduct) async {
+    systemAPI.archiveDrinkReward(coffeeProduct);
   }
 
-  void popArchiveDrinkReward(CoffeeProduct coffeeProduct) {
-    systemRepository.popArchiveDrinkReward(coffeeProduct);
+  Future<void> popArchiveDrinkReward(CoffeeProduct coffeeProduct) async {
+    systemAPI.popArchiveDrinkReward(coffeeProduct);
   }
 
-  void changeAmount(int amount) {
-    userRepository.changeAmount(amount);
+  Future<void> changeAmount(int amount) async {
+    await userAPI.changeAmount(amount);
   }
 
-  void changeShot(DrinkShot shot) {
-    userRepository.changeShot(shot);
+  Future<void> changeShot(DrinkShot shot) async {
+    await userAPI.changeShot(shot);
   }
 
-  void changeSize(DrinkSize size) {
-    userRepository.changeSize(size);
+  Future<void> changeSize(DrinkSize size) async {
+    await userAPI.changeSize(size);
   }
 
-  void changeSelect(DrinkType type) {
+  Future<void> changeSelect(DrinkType type) async {
     if (type == DrinkType.hot) {
-      userRepository.changeIce(IceLevel.none);
-      userRepository.changeSize(DrinkSize.small);
-    } else if (userRepository.runtimePayload.orderDetails!.drinkType == DrinkType.hot &&
+      await userAPI.changeIce(IceLevel.none);
+      await userAPI.changeSize(DrinkSize.small);
+    } else if (userAPI.runtimePayload.orderDetails!.drinkType ==
+            DrinkType.hot &&
         type == DrinkType.cold) {
-      userRepository.changeIce(IceLevel.normal);
-      userRepository.changeSize(DrinkSize.medium);
+      await userAPI.changeIce(IceLevel.normal);
+      await userAPI.changeSize(DrinkSize.medium);
     }
-    userRepository.changeSelect(type);
+    await userAPI.changeSelect(type);
   }
 
-  void changeIce(IceLevel ice) {
-    userRepository.changeIce(ice);
+  Future<void> changeIce(IceLevel ice) async {
+    await userAPI.changeIce(ice);
   }
 
-  void changeUsername(String name) {
-    systemRepository.changeUsername(name);
+  Future<void> changeUsername(String name) async {
+    await systemAPI.changeUsername(name);
   }
 
-  void changePhoneNumber(String phoneNumber) {
-    systemRepository.changePhoneNumber(phoneNumber);
+  Future<void> changePhoneNumber(String phoneNumber) async {
+    await systemAPI.changePhoneNumber(phoneNumber);
   }
 
-  void changeEmail(String email) {
-    systemRepository.changeEmail(email);
+  Future<void> changeEmail(String email) async {
+    await systemAPI.changeEmail(email);
+    await userAPI.changeEmail(email);
   }
 
-  void changeAddress(String address) {
-    systemRepository.changeAddress(address);
+  Future<void> changeAddress(String address) async {
+    await systemAPI.changeAddress(address);
   }
 
-  void claimReward(RewardBase reward) {
-    systemRepository.claimReward(reward);
+  Future<void> claimReward(RewardBase reward) async {
+    await systemAPI.claimReward(reward);
   }
 
-  UserModel get currentUser => systemRepository.currentUser;
+  UserModel get currentUser => systemAPI.currentUser;
 
-  List<CoffeeProduct> get products => systemRepository.products;
+  List<CoffeeProduct> get products => systemAPI.products;
 
-  double get price => userRepository.price + freeShipPrice - discountPrice;
+  double get price => userAPI.price + freeShipPrice - discountPrice;
 
   double get discountPrice =>
-      userRepository.price *
+      userAPI.price *
           (bestDiscountOption != null ? bestDiscountOption!.discount : 0.0) +
       (bestFreeshipOption != null ? freeShipPrice : 0.0);
 
-  OrderCart? get orderCart => userRepository.runtimePayload.orderCart;
+  OrderCart? get orderCart => userAPI.runtimePayload.orderCart;
 
-  OrderDetails? get orderDetails => userRepository.runtimePayload.orderDetails;
+  OrderDetails? get orderDetails => userAPI.runtimePayload.orderDetails;
 
-  List<DrinkReward> get drinkRewards => systemRepository.drinkRewards;
+  List<DrinkReward> get drinkRewards => systemAPI.drinkRewards;
 
-  List<DrinkReward> get drinkRewardsClaimed =>
-      systemRepository.userDrinkRewards;
+  List<DrinkReward> get drinkRewardsClaimed => systemAPI.userDrinkRewards;
 
-  List<FreeshipVoucher> get freeshipVouchers =>
-      systemRepository.freeshipVouchers;
+  List<FreeshipVoucher> get freeshipVouchers => systemAPI.freeshipVouchers;
 
-  List<DiscountVoucher> get discountVoucher =>
-      systemRepository.discountVouchers;
+  List<DiscountVoucher> get discountVoucher => systemAPI.discountVouchers;
 
-  List<RewardBase> get rewards => systemRepository.allRewards;
+  List<RewardBase> get rewards => systemAPI.allRewards;
 
-  DiscountVoucher? get bestDiscountOption => userRepository.runtimePayload.orderCart == null
-      ? null
-      : userRepository.runtimePayload.orderCart!.items.length == 1 &&
-              userRepository.runtimePayload.orderCart!.items.first.product is FreeCoffeeProduct
+  DiscountVoucher? get bestDiscountOption =>
+      userAPI.runtimePayload.orderCart == null
           ? null
-          : systemRepository.bestDiscountOption;
+          : userAPI.runtimePayload.orderCart!.items.length == 1 &&
+                  userAPI.runtimePayload.orderCart!.items.first.product
+                      is FreeCoffeeProduct
+              ? null
+              : systemAPI.bestDiscountOption;
 
-  FreeshipVoucher? get bestFreeshipOption =>
-      systemRepository.bestFreeshipOption;
+  FreeshipVoucher? get bestFreeshipOption => systemAPI.bestFreeshipOption;
 
-  bool get clicked => userRepository.runtimePayload.levelUpClicked;
+  bool get clicked => userAPI.runtimePayload.levelUpClicked;
 
-  final SystemRepository systemRepository;
-  final UserRepository userRepository;
+  final SystemAPI systemAPI;
+  final UserAPI userAPI;
 }

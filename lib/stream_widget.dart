@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:coffee_order_app/models/coffee_product.dart';
 import 'package:coffee_order_app/models/models.dart';
 import 'package:coffee_order_app/models/runtime_payload.dart';
-import 'package:coffee_order_app/models/user_model.dart';
 import 'package:coffee_order_app/repositories/repositories.dart';
 import 'package:coffee_order_app/screens/screens.dart';
 import 'package:coffee_order_app/states/navigation/navigation_bloc.dart';
@@ -17,44 +16,55 @@ import 'states/order_view/order_view_bloc.dart';
 import 'states/profile_view/profile_view_bloc.dart';
 import 'states/rewards/rewards_bloc.dart';
 
-class StreamWidget extends StatefulWidget {
-  const StreamWidget({super.key, required this.email});
+class FutureWidget extends StatefulWidget {
+  const FutureWidget({super.key, required this.email});
   final String email;
 
   @override
-  State<StreamWidget> createState() => _StreamWidgetState();
+  State<FutureWidget> createState() => _FutureWidgetState();
 }
 
-class _StreamWidgetState extends State<StreamWidget> {
+class _FutureWidgetState extends State<FutureWidget> {
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-        stream: FirebaseFirestore.instance
+    return FutureBuilder(
+        future: FirebaseFirestore.instance
             .collection('users')
             .doc(widget.email)
-            .snapshots(),
+            .get(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return const Scaffold(
                 body: Center(
-              child: Text('Something went wrong'),
+              child: Text(
+                'Something went wrong',
+                style: TextStyle(
+                  fontSize: 15,
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
             ));
           } else if (snapshot.connectionState == ConnectionState.waiting) {
             return const Scaffold(
                 body: Center(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     'Requesting user from Firebase Firestore...',
                     style: TextStyle(
-                      fontSize: 20,
+                      color: Colors.blueGrey,
+                      fontSize: 14,
                       fontFamily: 'Poppins',
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                   SizedBox(height: 20),
-                  CircularProgressIndicator(),
+                  CircularProgressIndicator(
+                    color: Colors.green,
+                  ),
                 ],
               ),
             ));
@@ -76,7 +86,7 @@ class _StreamWidgetState extends State<StreamWidget> {
 
               final user = UserModel.fromJson(data);
 
-              return _StreamCoffeeProducts(user: user);
+              return _FutureCoffeeProducts(user: user);
             }
           }
 
@@ -85,19 +95,18 @@ class _StreamWidgetState extends State<StreamWidget> {
   }
 }
 
-class _StreamCoffeeProducts extends StatefulWidget {
-  const _StreamCoffeeProducts({super.key, required this.user});
+class _FutureCoffeeProducts extends StatefulWidget {
+  const _FutureCoffeeProducts({super.key, required this.user});
   final UserModel user;
   @override
-  State<_StreamCoffeeProducts> createState() => __StreamCoffeeProductsState();
+  State<_FutureCoffeeProducts> createState() => __FutureCoffeeProductsState();
 }
 
-class __StreamCoffeeProductsState extends State<_StreamCoffeeProducts> {
+class __FutureCoffeeProductsState extends State<_FutureCoffeeProducts> {
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream:
-          FirebaseFirestore.instance.collection('coffee_products').snapshots(),
+    return FutureBuilder(
+      future: FirebaseFirestore.instance.collection('coffee_products').get(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return const Scaffold(
@@ -116,17 +125,21 @@ class __StreamCoffeeProductsState extends State<_StreamCoffeeProducts> {
               body: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
                   'Requesting coffee products from Firebase Firestore...',
                   style: TextStyle(
-                    fontSize: 20,
+                    color: Colors.blueGrey,
+                    fontSize: 14,
                     fontFamily: 'Poppins',
                     fontWeight: FontWeight.w600,
                   ),
                 ),
                 SizedBox(height: 20),
-                CircularProgressIndicator(),
+                CircularProgressIndicator(
+                  color: Colors.green,
+                ),
               ],
             ),
           ));
@@ -148,7 +161,7 @@ class __StreamCoffeeProductsState extends State<_StreamCoffeeProducts> {
           final coffeeProducts =
               data.map((product) => CoffeeProduct.fromJson(product)).toList();
 
-          return _StreamRewards(
+          return _FutureRewards(
             user: widget.user,
             coffeeProducts: coffeeProducts,
           );
@@ -158,21 +171,21 @@ class __StreamCoffeeProductsState extends State<_StreamCoffeeProducts> {
   }
 }
 
-class _StreamRewards extends StatefulWidget {
-  const _StreamRewards(
+class _FutureRewards extends StatefulWidget {
+  const _FutureRewards(
       {super.key, required this.coffeeProducts, required this.user});
   final List<CoffeeProduct> coffeeProducts;
   final UserModel user;
 
   @override
-  State<_StreamRewards> createState() => __StreamRewardsState();
+  State<_FutureRewards> createState() => __FutureRewardsState();
 }
 
-class __StreamRewardsState extends State<_StreamRewards> {
+class __FutureRewardsState extends State<_FutureRewards> {
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: FirebaseFirestore.instance.collection('rewards').snapshots(),
+    return FutureBuilder(
+      future: FirebaseFirestore.instance.collection('rewards').get(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return const Scaffold(
@@ -191,17 +204,21 @@ class __StreamRewardsState extends State<_StreamRewards> {
               body: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
                   'Requesting rewards from Firebase Firestore...',
                   style: TextStyle(
-                    fontSize: 20,
+                    color: Colors.blueGrey,
+                    fontSize: 14,
                     fontFamily: 'Poppins',
                     fontWeight: FontWeight.w600,
                   ),
                 ),
                 SizedBox(height: 20),
-                CircularProgressIndicator(),
+                CircularProgressIndicator(
+                  color: Colors.green,
+                ),
               ],
             ),
           ));
@@ -222,7 +239,7 @@ class __StreamRewardsState extends State<_StreamRewards> {
           final data = snapshot.data!.docs.map((e) => e.data()).toList();
           final rewards =
               data.map((reward) => RewardBase.fromJson(reward)).toList();
-          return _StreamRuntimePayload(
+          return _FutureRuntimePayload(
             user: widget.user,
             coffeeProducts: widget.coffeeProducts,
             rewards: rewards,
@@ -233,8 +250,8 @@ class __StreamRewardsState extends State<_StreamRewards> {
   }
 }
 
-class _StreamRuntimePayload extends StatefulWidget {
-  const _StreamRuntimePayload({
+class _FutureRuntimePayload extends StatefulWidget {
+  const _FutureRuntimePayload({
     super.key,
     required this.user,
     required this.coffeeProducts,
@@ -244,17 +261,17 @@ class _StreamRuntimePayload extends StatefulWidget {
   final UserModel user;
   final List<RewardBase> rewards;
   @override
-  State<_StreamRuntimePayload> createState() => __StreamRuntimePayloadState();
+  State<_FutureRuntimePayload> createState() => __FutureRuntimePayloadState();
 }
 
-class __StreamRuntimePayloadState extends State<_StreamRuntimePayload> {
+class __FutureRuntimePayloadState extends State<_FutureRuntimePayload> {
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: FirebaseFirestore.instance
+    return FutureBuilder(
+      future: FirebaseFirestore.instance
           .collection('runtime_payloads')
           .doc(widget.user.email)
-          .snapshots(),
+          .get(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return const Scaffold(
@@ -272,18 +289,22 @@ class __StreamRuntimePayloadState extends State<_StreamRuntimePayload> {
           return const Scaffold(
               body: Center(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   'Requesting runtime payload from Firebase Firestore...',
                   style: TextStyle(
-                    fontSize: 20,
+                    color: Colors.blueGrey,
+                    fontSize: 14,
                     fontFamily: 'Poppins',
                     fontWeight: FontWeight.w600,
                   ),
                 ),
                 SizedBox(height: 20),
-                CircularProgressIndicator(),
+                CircularProgressIndicator(
+                  color: Colors.green,
+                ),
               ],
             ),
           ));

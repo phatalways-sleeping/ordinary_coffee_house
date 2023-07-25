@@ -14,44 +14,44 @@ class OrderProcessingBloc
             orderDetails: _applicationRepository.orderDetails!,
           ),
         ) {
-    on<AddToCart>((event, emit) {
-      _applicationRepository.addToCart();
+    on<AddToCart>((event, emit) async {
+      await _applicationRepository.addToCart();
     });
 
-    on<ChangeAmount>((event, emit) {
-      _applicationRepository.changeAmount(event.amount);
+    on<ChangeAmount>((event, emit) async {
+      await _applicationRepository.changeAmount(event.amount);
       emit(
         OrderProcessingFullState(
           orderDetails: _applicationRepository.orderDetails!,
         ),
       );
     });
-    on<ChangeShot>((event, emit) {
-      _applicationRepository.changeShot(event.shot);
+    on<ChangeShot>((event, emit) async {
+      await _applicationRepository.changeShot(event.shot);
       emit(
         OrderProcessingFullState(
           orderDetails: _applicationRepository.orderDetails!,
         ),
       );
     });
-    on<ChangeSize>((event, emit) {
-      _applicationRepository.changeSize(event.size);
+    on<ChangeSize>((event, emit) async {
+      await _applicationRepository.changeSize(event.size);
       emit(
         OrderProcessingFullState(
           orderDetails: _applicationRepository.orderDetails!,
         ),
       );
     });
-    on<ChangeSelect>((event, emit) {
-      _applicationRepository.changeSelect(event.type);
+    on<ChangeSelect>((event, emit) async {
+      await _applicationRepository.changeSelect(event.type);
       emit(
         OrderProcessingFullState(
           orderDetails: _applicationRepository.orderDetails!,
         ),
       );
     });
-    on<ChangeIce>((event, emit) {
-      _applicationRepository.changeIce(event.ice);
+    on<ChangeIce>((event, emit) async {
+      await _applicationRepository.changeIce(event.ice);
       emit(
         OrderProcessingFullState(
           orderDetails: _applicationRepository.orderDetails!,

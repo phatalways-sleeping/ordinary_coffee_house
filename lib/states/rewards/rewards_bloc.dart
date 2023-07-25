@@ -17,8 +17,8 @@ class RewardsBloc extends Bloc<RewardsEvent, RewardsState> {
             event: VouchersEvent.viewDrink,
           ),
         ) {
-    on<ClaimReward>((event, emit) {
-      _applicationRepository.claimReward(event.reward);
+    on<ClaimReward>((event, emit) async {
+      await _applicationRepository.claimReward(event.reward);
       emit(RewardsFullState(
         currentUser: _applicationRepository.currentUser,
         rewards: _applicationRepository.rewards,
@@ -27,8 +27,8 @@ class RewardsBloc extends Bloc<RewardsEvent, RewardsState> {
       ));
     });
 
-    on<LevelUp>((event, emit) {
-      _applicationRepository.levelUp();
+    on<LevelUp>((event, emit) async {
+      await _applicationRepository.levelUp();
       emit(RewardsFullState(
         currentUser: _applicationRepository.currentUser,
         rewards: _applicationRepository.rewards,
@@ -37,7 +37,7 @@ class RewardsBloc extends Bloc<RewardsEvent, RewardsState> {
       ));
     });
 
-    on<ViewDrink>((event, emit) {
+    on<ViewDrink>((event, emit) async {
       emit(RewardsFullState(
         currentUser: _applicationRepository.currentUser,
         rewards: _applicationRepository.rewards,
@@ -46,7 +46,7 @@ class RewardsBloc extends Bloc<RewardsEvent, RewardsState> {
       ));
     });
 
-    on<ViewFreeship>((event, emit) {
+    on<ViewFreeship>((event, emit) async {
       emit(RewardsFullState(
         currentUser: _applicationRepository.currentUser,
         rewards: _applicationRepository.rewards,
@@ -55,7 +55,7 @@ class RewardsBloc extends Bloc<RewardsEvent, RewardsState> {
       ));
     });
 
-    on<ViewDiscount>((event, emit) {
+    on<ViewDiscount>((event, emit) async {
       emit(RewardsFullState(
         currentUser: _applicationRepository.currentUser,
         rewards: _applicationRepository.rewards,
