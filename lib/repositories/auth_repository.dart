@@ -6,7 +6,7 @@ class AuthRepository {
 
   String get email => _authenticationAPI.email!;
 
-  bool get isAuthenticated => _authenticationAPI.isAuthenticated;
+  Stream<bool> get isAuthenticated => _authenticationAPI.isAuthenticatedStream;
 
   Future<bool> login() {
     return _authenticationAPI.login();
@@ -34,5 +34,13 @@ class AuthRepository {
 
   void changePhoneNumber(String phoneNumber) {
     _authenticationAPI.changePhoneNumber(phoneNumber);
+  }
+
+  void changeUsername(String username) {
+    _authenticationAPI.changeUsername(username);
+  }
+
+  void useAnynomousAccount() {
+    _authenticationAPI.useDefaultAccountLoginStrategy();
   }
 }

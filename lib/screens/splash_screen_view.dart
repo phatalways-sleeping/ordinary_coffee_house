@@ -3,7 +3,7 @@ import 'package:coffee_order_app/screens/screens.dart';
 import 'package:coffee_order_app/states/authenticate_bloc/authenticate_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:coffee_order_app/states/state_management.dart' show BlocProvider, NavigateToLoginScreen, NavigationBloc;
+import 'package:coffee_order_app/states/state_management.dart' show BlocProvider;
 
 class SplashScreenView extends StatefulWidget {
   const SplashScreenView({super.key});
@@ -40,7 +40,7 @@ class _SplashScreenViewState extends State<SplashScreenView> {
                 Container(
                   width: double.infinity,
                   height: double.infinity,
-                  color: const Color(0x5E1D2335).withOpacity(0.4),
+                  color: const Color(0x5E1D2335).withOpacity(0.3),
                 )
               ],
             ),

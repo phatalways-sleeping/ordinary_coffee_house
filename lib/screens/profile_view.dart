@@ -1,6 +1,7 @@
 import 'package:coffee_order_app/components/components.dart';
 import 'package:coffee_order_app/models/assets/assets.dart';
 import 'package:coffee_order_app/screens/screens.dart';
+import 'package:coffee_order_app/states/authenticate_bloc/authenticate_bloc.dart';
 import 'package:coffee_order_app/states/state_management.dart';
 import 'package:flutter/material.dart';
 
@@ -64,6 +65,25 @@ class ProfileView extends StatelessWidget {
                   onComplete: (context, payload) =>
                       BlocProvider.of<ProfileViewBloc>(context)
                           .add(ChangeAddress(payload))),
+              ElevatedButton(
+                  onPressed: () {
+                    BlocProvider.of<AuthenticateBloc>(context)
+                        .add(const LogoutEvent());
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(255, 236, 133, 125).withOpacity(0.5),
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  child: const Text('Sign out',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w500,
+                        color: Colors.red,
+                      ))),
             ]),
           ),
         ));

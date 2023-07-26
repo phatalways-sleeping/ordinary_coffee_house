@@ -1,4 +1,4 @@
-import 'package:flutter/foundation.dart';
+import 'package:coffee_order_app/components/register_widget.dart';
 import 'package:flutter/material.dart';
 
 class RegisterScreen extends StatelessWidget {
@@ -6,6 +6,8 @@ class RegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return const Scaffold(
+      body: RegisterWidget(),
+    );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:coffee_order_app/components/login_widget.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -5,6 +6,8 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return const Scaffold(
+      body: LoginWidget(),
+    );
   }
 }
