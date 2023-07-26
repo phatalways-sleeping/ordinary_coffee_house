@@ -1,8 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:coffee_order_app/models/models.dart';
-import 'package:coffee_order_app/models/order_cart.dart';
-import 'package:coffee_order_app/models/order_details.dart';
-import 'package:coffee_order_app/models/runtime_payload.dart';
 
 class UserAPI {
   UserAPI({

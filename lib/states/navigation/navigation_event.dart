@@ -15,9 +15,6 @@ class NavigateBackFromCartView extends NavigationEvent {
   const NavigateBackFromCartView();
 }
 
-class NavigateToSplashScreen extends NavigationEvent {
-  const NavigateToSplashScreen();
-}
 
 class NavigateToHomePage extends NavigationEvent {
   const NavigateToHomePage();

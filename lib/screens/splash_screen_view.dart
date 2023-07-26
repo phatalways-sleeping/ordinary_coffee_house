@@ -1,8 +1,9 @@
 import 'package:coffee_order_app/models/assets/assets.dart';
 import 'package:coffee_order_app/screens/screens.dart';
+import 'package:coffee_order_app/states/authenticate_bloc/authenticate_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:coffee_order_app/states/state_management.dart' show BlocProvider, NavigateToHomePage, NavigationBloc;
+import 'package:coffee_order_app/states/state_management.dart' show BlocProvider, NavigateToLoginScreen, NavigationBloc;
 
 class SplashScreenView extends StatefulWidget {
   const SplashScreenView({super.key});
@@ -16,7 +17,7 @@ class _SplashScreenViewState extends State<SplashScreenView> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     Future.delayed(const Duration(seconds: 3), () {
-      BlocProvider.of<NavigationBloc>(context).add(const NavigateToHomePage());
+      BlocProvider.of<AuthenticateBloc>(context).add(const NavigateToLoginScreen());
     });
   }
 

@@ -1,10 +1,6 @@
 import 'package:coffee_order_app/models/models.dart';
-import 'package:coffee_order_app/models/order_cart.dart';
-import 'package:coffee_order_app/models/runtime_payload.dart';
 import 'package:coffee_order_app/repositories/system_api.dart';
 import 'package:coffee_order_app/repositories/user_api.dart';
-
-import '../models/order_details.dart';
 
 class ApplicationRepository {
   ApplicationRepository({
@@ -84,11 +80,11 @@ class ApplicationRepository {
   }
 
   Future<void> archiveDrinkReward(CoffeeProduct coffeeProduct) async {
-    systemAPI.archiveDrinkReward(coffeeProduct);
+    await systemAPI.archiveDrinkReward(coffeeProduct);
   }
 
   Future<void> popArchiveDrinkReward(CoffeeProduct coffeeProduct) async {
-    systemAPI.popArchiveDrinkReward(coffeeProduct);
+    await systemAPI.popArchiveDrinkReward(coffeeProduct);
   }
 
   Future<void> changeAmount(int amount) async {

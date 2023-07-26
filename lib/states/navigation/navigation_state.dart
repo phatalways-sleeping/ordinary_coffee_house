@@ -6,9 +6,6 @@ abstract class NavigationState extends Equatable {
   List<Object?> get props => [];
 }
 
-class SplashScreen extends NavigationState {
-  const SplashScreen();
-}
 
 class HomePage extends NavigationState {
   const HomePage();

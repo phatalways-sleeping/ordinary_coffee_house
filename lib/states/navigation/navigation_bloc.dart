@@ -7,7 +7,7 @@ part 'navigation_event.dart';
 part 'navigation_state.dart';
 
 class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
-  NavigationBloc(this._applicationRepository) : super(const SplashScreen()) {
+  NavigationBloc(this._applicationRepository) : super(const HomePage()) {
     on<NavigateBackFromCartView>(((event, emit) {
       if (_applicationRepository.orderDetails == null) {
         emit(const HomePage());
@@ -15,8 +15,8 @@ class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
         emit(const Details());
       }
     }));
-    on<NavigateBackFromDetailsView>((event, emit) async  {
-      if(_applicationRepository.recustomizeOrderDetailsClicked) {
+    on<NavigateBackFromDetailsView>((event, emit) async {
+      if (_applicationRepository.recustomizeOrderDetailsClicked) {
         await _applicationRepository.unCheckRecustomizeOrderDetails();
         emit(const MyCart());
         return;
@@ -24,7 +24,7 @@ class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
       await _applicationRepository.clearOrderDetails();
       emit(const HomePage());
     });
-    on<NavigateToSplashScreen>((event, emit) => emit(const SplashScreen()));
+
     on<NavigateToHomePage>((event, emit) => emit(const HomePage()));
     on<NavigateToDetails>((event, emit) => emit(const Details()));
     on<NavigateToMyCart>((event, emit) => emit(const MyCart()));
