@@ -1,4 +1,4 @@
-import 'package:coffee_order_app/components/navigation_bottom_bar.dart';
+import 'package:coffee_order_app/components/components.dart';
 import 'package:flutter/material.dart';
 
 class BaseScreen extends StatelessWidget {

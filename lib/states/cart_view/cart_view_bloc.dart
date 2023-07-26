@@ -1,11 +1,8 @@
+// ignore: depend_on_referenced_packages
 import 'package:bloc/bloc.dart';
 import 'package:coffee_order_app/models/models.dart';
-import 'package:coffee_order_app/models/order_cart.dart';
 import 'package:coffee_order_app/repositories/repositories.dart';
 import 'package:equatable/equatable.dart';
-
-import '../../models/order_details.dart';
-
 part 'cart_view_event.dart';
 part 'cart_view_state.dart';
 

@@ -1,20 +1,7 @@
 import 'package:coffee_order_app/models/order_details.dart';
 import 'package:flutter/material.dart';
+import 'components.dart';
 
-const months = <String>[
-  'Jan',
-  'Feb',
-  'Mar',
-  'Apr',
-  'May',
-  'Jun',
-  'Jul',
-  'Aug',
-  'Sep',
-  'Oct',
-  'Nov',
-  'Dec',
-];
 
 class RewardDetail extends StatelessWidget {
   const RewardDetail({super.key, required this.details});

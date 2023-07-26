@@ -1,16 +1,10 @@
-import 'package:coffee_order_app/components/carousel_rewardsview.dart';
-import 'package:coffee_order_app/components/coffee_listview.dart';
-import 'package:coffee_order_app/components/coffee_productview.dart';
 import 'package:coffee_order_app/components/components.dart';
-import 'package:coffee_order_app/components/persistent_header.dart';
 import 'package:coffee_order_app/models/assets/assets.dart';
 import 'package:coffee_order_app/models/models.dart';
-import 'package:coffee_order_app/screens/base_screen.dart';
-import 'package:coffee_order_app/states/home_view/home_view_bloc.dart';
-import 'package:coffee_order_app/states/navigation/navigation_bloc.dart';
+import 'package:coffee_order_app/screens/screens.dart';
+import 'package:coffee_order_app/states/state_management.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class HomePageView extends StatefulWidget {

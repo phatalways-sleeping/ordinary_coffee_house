@@ -1,13 +1,8 @@
 import 'package:coffee_order_app/components/components.dart';
-import 'package:coffee_order_app/components/order_details_item.dart';
-import 'package:coffee_order_app/components/redeem_detail.dart';
-import 'package:coffee_order_app/components/result_bottom_bar.dart';
 import 'package:coffee_order_app/models/models.dart';
 import 'package:coffee_order_app/screens/base_screen.dart';
-import 'package:coffee_order_app/states/cart_view/cart_view_bloc.dart';
-import 'package:coffee_order_app/states/navigation/navigation_bloc.dart';
+import 'package:coffee_order_app/states/state_management.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MyCartView extends StatelessWidget {
   const MyCartView({super.key});

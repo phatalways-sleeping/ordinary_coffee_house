@@ -1,11 +1,8 @@
 import 'package:coffee_order_app/components/components.dart';
-import 'package:coffee_order_app/components/points_redeem_card.dart';
-import 'package:coffee_order_app/components/reward_detail.dart';
-import 'package:coffee_order_app/screens/base_screen.dart';
-import 'package:coffee_order_app/states/rewards/rewards_bloc.dart';
+import 'package:coffee_order_app/screens/screens.dart';
+import 'package:coffee_order_app/states/state_management.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RewardsView extends StatefulWidget {
   const RewardsView({super.key});

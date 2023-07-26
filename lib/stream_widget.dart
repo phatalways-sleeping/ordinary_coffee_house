@@ -1,20 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:coffee_order_app/models/coffee_product.dart';
 import 'package:coffee_order_app/models/models.dart';
-import 'package:coffee_order_app/models/runtime_payload.dart';
 import 'package:coffee_order_app/repositories/repositories.dart';
 import 'package:coffee_order_app/screens/screens.dart';
-import 'package:coffee_order_app/states/navigation/navigation_bloc.dart';
+import 'package:coffee_order_app/states/state_management.dart';
 import 'package:flow_builder/flow_builder.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'states/cart_view/cart_view_bloc.dart';
-import 'states/home_view/home_view_bloc.dart';
-import 'states/order_processing/order_processing_bloc.dart';
-import 'states/order_view/order_view_bloc.dart';
-import 'states/profile_view/profile_view_bloc.dart';
-import 'states/rewards/rewards_bloc.dart';
 
 class FutureWidget extends StatefulWidget {
   const FutureWidget({super.key, required this.email});
@@ -341,7 +331,7 @@ class __FutureRuntimePayloadState extends State<_FutureRuntimePayload> {
 }
 
 class _Wrapee extends StatelessWidget {
-  const _Wrapee({super.key});
+  const _Wrapee();
 
   @override
   Widget build(BuildContext context) {
@@ -354,7 +344,7 @@ class _Wrapee extends StatelessWidget {
 }
 
 class _CoffeePage extends StatelessWidget {
-  const _CoffeePage({super.key});
+  const _CoffeePage();
 
   List<Page> onGeneratePages(
       BuildContext context, NavigationState state, List<Page> pages) {

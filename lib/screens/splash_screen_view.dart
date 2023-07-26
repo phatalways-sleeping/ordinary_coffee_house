@@ -1,10 +1,8 @@
 import 'package:coffee_order_app/models/assets/assets.dart';
-import 'package:coffee_order_app/screens/base_screen.dart';
+import 'package:coffee_order_app/screens/screens.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
-import '../states/navigation/navigation_bloc.dart';
+import 'package:coffee_order_app/states/state_management.dart' show BlocProvider, NavigateToHomePage, NavigationBloc;
 
 class SplashScreenView extends StatefulWidget {
   const SplashScreenView({super.key});

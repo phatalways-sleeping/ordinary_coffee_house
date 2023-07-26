@@ -1,14 +1,8 @@
 import 'package:coffee_order_app/components/components.dart';
-import 'package:coffee_order_app/components/option_button.dart';
-import 'package:coffee_order_app/components/options_bar.dart';
-import 'package:coffee_order_app/components/persistent_header.dart';
-import 'package:coffee_order_app/components/redeem_detail.dart';
 import 'package:coffee_order_app/models/models.dart';
-import 'package:coffee_order_app/screens/base_screen.dart';
-import 'package:coffee_order_app/states/navigation/navigation_bloc.dart';
-import 'package:coffee_order_app/states/rewards/rewards_bloc.dart';
+import 'package:coffee_order_app/screens/screens.dart';
+import 'package:coffee_order_app/states/state_management.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RedeemRewardsView extends StatelessWidget {
   const RedeemRewardsView({super.key});
