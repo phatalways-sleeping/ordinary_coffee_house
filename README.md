@@ -1,16 +1,10 @@
-# coffee_order_app
+## ORDINARY COFFEE HOUSE MOBILE APPLICATION
 
-A new Flutter project.
+This is a midterm product for the course Mobile Device Application Development - CS426
+at the University of Sciences, VNU-HCM, Vietnam.
 
-## Getting Started
+# Brief view
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+This application is UI based on this: [Design](https://www.figma.com/file/DwWheBUCT8TKlhjdwMkDQ8/CS426?mode=dev)
+Although it is an Android course, our instructor encourage us to try many different frameworks.
+Therefore, this project is built upon Flutter, a framework of Dart.
