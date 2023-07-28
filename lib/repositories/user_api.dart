@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:coffee_order_app/models/models.dart';
+import 'package:flutter/material.dart';
 
 class UserAPI {
   UserAPI({
@@ -65,12 +66,33 @@ class UserAPI {
           orderDetails: runtimePayload.orderDetails,
           orderCart: OrderCart(items: [runtimePayload.orderDetails!]));
     } else {
+      var orderCart = runtimePayload.orderCart!;
+      if (orderCart.items
+          .where((element) =>
+              element.drinkSize == runtimePayload.orderDetails!.drinkSize &&
+              element.drinkType == runtimePayload.orderDetails!.drinkType &&
+              element.iceLevel == runtimePayload.orderDetails!.iceLevel &&
+              element.product == runtimePayload.orderDetails!.product &&
+              element.shot == runtimePayload.orderDetails!.shot)
+          .isNotEmpty) {
+        orderCart = orderCart.copyWith(items: [
+          ...orderCart.items.where((element) =>
+              element.drinkSize != runtimePayload.orderDetails!.drinkSize ||
+              element.drinkType != runtimePayload.orderDetails!.drinkType ||
+              element.iceLevel != runtimePayload.orderDetails!.iceLevel ||
+              element.product != runtimePayload.orderDetails!.product ||
+              element.shot != runtimePayload.orderDetails!.shot),
+          runtimePayload.orderDetails!
+              .copyWith(amount: runtimePayload.orderDetails!.amount + 1)
+        ]);
+      } else {
+        orderCart = orderCart.copyWith(items: [
+          ...runtimePayload.orderCart!.items,
+          runtimePayload.orderDetails!
+        ]);
+      }
       runtimePayload = runtimePayload.copyWith(
-          orderDetails: runtimePayload.orderDetails,
-          orderCart: runtimePayload.orderCart!.copyWith(items: [
-            ...runtimePayload.orderCart!.items,
-            runtimePayload.orderDetails!
-          ]));
+          orderDetails: runtimePayload.orderDetails, orderCart: orderCart);
     }
     await firestore
         .collection('runtime_payloads')

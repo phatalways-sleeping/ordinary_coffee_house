@@ -35,12 +35,12 @@ class OrderDetailsItem extends StatelessWidget {
         onTap: () {
           BlocProvider.of<CartViewBloc>(context)
               .add(InspectOrder(orderDetails));
-          BlocProvider.of<NavigationBloc>(context).add(const NavigateToDetails());
+          BlocProvider.of<NavigationBloc>(context)
+              .add(const NavigateToDetails());
         },
         splashColor: Colors.transparent,
         child: Container(
             constraints: const BoxConstraints.tightFor(height: 100),
-            margin: const EdgeInsets.only(right: 10, bottom: 10),
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 17),
             decoration: ShapeDecoration(
               color: const Color(0xFFF7F8FB),

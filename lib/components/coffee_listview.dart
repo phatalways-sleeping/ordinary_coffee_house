@@ -10,7 +10,7 @@ class CoffeeListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: const EdgeInsets.only(bottom: 100),
+        padding: const EdgeInsets.only(bottom: 20),
         decoration: const ShapeDecoration(
           color: Color(0xFF324A59),
           shape: RoundedRectangleBorder(
