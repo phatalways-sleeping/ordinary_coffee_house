@@ -73,187 +73,180 @@ class MyCartView extends StatelessWidget {
               BlocProvider.of<NavigationBloc>(context)
                   .add(const NavigateBackFromCartView()),
         ),
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: CustomScrollView(
-            slivers: context
-                    .watch<CartViewBloc>()
-                    .state
-                    .orderCart!
-                    .items
-                    .isNotEmpty
-                ? [
-                    const SliverPadding(padding: EdgeInsets.only(top: 10)),
-                    const SliverToBoxAdapter(
-                      child: Text(
-                        'My Cart',
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                          color: Color(0xFF001833),
-                          fontSize: 20,
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
-                    const SliverPadding(padding: EdgeInsets.only(top: 10)),
-                    SliverToBoxAdapter(
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: context
-                            .watch<CartViewBloc>()
-                            .state
-                            .orderCart!
-                            .items
-                            .length,
-                        itemBuilder: (context, index) {
-                          return OrderDetailsItem(
-                            orderDetails: context
+        child: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: Column(
+                  children: context
+                          .watch<CartViewBloc>()
+                          .state
+                          .orderCart!
+                          .items
+                          .isNotEmpty
+                      ? [
+                          const Padding(padding: EdgeInsets.only(top: 10)),
+                          const Text(
+                            'My Cart',
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                              color: Color(0xFF001833),
+                              fontSize: 20,
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          const Padding(padding: EdgeInsets.only(top: 10)),
+                          ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: context
                                 .watch<CartViewBloc>()
                                 .state
                                 .orderCart!
-                                .items[index],
-                          );
-                        },
-                      ),
-                    ),
-                    ...sliverLines,
-                    SliverToBoxAdapter(
-                      child: BlocSelector<CartViewBloc, CartViewState,
-                          DiscountVoucher?>(
-                        selector: (state) => state.bestDiscountOption,
-                        builder: (context, state) {
-                          return _BestOptionDisplay(
-                              title: 'Best Discount Option Applied',
-                              result: 'There is no discount voucher available',
-                              state: state);
-                        },
-                      ),
-                    ),
-                    ...sliverLines,
-                    SliverToBoxAdapter(
-                      child: BlocSelector<CartViewBloc, CartViewState,
-                          FreeshipVoucher?>(
-                        selector: (state) => state.bestFreeshipOption,
-                        builder: (context, state) {
-                          return _BestOptionDisplay(
-                              title: 'Freeshipping Applied',
-                              result: 'There is no freeship voucher available',
-                              state: state);
-                        },
-                      ),
-                    ),
-                    ...sliverLines,
-                    SliverToBoxAdapter(
-                      child: BlocBuilder<CartViewBloc, CartViewState>(
-                        buildWhen: (previous, current) =>
-                            previous.discountPrice != current.discountPrice ||
-                            previous.freeShipPrice != current.freeShipPrice,
-                        builder: (context, state) {
-                          return Column(
-                            children: [
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  const Text(
-                                    'Shipping Fee:',
-                                    style: TextStyle(
-                                      color: Color(0xFF324A59),
-                                      fontSize: 15,
-                                      fontFamily: 'Poppins',
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                  const Spacer(),
-                                  Text(
-                                    '+ \$${state.freeShipPrice.toStringAsFixed(2)}',
-                                    style: const TextStyle(
-                                      color: Colors.green,
-                                      fontSize: 20,
-                                      fontFamily: 'Poppins',
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  )
-                                ],
-                              ),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  const Text(
-                                    'Discount:',
-                                    style: TextStyle(
-                                      color: Color(0xFF324A59),
-                                      fontSize: 15,
-                                      fontFamily: 'Poppins',
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                  const Spacer(),
-                                  Text(
-                                    '-\$${state.discountPrice.toStringAsFixed(2)}',
-                                    style: const TextStyle(
-                                      color: Colors.red,
-                                      fontSize: 20,
-                                      fontFamily: 'Poppins',
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ],
-                          );
-                        },
-                      ),
-                    ),
-                    const SliverPadding(padding: EdgeInsets.only(top: 100)),
-                  ]
-                : [
-                    const SliverPadding(padding: EdgeInsets.only(top: 10)),
-                    const SliverToBoxAdapter(
-                      child: Text(
-                        'My Cart',
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                          color: Color(0xFF001833),
-                          fontSize: 20,
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
-                    const SliverPadding(padding: EdgeInsets.only(top: 10)),
-                    const SliverToBoxAdapter(
-                      child: Center(
-                        child: Text(
-                          'Your cart is empty',
-                          style: TextStyle(
-                            color: Color(0xFF001833),
-                            fontSize: 20,
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w700,
+                                .items
+                                .length,
+                            itemBuilder: (context, index) {
+                              return OrderDetailsItem(
+                                orderDetails: context
+                                    .watch<CartViewBloc>()
+                                    .state
+                                    .orderCart!
+                                    .items[index],
+                              );
+                            },
                           ),
-                        ),
-                      ),
-                    ),
-                  ],
-          ),
+                          ...sliverLines,
+                          BlocSelector<CartViewBloc, CartViewState,
+                              DiscountVoucher?>(
+                            selector: (state) => state.bestDiscountOption,
+                            builder: (context, state) {
+                              return _BestOptionDisplay(
+                                  title: 'Best Discount Option Applied',
+                                  result:
+                                      'There is no discount voucher available',
+                                  state: state);
+                            },
+                          ),
+                          ...sliverLines,
+                          BlocSelector<CartViewBloc, CartViewState,
+                              FreeshipVoucher?>(
+                            selector: (state) => state.bestFreeshipOption,
+                            builder: (context, state) {
+                              return _BestOptionDisplay(
+                                  title: 'Freeshipping Applied',
+                                  result:
+                                      'There is no freeship voucher available',
+                                  state: state);
+                            },
+                          ),
+                          ...sliverLines,
+                          BlocBuilder<CartViewBloc, CartViewState>(
+                            buildWhen: (previous, current) =>
+                                previous.discountPrice !=
+                                    current.discountPrice ||
+                                previous.freeShipPrice != current.freeShipPrice,
+                            builder: (context, state) {
+                              return Column(
+                                children: [
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      const Text(
+                                        'Shipping Fee:',
+                                        style: TextStyle(
+                                          color: Color(0xFF324A59),
+                                          fontSize: 15,
+                                          fontFamily: 'Poppins',
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                      const Spacer(),
+                                      Text(
+                                        '+ \$${state.freeShipPrice.toStringAsFixed(2)}',
+                                        style: const TextStyle(
+                                          color: Colors.green,
+                                          fontSize: 20,
+                                          fontFamily: 'Poppins',
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      const Text(
+                                        'Discount:',
+                                        style: TextStyle(
+                                          color: Color(0xFF324A59),
+                                          fontSize: 15,
+                                          fontFamily: 'Poppins',
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                      const Spacer(),
+                                      Text(
+                                        '-\$${state.discountPrice.toStringAsFixed(2)}',
+                                        style: const TextStyle(
+                                          color: Colors.red,
+                                          fontSize: 20,
+                                          fontFamily: 'Poppins',
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ],
+                              );
+                            },
+                          ),
+                          const Padding(padding: EdgeInsets.only(top: 100)),
+                        ]
+                      : [
+                          const Padding(padding: EdgeInsets.only(top: 10)),
+                          const Text(
+                            'My Cart',
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                              color: Color(0xFF001833),
+                              fontSize: 20,
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          const Padding(padding: EdgeInsets.only(top: 10)),
+                          const Center(
+                            child: Text(
+                              'Your cart is empty',
+                              style: TextStyle(
+                                color: Color(0xFF001833),
+                                fontSize: 20,
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ),
+                        ],
+                ),
+              ),
+            )
+          ],
         ));
   }
 }
 
 const sliverLines = [
-  SliverPadding(
+  Padding(
       padding: EdgeInsets.only(top: 10),
-      sliver: SliverToBoxAdapter(
-          child: Divider(
+      child: Divider(
         color: Color(0xFF324A59),
         thickness: 4,
         height: 1,
-      ))),
-  SliverPadding(
+      )),
+  Padding(
       padding: EdgeInsets.only(top: 5, bottom: 5),
-      sliver: SliverToBoxAdapter(
-          child: Divider(color: Color(0xFF324A59), thickness: 1, height: 1))),
+      child: Divider(color: Color(0xFF324A59), thickness: 1, height: 1)),
 ];
 
 class _BestOptionDisplay extends StatelessWidget {

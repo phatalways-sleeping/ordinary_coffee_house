@@ -32,19 +32,28 @@ class RegisterEvent extends AuthenticateEvent {
   const RegisterEvent(
     this.email,
     this.password,
+    this.confirmPassword,
     this.phoneNumber,
     this.username,
     this.address,
   );
   final String email;
   final String password;
+  final String confirmPassword;
   final String phoneNumber;
   final String username;
   final String address;
 
   @override
-  List<Object> get props =>
-      [...super.props, email, password, phoneNumber, username, address];
+  List<Object> get props => [
+        ...super.props,
+        email,
+        password,
+        confirmPassword,
+        phoneNumber,
+        username,
+        address
+      ];
 }
 
 class SuccessEvent extends AuthenticateEvent {

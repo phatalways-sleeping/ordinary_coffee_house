@@ -24,6 +24,23 @@ class AuthenticateBloc extends Bloc<AuthenticateEvent, AuthenticateState> {
     });
 
     on<LoginEvent>((event, emit) async {
+      if (event.email.isEmpty || event.password.isEmpty) {
+        emit(const LoginFailureState('Please fill in all the fields'));
+        await Future.delayed(const Duration(seconds: 3), () {
+          emit(const EmailPasswordAuthenticationState());
+        });
+        return;
+      }
+      if (!event.email.contains('@') ||
+          !event.email.contains('.') ||
+          event.email.length < 5) {
+        emit(const LoginFailureState('Invalid email address'));
+        await Future.delayed(const Duration(seconds: 3), () {
+          emit(const EmailPasswordAuthenticationState());
+        });
+        return;
+      }
+
       _authenticateRepository.changeEmail(event.email);
       _authenticateRepository.changePassword(event.password);
       emit(const LoginLoadingState());
@@ -36,6 +53,43 @@ class AuthenticateBloc extends Bloc<AuthenticateEvent, AuthenticateState> {
     });
 
     on<RegisterEvent>((event, emit) async {
+      if (event.email.isEmpty ||
+          event.password.isEmpty ||
+          event.confirmPassword.isEmpty ||
+          event.username.isEmpty ||
+          event.phoneNumber.isEmpty ||
+          event.address.isEmpty) {
+        emit(const RegisterFailureState('Please fill in all the fields'));
+        await Future.delayed(const Duration(seconds: 3), () {
+          emit(const RegisterState());
+        });
+        return;
+      }
+      if (event.password != event.confirmPassword) {
+        emit(const RegisterFailureState(
+            'Password and confirm password must be the same'));
+        await Future.delayed(const Duration(seconds: 3), () {
+          emit(const RegisterState());
+        });
+        return;
+      }
+      if (!event.email.contains('@') ||
+          !event.email.contains('.') ||
+          event.email.length < 5) {
+        emit(const RegisterFailureState('Invalid email address'));
+        await Future.delayed(const Duration(seconds: 3), () {
+          emit(const RegisterState());
+        });
+        return;
+      }
+      if (event.password.length < 10) {
+        emit(const RegisterFailureState(
+            'Password must be at least 10 characters'));
+        await Future.delayed(const Duration(seconds: 3), () {
+          emit(const RegisterState());
+        });
+        return;
+      }
       _authenticateRepository.changeEmail(event.email);
       _authenticateRepository.changePassword(event.password);
       _authenticateRepository.changePhoneNumber(event.phoneNumber);

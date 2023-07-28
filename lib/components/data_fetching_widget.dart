@@ -31,14 +31,40 @@ class _DataFetchingWidgetState extends State<DataFetchingWidget> {
                 BlocProvider.of<AuthenticateBloc>(context)
                     .add(const NavigateToLoginScreen());
               });
-              return const Center(
-                child: Text(
-                  'You are not authenticated',
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.red,
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w600,
+              return const Scaffold(
+                body: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        'You are not authenticated',
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.red,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
+                      Text(
+                        'This is usually caused by a network error',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.red,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      Text(
+                        'Please try again later',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.red,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               );

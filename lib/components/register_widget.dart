@@ -126,12 +126,14 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                       ),
                       const SizedBox(height: 20)
                     ],
-                    ElevatedButton(
+                    if(context.watch<AuthenticateBloc>().state is! RegisterLoadingState) ...[
+                      ElevatedButton(
                         onPressed: () {
                           BlocProvider.of<AuthenticateBloc>(context)
                               .add(RegisterEvent(
                             _emailController.text,
                             _passwordController.text,
+                            _confirmPasswordController.text,
                             _phoneNumberController.text,
                             _usernameController.text,
                             _addressController.text,
@@ -155,6 +157,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                           ),
                         )),
                     const SizedBox(height: 20),
+                    ],
                     if (context.watch<AuthenticateBloc>().state
                         is RegisterFailureState) ...[
                       Text(

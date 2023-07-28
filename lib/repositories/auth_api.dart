@@ -166,8 +166,13 @@ class RegisterAccountStrategy implements AuthStrategy {
   }
 
   @override
-  Future<bool> logout() {
-    throw UnimplementedError();
+  Future<bool> logout() async {
+    try {
+      await FirebaseAuth.instance.signOut();
+      return true;
+    } on FirebaseAuthException {
+      return false;
+    }
   }
 
   @override
