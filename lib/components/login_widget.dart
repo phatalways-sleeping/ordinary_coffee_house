@@ -47,7 +47,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const SizedBox(height: 90),
+                    const SizedBox(height: 100),
                     const Text(
                       'Sign in',
                       style: TextStyle(
@@ -100,7 +100,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(40),
                             ),
-                            minimumSize: const Size(double.infinity, 36),
+                            minimumSize: const Size(double.infinity, 32),
                           ),
                           child: const Text(
                             'Sign in',
@@ -123,9 +123,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                         is! LoginLoadingState) ...[
                       const Center(
                         child: Text(
-                          'Or you can use anynomous account to sign in',
+                          'Or',
                           style: TextStyle(
-                            fontSize: 12,
+                            fontSize: 15,
                             fontFamily: 'Poppins',
                             color: Colors.white,
                             fontWeight: FontWeight.w600,
@@ -133,69 +133,68 @@ class _LoginWidgetState extends State<LoginWidget> {
                         ),
                       ),
                       const SizedBox(height: 20),
-                      ElevatedButton(
-                          onPressed: () {
-                            _emailController.clear();
-                            _passwordController.clear(); 
-                            BlocProvider.of<AuthenticateBloc>(context)
-                                .add(const AnynomousLoginEvent());
-                          },
-                          style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 5),
-                            backgroundColor:
-                                const Color.fromARGB(255, 25, 94, 27),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            minimumSize: const Size(100, 36),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            flex: 2,
+                            child: ElevatedButton(
+                                onPressed: () {
+                                  _emailController.clear();
+                                  _passwordController.clear();
+                                  BlocProvider.of<AuthenticateBloc>(context)
+                                      .add(const AnynomousLoginEvent());
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 5),
+                                  backgroundColor:
+                                      const Color.fromARGB(255, 25, 94, 27),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(30),
+                                  ),
+                                  minimumSize: const Size(80, 36),
+                                ),
+                                child: const Text(
+                                  'Use anynomous account',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontFamily: 'Poppins',
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                )),
                           ),
-                          child: const Text(
-                            'Use anynomous account',
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontFamily: 'Poppins',
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          )),
-                      const SizedBox(height: 20),
-                      const Center(
-                        child: Text(
-                          'Or create an new account here',
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontFamily: 'Poppins',
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      ElevatedButton(
-                          onPressed: () {
-                            BlocProvider.of<AuthenticateBloc>(context)
-                                .add(const NavigateToRegisterScreen());
-                          },
-                          style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 5),
-                            backgroundColor:
-                                const Color.fromARGB(255, 25, 94, 27),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            minimumSize: const Size(300, 36),
-                          ),
-                          child: const Text(
-                            'Create an account',
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontFamily: 'Poppins',
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ))
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: ElevatedButton(
+                                onPressed: () {
+                                  BlocProvider.of<AuthenticateBloc>(context)
+                                      .add(const NavigateToRegisterScreen());
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 5),
+                                  backgroundColor:
+                                      const Color.fromARGB(255, 25, 94, 27),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(30),
+                                  ),
+                                  minimumSize: const Size(50, 36),
+                                ),
+                                child: const Text(
+                                  'Sign up',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontFamily: 'Poppins',
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                )),
+                          )
+                        ],
+                      )
                     ]
                   ],
                 ),
