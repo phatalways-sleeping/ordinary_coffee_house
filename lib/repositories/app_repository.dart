@@ -41,6 +41,10 @@ class ApplicationRepository {
     await userAPI.checkOut();
   }
 
+  Future<void> addCartToHistory(OrderCartPayed orderCart) async {
+    await systemAPI.addCartToHistory(orderCart);
+  }
+
   Future<void> levelUp() async {
     await userAPI.levelUp();
   }

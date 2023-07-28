@@ -137,7 +137,7 @@ class OrderDetails extends Equatable {
         drinkType,
         drinkSize,
         iceLevel,
-        // orderedAt,
+        orderedAt,
       ];
 }
 

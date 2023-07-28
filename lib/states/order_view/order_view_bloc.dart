@@ -17,6 +17,14 @@ class OrderViewBloc extends Bloc<OrderViewEvent, OrderViewState> {
     on<ChangeView>((event, emit) {
       emit(state.copyWith(viewOnGoing: event.viewOnGoing));
     });
+
+    on<AddCartToHistory>((event, emit) async {
+      await _applicationRepository.addCartToHistory(event.orderCart);
+      emit(state.copyWith(
+        historyOrders: _applicationRepository.currentUser.historyCarts,
+        onGoingOrders: _applicationRepository.currentUser.onGoingCarts,
+      ));
+    });
   }
 
   final ApplicationRepository _applicationRepository;

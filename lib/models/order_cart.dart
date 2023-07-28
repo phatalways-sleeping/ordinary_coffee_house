@@ -66,6 +66,7 @@ class OrderCartPayed extends OrderCart {
   factory OrderCartPayed.fromJson(Map<String, dynamic> json) =>
       _$OrderCartPayedFromJson(json);
 
+  @override
   Map<String, dynamic> toJson() => _$OrderCartPayedToJson(this);
 
 

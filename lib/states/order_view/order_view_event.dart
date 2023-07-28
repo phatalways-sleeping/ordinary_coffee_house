@@ -15,3 +15,12 @@ class ChangeView extends OrderViewEvent {
   @override
   List<Object> get props => [viewOnGoing];
 }
+
+class AddCartToHistory extends OrderViewEvent {
+  const AddCartToHistory(this.orderCart);
+
+  final OrderCartPayed orderCart;
+
+  @override
+  List<Object> get props => [orderCart];
+}

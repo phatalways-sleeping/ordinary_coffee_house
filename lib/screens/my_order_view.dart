@@ -67,7 +67,7 @@ class _MyOrderViewState extends State<MyOrderView> {
                         .watch<OrderViewBloc>()
                         .state
                         .onGoingOrders
-                        .map((e) => OrderDetail(orderCart: e))
+                        .map((e) => OrderDetail(orderCart: e, swipeToDismiss: true,))
                         .toList()
                     : context
                         .watch<OrderViewBloc>()

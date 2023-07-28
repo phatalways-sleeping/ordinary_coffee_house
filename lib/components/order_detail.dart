@@ -21,13 +21,18 @@ const months = <String>[
 ];
 
 class OrderDetail extends StatelessWidget {
-  const OrderDetail({super.key, required this.orderCart});
+  const OrderDetail({
+    super.key,
+    required this.orderCart,
+    this.swipeToDismiss = false,
+  });
 
   final OrderCartPayed orderCart;
+  final bool swipeToDismiss;
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
+    final component = Stack(
       children: [
         Container(
           decoration: BoxDecoration(
@@ -82,15 +87,6 @@ class OrderDetail extends StatelessWidget {
                       ),
                     ),
                   ),
-                  // Text(
-                  //   orderCart.items.map((item) => item.product.name).join(','),
-                  //   style: const TextStyle(
-                  //     color: Color(0xFF324A59),
-                  //     fontSize: 10,
-                  //     fontFamily: 'Poppins',
-                  //     fontWeight: FontWeight.w500,
-                  //   ),
-                  // ),
                 ],
               ),
               const SizedBox(height: 10),
@@ -138,5 +134,35 @@ class OrderDetail extends StatelessWidget {
         ),
       ],
     );
+    if (swipeToDismiss) {
+      return Dismissible(
+        direction: DismissDirection.startToEnd,
+        key: UniqueKey(),
+        background: const ColoredBox(color: Colors.green),
+        onDismissed: (direction) {
+          context.read<OrderViewBloc>().add(AddCartToHistory(orderCart));
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+              backgroundColor: Colors.white.withOpacity(0.4),
+              duration: const Duration(seconds: 1),
+              content: const Text(
+                'Order added to history',
+                style: TextStyle(
+                  color: Color.fromARGB(255, 60, 111, 61),
+                  fontSize: 15,
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+          );
+        },
+        child: component,
+      );
+    }
+    return component;
   }
 }

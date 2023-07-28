@@ -305,6 +305,38 @@ class SystemAPI {
     }).then((value) => currentUser = value);
   }
 
+  Future<void> addCartToHistory(OrderCartPayed orderCart) async {
+    final docRef =
+        FirebaseFirestore.instance.collection('users').doc(currentUser.email);
+    await FirebaseFirestore.instance.runTransaction((transaction) async {
+      final snapshot = await transaction.get(docRef);
+      if (!snapshot.exists) {
+        throw Exception('User does not exist!');
+      }
+      final updatedOnGoingOrders =
+          List<Map<String, dynamic>>.from(snapshot.get('onGoingOrders'))
+              .map((order) => OrderCartPayed.fromJson(order))
+              .where((element) => element != orderCart)
+              .toList();
+      final updatedHistoryOrders = [
+        ...List<Map<String, dynamic>>.from(snapshot.get('historyOrders'))
+            .map((order) => OrderCartPayed.fromJson(order)),
+        orderCart
+      ];
+      final updatedUser = UserModel.fromJson(snapshot.data()!).copyWith(
+        historyOrders: updatedHistoryOrders,
+        onGoingOrders: updatedOnGoingOrders,
+      );
+      transaction.update(docRef, {
+        'historyOrders': updatedHistoryOrders.map((e) => e.toJson()).toList(),
+        'onGoingOrders': updatedOnGoingOrders.map((e) => e.toJson()).toList(),
+      });
+      return updatedUser;
+    }).then((value) {
+      currentUser = value;
+    });
+  }
+
   Future<void> popArchiveDrinkReward(CoffeeProduct coffeeProduct) async {
     final docRef =
         FirebaseFirestore.instance.collection('users').doc(currentUser.email);
