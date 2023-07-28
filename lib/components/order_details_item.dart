@@ -40,7 +40,7 @@ class OrderDetailsItem extends StatelessWidget {
         splashColor: Colors.transparent,
         child: Container(
             constraints: const BoxConstraints.tightFor(height: 100),
-            margin: const EdgeInsets.only(right: 10),
+            margin: const EdgeInsets.only(right: 10, bottom: 10),
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 17),
             decoration: ShapeDecoration(
               color: const Color(0xFFF7F8FB),

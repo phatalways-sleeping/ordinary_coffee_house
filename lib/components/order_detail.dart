@@ -25,7 +25,6 @@ class OrderDetail extends StatelessWidget {
 
   final OrderCartPayed orderCart;
 
-
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -66,15 +65,32 @@ class OrderDetail extends StatelessWidget {
                     width: 15,
                   ),
                   const SizedBox(width: 10),
-                  Text(
-                    orderCart.items.map((item) => item.product.name).join(','),
-                    style: const TextStyle(
-                      color: Color(0xFF324A59),
-                      fontSize: 10,
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.w500,
+                  SizedBox(
+                    width: 320,
+                    child: RichText(
+                      maxLines: 3,
+                      text: TextSpan(
+                        text: orderCart.items
+                            .map((item) => item.product.name)
+                            .join(','),
+                        style: const TextStyle(
+                          color: Color(0xFF324A59),
+                          fontSize: 10,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
                     ),
                   ),
+                  // Text(
+                  //   orderCart.items.map((item) => item.product.name).join(','),
+                  //   style: const TextStyle(
+                  //     color: Color(0xFF324A59),
+                  //     fontSize: 10,
+                  //     fontFamily: 'Poppins',
+                  //     fontWeight: FontWeight.w500,
+                  //   ),
+                  // ),
                 ],
               ),
               const SizedBox(height: 10),
