@@ -11,47 +11,13 @@ Therefore, this project is built upon Flutter, a framework of Dart.
 
 # View of the application
 
-## Splash Screen
+![Splash Screen](assets/apps/splash_screen_view.png) ![Sign in Screen](assets/apps/sign_in_view.png) ![Sign up Screen](assets/apps/sign_up_view.png)
 
-![Splash Screen](assets/apps/splash_screen_view.png)
+![Home Screen](assets/apps/home_view.png) ![Profile Screen](assets/apps/profile_view.png) ![My Order Screen](assets/apps/my_order.png)
 
-## Sign up and Sign in
+![Order Details Screen](assets/apps/details_view.png) ![Redeem Reward Screen](assets/apps/rewards_view.png) ![Redeem Reward Details Screen](assets/apps/redeem_view.png)
 
-![Sign in Screen](assets/apps/sign_in_view.png)
-
-![Sign up Screen](assets/apps/sign_up_view.png)
-
-## Home Screen
-
-![Home Screen](assets/apps/home_view.png)
-
-## Profile Screen
-
-![Profile Screen](assets/apps/profile_view.png)
-
-## My Order Screen
-
-![My Order Screen](assets/apps/my_order.png)
-
-## Order Details Screen
-
-![Order Details Screen](assets/apps/details_view.png)
-
-## Redeem Reward Screen
-
-![Redeem Reward Screen](assets/apps/rewards_view.png)
-
-## Redeem Reward Details Screen
-
-![Redeem Reward Details Screen](assets/apps/redeem_view.png)
-
-## Order Cart Screen
-
-![Order Cart Screen](assets/apps/my_cart_view.png)
-
-## Order Success Screen
-
-![Order Success Screen](assets/apps/order_success_view.png)
+![Order Cart Screen](assets/apps/my_cart_view.png) ![Order Success Screen](assets/apps/order_success_view.png)
 
 # How to run
 
