@@ -11,7 +11,7 @@ Therefore, this project is built upon Flutter, a framework of Dart.
 
 # View of the application
 
-![Splash Screen](assets/apps/splash_screen_view.png) ![Sign in Screen](assets/apps/sign_in_view.png) ![Sign up Screen](assets/apps/sign_up_view.png)
+![Splash Screen](assets/apps/splash_screen_view.png =50x100) ![Sign in Screen](assets/apps/sign_in_view.png =50x100) ![Sign up Screen](assets/apps/sign_up_view.png =50x100)
 
 ![Home Screen](assets/apps/home_view.png) ![Profile Screen](assets/apps/profile_view.png) ![My Order Screen](assets/apps/my_order.png)
 
