@@ -9,16 +9,6 @@ This application is UI based on this: [Design](https://www.figma.com/file/DwWheB
 Although it is an Android course, our instructor encourage us to try many different frameworks.
 Therefore, this project is built upon Flutter, a framework of Dart.
 
-# View of the application
-
-![Splash Screen](assets/apps/splash_screen_view.png =50x100) ![Sign in Screen](assets/apps/sign_in_view.png =50x100) ![Sign up Screen](assets/apps/sign_up_view.png =50x100)
-
-![Home Screen](assets/apps/home_view.png) ![Profile Screen](assets/apps/profile_view.png) ![My Order Screen](assets/apps/my_order.png)
-
-![Order Details Screen](assets/apps/details_view.png) ![Redeem Reward Screen](assets/apps/rewards_view.png) ![Redeem Reward Details Screen](assets/apps/redeem_view.png)
-
-![Order Cart Screen](assets/apps/my_cart_view.png) ![Order Success Screen](assets/apps/order_success_view.png)
-
 # How to run
 
 You can either:
@@ -97,3 +87,13 @@ or:
     2. Cloud Storage for Firebase Firestore is documented at this website.
     3. Authentication Handling using Firebase Authentication is proposed by this project.
     4. Using transaction when interact with Firestore is introduced by Using Firestore as a backend to your Flutter app.
+
+# View of the application
+
+![Splash Screen](assets/apps/splash_screen_view.png) ![Sign in Screen](assets/apps/sign_in_view.png){:height="100px" width="36px"} ![Sign up Screen](assets/apps/sign_up_view.png)
+
+![Home Screen](assets/apps/home_view.png) ![Profile Screen](assets/apps/profile_view.png) ![My Order Screen](assets/apps/my_order.png)
+
+![Order Details Screen](assets/apps/details_view.png) ![Redeem Reward Screen](assets/apps/rewards_view.png) ![Redeem Reward Details Screen](assets/apps/redeem_view.png)
+
+![Order Cart Screen](assets/apps/my_cart_view.png) ![Order Success Screen](assets/apps/order_success_view.png)
