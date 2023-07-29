@@ -201,7 +201,7 @@ class RegisterAccountStrategy implements AuthStrategy {
           .set(RuntimePayload(
             orderCart: null,
             orderDetails: null,
-            levelUpClicked: false,
+            levelUpClicked: true,
           ).toJson());
       return credential.user != null;
     } on FirebaseAuthException {

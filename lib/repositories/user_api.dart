@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:coffee_order_app/models/models.dart';
-import 'package:flutter/material.dart';
 
 class UserAPI {
   UserAPI({
